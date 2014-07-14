@@ -165,10 +165,10 @@ from logging.handlers import WatchedFileHandler
 import os
 import shlex
 
-from attribute_helper import Attribute_helper
+from attribute_helper import AttributeHelper
 
 
-class Scaffold(Attribute_helper):
+class Scaffold(AttributeHelper):
   """The *Scaffold* class is a helper mix-in that evaluates sys.argv into
   options settings for execution of windmill devices.
 

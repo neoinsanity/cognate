@@ -1,7 +1,7 @@
-"""The *Attribute_helper* class provides tools that enable application configuration
+"""The *AttributeHelper* class provides tools that enable application configuration
 and construction.
 
-*Attribute_helper* provides the functionality as a mix-in class.
+*AttributeHelper* provides the functionality as a mix-in class.
 
 .. warning:: There is a reason the methods in the class are double underlined.
 
@@ -9,55 +9,55 @@ and construction.
   effects that use of these methods. Some of these methods have effects
   across class hierarchies.
 
-Attribute_helper Class Utilization
+AttributeHelper Class Utilization
 +++++++++++++++++++++++++
 
-The *Attribute_helper* class is designed to ba a mix-in class for the construction of
+The *AttributeHelper* class is designed to ba a mix-in class for the construction of
 applications. It performs this functionality by providing methods that allow
 a class hierarchy to drive application initialization.
 
-* :meth:'~cognate.Attribute_helper.__invoke_method_on_children__
+* :meth:'~cognate.attribute_helper.AttributeHelper.__invoke_method_on_children__
 
-*Attribute_helper* also provides some plain helper methods to ease typical
+*AttributeHelper* also provides some plain helper methods to ease typical
 configuration scenarios.
 
-* :meth:'~cognate.Attribute_helper.__copy_property_values__
-* :meth:'~cognate.Attribute_helper.__create_property_bag__
-* :meth:'!cognate.Attribute_helper.__set_unassigned_attrs__
+* :meth:'~cognate.attribute_helper.AttributeHelper.__copy_property_values__
+* :meth:'~cognate.attribute_helper.AttributeHelper.__create_property_bag__
+* :meth:'!cognate.attribute_helper.AttributeHelper.__set_unassigned_attrs__
 
-Be sure to visit each of the methods for further details on *Attribute_helper*
+Be sure to visit each of the methods for further details on *AttributeHelper*
 functionality.
 """
 
 
-class Attribute_helper(object):
+class AttributeHelper(object):
     """This is a min-in helper library class.
 
-    *Attribute_helper* is used by deriving child classes, which inherit the *Attribute_helper*
+    *AttributeHelper* is used by deriving child classes, which inherit the *AttributeHelper*
     functionality. The functionality that crosses class hierarchy will only do
     so along the primary base class chain.
 
-    By way of example, a class declaration to inherit *Attribute_helper* functionality::
+    By way of example, a class declaration to inherit *AttributeHelper* functionality::
 
-      class SomeChild(Attribute_helper): ...
+      class SomeChild(AttributeHelper): ...
 
-    and *Attribute_helper* will operate over *SomeChild* base class methods and
-    attributes, *Attribute_helper* can also be utilized as a multi-inheritance
+    and *AttributeHelper* will operate over *SomeChild* base class methods and
+    attributes, *AttributeHelper* can also be utilized as a multi-inheritance
     declaration::
 
-      class SomeChild(ParentClass, Attribute_helper): ...
+      class SomeChild(ParentClass, AttributeHelper): ...
 
-    However, *Attribute_helper will only operate on the direct base class chain::
+    However, *AttributeHelper will only operate on the direct base class chain::
 
-      class Parent(Attribute_helper): ...
+      class Parent(AttributeHelper): ...
 
       # SomeMixin is unrecognized in primary base class chain:
       class OtherChild(Parent, SomeMixin):
 
 
-    In the instance above, *Attribute_helper* will only operate over *Parent* and
+    In the instance above, *AttributeHelper* will only operate over *Parent* and
     *OtherChild*
-    when it navigates bases with methods such as :meth:'~cognate.Attribute_helper
+    when it navigates bases with methods such as :meth:'~cognate.AttributeHelper
     .__invoke_method_on_children__.
     """
 
@@ -86,7 +86,7 @@ class Attribute_helper(object):
 
         :Example Usage:
 
-        >>> foo = Attribute_helper()
+        >>> foo = AttributeHelper()
         >>> src = foo.__create_property_bag__()
         >>> src.property1 = 1
         >>> src.property2 = 2
@@ -121,7 +121,7 @@ class Attribute_helper(object):
 
         :Example Usage:
 
-        >>> foo = Attribute_helper()
+        >>> foo = AttributeHelper()
         >>> property_bag = foo.__create_property_bag__()
         >>> assert property_bag
         >>> property_bag.some_attr = 5
@@ -151,7 +151,7 @@ class Attribute_helper(object):
 
         .. image:: ../images/invoke_method_on_bases_class_hierarchy.png
 
-        *Attribute_helper.__invoke_method_on_children__* will traverse the class hierarchy
+        *AttributeHelper.__invoke_method_on_children__* will traverse the class hierarchy
         invoking target method *the_func* on each base class. This is different
         from normal python resolution, which will only inoke the first instance
         of the method defined in the class hierarchy, which would be Child3
@@ -161,7 +161,7 @@ class Attribute_helper(object):
 
         .. note:: Mind the flow of invocation on the class hierarchy.
 
-          Invocation of target *func_name* is from the Attribute_helper class as the
+          Invocation of target *func_name* is from the AttributeHelper class as the
           starting point, and the search continuing out toward the final
           ancestor class.
 
@@ -174,7 +174,7 @@ class Attribute_helper(object):
           If a method name is supplied for a method that does not exist,
           the *__invoke_method_on_children__* will raise no exception.
 
-        >>> foo = Attribute_helper()
+        >>> foo = AttributeHelper()
         >>> foo.__invoke_method_on_children__()
         Traceback (most recent call last):
         ...
@@ -182,18 +182,18 @@ class Attribute_helper(object):
         >>> # Now correctly
         >>> foo.__invoke_method_on_children__(func_name='the_func')
 
-        In actual usage, declare a Attribute_helper derived child class with a target
+        In actual usage, declare a AttributeHelper derived child class with a target
         function. It is possible to have more than one ancestor class with the
         target function defined. The *__invoke_method_on_children__* will
         execute
         the function on each of the child classes.
 
-        >>> class Bar(Attribute_helper):
+        >>> class Bar(AttributeHelper):
         ...   def the_func(self, a_key=None):
         ...     print 'a_key:', a_key
         >>> bar = Bar()
 
-        With an instance of a *Attribute_helper* child class, we can invoke the method in
+        With an instance of a *AttributeHelper* child class, we can invoke the method in
         two ways, as exampled below.
 
         >>> # Create a keyword argument dictionary or argument list
@@ -256,7 +256,7 @@ class Attribute_helper(object):
 
         :Example Usage:
 
-        >>> foo = Attribute_helper()
+        >>> foo = AttributeHelper()
         >>> foo.ignore_attr = True
         >>> attr_list = [('some_attr', 'some_value'),('int_attr', 1),
         ...   ('ignore_attr', False)]

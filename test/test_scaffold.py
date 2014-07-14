@@ -3,7 +3,7 @@ from os import path, remove
 
 from cognate_test_case import CognateTestCase, TEST_OUT
 
-from cognate.scaffold import Scaffold
+from cognate.component_core import Scaffold
 
 
 class TestScaffold(CognateTestCase):
