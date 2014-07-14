@@ -1,10 +1,10 @@
-"""The *Scaffold* class provides the means to add some basic features for
+"""The *ComponentCore* class provides the means to add some basic features for
 construction of service modules.
 
 .. default-domain::py
 
 For details, be sure to checkout the features described under the
-:ref:`scaffold_class_utilization` section.:
+:ref:`component_core_class_utilization` section.:
 
 - :ref:`configuration_management_and_initialization`
 
@@ -12,18 +12,18 @@ For details, be sure to checkout the features described under the
 
 - :ref:`dynamic_service_naming`
 
-The intent is for *Scaffold* to make your life easier in the implementation
+The intent is for *ComponentCore* to make your life easier in the implementation
 of stand alone applications. The hope is to take some common service
 requirements and make the expression of those requirements trivial.
 
-.. _scaffold_class_utilization:
+.. _component_core_class_utilization:
 
-Scaffold Class Utilization
+ComponentCore Class Utilization
 ===========================
 
-*Scaffold* operates by accepting an *argv* passed in the
-:meth:'^cognate.Scaffold.__init__ method`. During the initialization
-of instance based on *Scaffold* derived class, *Scaffold* will drive
+*ComponentCore* operates by accepting an *argv* passed in the
+:meth:'^cognate.ComponentCore.__init__ method`. During the initialization
+of instance based on *ComponentCore* derived class, *ComponentCore* will drive
 configuration by applying *argv* options to instance **self**.
 
 By way of example, let's construct a hello world example. First we define
@@ -33,15 +33,15 @@ By way of example, let's construct a hello world example. First we define
 .. code-block:: python
   :linenos:
 
-  from cognate import Scaffold
+  from cognate import ComponentCore
   import sys
 
-  class HelloWorld(Scaffold):
+  class HelloWorld(ComponentCore):
     def __init__(self, **kwargs):
       self.response = 'Hello World'
 
       # !!! Very important, Do NOT forget. !!!
-      Scaffold.__init__(self, **kwargs)
+      ComponentCore.__init__(self, **kwargs)
 
     def configuration_options(self, arg_parser):
       arg_parser.add_argument('-response', default=self.response)
@@ -59,28 +59,28 @@ By way of example, let's construct a hello world example. First we define
 
 This gives the class hierarchy as in the image below.
 
-.. figure:: ../images/scaffold_utilization_example_hierarchy.png
+.. figure:: ../images/component_core_utilization_example_hierarchy.png
 
-  Scaffold Example Hierarchy
+  ComponentCore Example Hierarchy
 
-The essence of how *Scaffold* performs it's operations is via the use of
+The essence of how *ComponentCore* performs it's operations is via the use of
 :mod:`cognate.attribute_helper` module to derive configuration of service stack.
 The basic call sequence is depicted in the image below.
 
-.. image:: ../images/scaffold_utilization_example_sequence.png
+.. image:: ../images/component_core_utilization_example_sequence.png
 
-:meth:`~cognate.Scaffold.configuration_options` and
-:meth:`~cognate.Scaffold.configure` methods via the use of the
+:meth:`~cognate.ComponentCore.configuration_options` and
+:meth:`~cognate.ComponentCore.configure` methods via the use of the
 :meth:`cognate.Attribute_helper.__invoke_method_on_children__'. This effectively
 calls the *configure_options* and *configure* methods on all primary base
-classes that derive from *Scaffold*.
+classes that derive from *ComponentCore*.
 
 ** _configuration_management_and_initialization:
 
 Configuration Management and Initialization
 =============================================
 
-*Scaffold* helps out with configuration management and initialization of
+*ComponentCore* helps out with configuration management and initialization of
 runtime services. it does this by creating a configuration loop. Utilizing the
 :ref:`hello_world_class` as an example.
 
@@ -89,24 +89,24 @@ runtime services. it does this by creating a configuration loop. Utilizing the
 Command Line Option Construction
 ---------------------------------
 
-*Scaffold* provides the means for command line construction to inheriting
+*ComponentCore* provides the means for command line construction to inheriting
 classes. This is achieved by the ingestion of command line options through
 invocation of *configure_option* method on the chain of ancestor classes that
 declare the *configuration_option* method.
 
-The net effect is that *Scaffold* will collect all of the configuration
+The net effect is that *ComponentCore* will collect all of the configuration
 options in one bundle, and manage them as a unified instance configuration.
 This allows for the centralization of common options and the attending code.
 
 For more detail on this feature, be sure to check out
-:meth:`~cognate.Scaffold._execute_configuration`.
+:meth:`~cognate.ComponentCore._execute_configuration`.
 
 .. _logging_and_log_configuration
 
 Logging and Log Configuration
 ------------------------------
 
-*Scaffold* supports console and file output. In addition *Scaffold* supports
+*ComponentCore* supports console and file output. In addition *ComponentCore* supports
 the four basic log levels: `debug`,`info`,`warning`,`error`.
 
 The configuration logging options are:
@@ -125,7 +125,7 @@ The configuration logging options are:
 
     Enable verbose log output to console. Useful for debugging.
 
-*Scaffold* log configuration takes advantage of the
+*ComponentCore* log configuration takes advantage of the
 :ref:`dynamic_service_naming` for log file naming, as well as in log name
 output.
 
@@ -135,7 +135,7 @@ For example::
   VentilatorWindmill
 
 The <name> value will be assigned by default to the instance class utilizing
-*Scaffold*, but will be overridden by the use of the '--app_name <name>'
+*ComponentCore*, but will be overridden by the use of the '--app_name <name>'
 option.
 
 
@@ -144,19 +144,19 @@ option.
 Dynamic Service Naming
 ------------------------
 
-*Scaffold* provides a mechanism to allow for dynamic naming of progenitor class
+*ComponentCore* provides a mechanism to allow for dynamic naming of progenitor class
 service instances. This is achieved through the use of the '--app_name <name>'
-option. When this flag is set *Scaffold* will set the `self.name` instance to
-the designated value. In addition, *Scaffold* will set the `self.name_set`
+option. When this flag is set *ComponentCore* will set the `self.name` instance to
+the designated value. In addition, *ComponentCore* will set the `self.name_set`
 flag to `True`.
 
-By default *Scaffold* will set the name of the instance class.
+By default *ComponentCore* will set the name of the instance class.
 
 The assigned name can effect the output log name, as well as name of the log
 output. The use of `self.name` may also effect features from other progenitor
-classes that take advantage of *Scaffold* dynamic naming.
+classes that take advantage of *ComponentCore* dynamic naming.
 
-Child classes of Scaffold can access the configured service app name through
+Child classes of ComponentCore can access the configured service app name through
 `self.app_name`.
 """
 import argparse
@@ -168,13 +168,13 @@ import shlex
 from attribute_helper import AttributeHelper
 
 
-class Scaffold(AttributeHelper):
-  """The *Scaffold* class is a helper mix-in that evaluates sys.argv into
+class ComponentCore(AttributeHelper):
+  """The *ComponentCore* class is a helper mix-in that evaluates sys.argv into
   options settings for execution of windmill devices.
 
   :Command Line Usage:
 
-  *Scaffold* supports the following command line options::
+  *ComponentCore* supports the following command line options::
 
     usage: <some_class>.py [-h] [--log_level {debug,info,warn,error}]
                         [--log_path LOG_PATH] [--app_name APP_NAME] [
@@ -196,11 +196,11 @@ class Scaffold(AttributeHelper):
                             debugging.
 
 
-  .. note:: *Scaffold* will cause the application to exit if the ``-h``
+  .. note:: *ComponentCore* will cause the application to exit if the ``-h``
     or ``--help`` configure arguments are one of the options. In addition to
-    exiting, *Scaffold* will display the command line help message.
+    exiting, *ComponentCore* will display the command line help message.
 
-  Any classes sharing a base class chain with *Scaffold* may implement:
+  Any classes sharing a base class chain with *ComponentCore* may implement:
 
     - configure_options(self, arg_parser)
 
@@ -214,12 +214,12 @@ class Scaffold(AttributeHelper):
   .. note: File name sniffing.
 
     The argument list that is obtained from *sys.argv* will have the path of
-    the invoking python file. For purposes of *Scaffold* configuration this
+    the invoking python file. For purposes of *ComponentCore* configuration this
     argument is irrelevant. The *_execute_configuration* method will detect
     the for this state and removes the path argument.
   """
   #: A map for setting ``logging`` level upon log configuration during
-  #: invocation of :meth:`~cognate.Scaffold._
+  #: invocation of :meth:`~cognate.ComponentCore._
   LOG_LEVEL_MAP = {
     'debug': logging.DEBUG,
     'info': logging.INFO,
@@ -228,19 +228,19 @@ class Scaffold(AttributeHelper):
   }
 
   def __init__(self, argv=list()):
-    """ Initializes the Scaffold support infrastructure.
+    """ Initializes the ComponentCore support infrastructure.
 
     :param argv: An array of arguments of the form
                  ['--verbose', '--name', 'my_name', ...]
     :type argv: String | String List
-    :return: `Scaffold` child instance
+    :return: `ComponentCore` child instance
 
-    A default Scaffold will assume the name of the instantiating class. In
+    A default ComponentCore will assume the name of the instantiating class. In
     addition, it will not consider the name to have been set.
 
-    >>> class Foo(Scaffold):
+    >>> class Foo(ComponentCore):
     ...     def __init__(self, **kwargs):
-    ...         Scaffold.__init__(self, **kwargs)
+    ...         ComponentCore.__init__(self, **kwargs)
     >>> foo = Foo()
     >>> assert foo.app_name == 'Foo'
     >>> assert foo.app_name_set == False
@@ -248,18 +248,18 @@ class Scaffold(AttributeHelper):
     >>> assert foo.log_path == None
     >>> assert foo.verbose == False
 
-    A Scaffold can be configured utilizing the an array style argument list.
+    A ComponentCore can be configured utilizing the an array style argument list.
 
-    >>> bar = Scaffold(['--app_name','Bar','--log_level','debug'])
+    >>> bar = ComponentCore(['--app_name','Bar','--log_level','debug'])
     >>> assert bar.app_name == 'Bar'
     >>> assert bar.app_name_set == True
     >>> assert bar.log_level == logging.DEBUG
     >>> assert bar.log_path == None
     >>> assert bar.verbose == False
 
-    In addition, the Scaffold can be configured from a string.
+    In addition, the ComponentCore can be configured from a string.
 
-    >>> dude = Scaffold(
+    >>> dude = ComponentCore(
     ...   '--app_name Dude --log_level info')
     >>> assert dude
     >>> assert dude.app_name == 'Dude'
@@ -292,7 +292,7 @@ class Scaffold(AttributeHelper):
     self._execute_configuration(argv)
 
   def configuration_options(self, arg_parser=argparse.ArgumentParser()):
-    """This method will be called to get the *Scaffold* configuration
+    """This method will be called to get the *ComponentCore* configuration
     options.
 
     :param arg_parser: An *ArgumentParser* instance to add configuration
@@ -325,7 +325,7 @@ class Scaffold(AttributeHelper):
                                  'Useful for debugging.')
 
   def configure(self, args=None):
-    """ This method is called by *Scaffold* during instance initialization.
+    """ This method is called by *ComponentCore* during instance initialization.
 
     :param args: An object with configuration properties.
     :type args: Property Object
@@ -350,7 +350,7 @@ class Scaffold(AttributeHelper):
     instance. This includes setting up logging to files and console. The
     configured log will be available to the service instance with `self.log`
     """
-    self.log_level = Scaffold.LOG_LEVEL_MAP.get(self.log_level, logging.ERROR)
+    self.log_level = ComponentCore.LOG_LEVEL_MAP.get(self.log_level, logging.ERROR)
 
     # if log level is debug, then we add source information to log output
     formatter = logging.Formatter(
@@ -394,12 +394,12 @@ class Scaffold(AttributeHelper):
 
     This is the work horse method that does the work of invoking
     *configuration_option* and *configure* methods on progenitor classes of
-    *Scaffold*. In addition it takes the resolved
+    *ComponentCore*. In addition it takes the resolved
     arguments from *argparse.ArgumentParser* and assigns them to `self`.
 
     :Example Usage:
 
-    >>> foo = Scaffold()
+    >>> foo = ComponentCore()
     >>> argv = [
     ... '/Users/neoinsanity/samples/samples/my-argparse/simple_argparse.py',
     ... '--verbose']
@@ -418,7 +418,7 @@ class Scaffold(AttributeHelper):
     if len(argv) > 0 and argv[0].endswith('.py'):
       argv.pop(0)
 
-    # execute configuration_option method on all child classes of Scaffold
+    # execute configuration_option method on all child classes of ComponentCore
     # to gather all of the runtime options.
     self.__invoke_method_on_children__(func_name='configuration_options',
                                        arg_parser=arg_parser)
@@ -444,6 +444,6 @@ class Scaffold(AttributeHelper):
     self.__invoke_method_on_children__(func_name='configure',
                                        args=args)
 
-    self.log.info('... scaffold configuration complete ...')
+    self.log.info('... Component configuration complete ...')
     self.log.info('... configuration: %s', args)
 
