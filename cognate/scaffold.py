@@ -22,7 +22,7 @@ Scaffold Class Utilization
 ===========================
 
 *Scaffold* operates by accepting an *argv* passed in the
-:meth:'^cognate.core.Scaffold.__init__ method`. During the initialization
+:meth:'^cognate.Scaffold.__init__ method`. During the initialization
 of instance based on *Scaffold* derived class, *Scaffold* will drive
 configuration by applying *argv* options to instance **self**.
 
@@ -33,7 +33,7 @@ By way of example, let's construct a hello world example. First we define
 .. code-block:: python
   :linenos:
 
-  from cognate.core import Scaffold
+  from cognate import Scaffold
   import sys
 
   class HelloWorld(Scaffold):
@@ -64,14 +64,14 @@ This gives the class hierarchy as in the image below.
   Scaffold Example Hierarchy
 
 The essence of how *Scaffold* performs it's operations is via the use of
-:mod:`cognate.core.miller` module to derive configuration of service stack.
+:mod:`cognate.attribute_helper` module to derive configuration of service stack.
 The basic call sequence is depicted in the image below.
 
 .. image:: ../images/scaffold_utilization_example_sequence.png
 
-:meth:`~cognate.core.Scaffold.configuration_options` and
-:meth:`~cognate.core.Scaffold.configure` methods via the use of the
-:meth:`cognate.core.Miller.__invoke_method_on_children__'. This effectively
+:meth:`~cognate.Scaffold.configuration_options` and
+:meth:`~cognate.Scaffold.configure` methods via the use of the
+:meth:`cognate.Attribute_helper.__invoke_method_on_children__'. This effectively
 calls the *configure_options* and *configure* methods on all primary base
 classes that derive from *Scaffold*.
 
@@ -99,7 +99,7 @@ options in one bundle, and manage them as a unified instance configuration.
 This allows for the centralization of common options and the attending code.
 
 For more detail on this feature, be sure to check out
-:meth:`~cognate.core.Scaffold._execute_configuration`.
+:meth:`~cognate.Scaffold._execute_configuration`.
 
 .. _logging_and_log_configuration
 
@@ -165,10 +165,10 @@ from logging.handlers import WatchedFileHandler
 import os
 import shlex
 
-from miller import Miller
+from attribute_helper import Attribute_helper
 
 
-class Scaffold(Miller):
+class Scaffold(Attribute_helper):
   """The *Scaffold* class is a helper mix-in that evaluates sys.argv into
   options settings for execution of windmill devices.
 
@@ -219,7 +219,7 @@ class Scaffold(Miller):
     the for this state and removes the path argument.
   """
   #: A map for setting ``logging`` level upon log configuration during
-  #: invocation of :meth:`~cognate.core.Scaffold._
+  #: invocation of :meth:`~cognate.Scaffold._
   LOG_LEVEL_MAP = {
     'debug': logging.DEBUG,
     'info': logging.INFO,

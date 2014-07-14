@@ -1,7 +1,7 @@
-"""The *Miller* class provides tools that enable application configuration
+"""The *Attribute_helper* class provides tools that enable application configuration
 and construction.
 
-*Miller* provides the functionality as a mix-in class.
+*Attribute_helper* provides the functionality as a mix-in class.
 
 .. warning:: There is a reason the methods in the class are double underlined.
 
@@ -9,55 +9,55 @@ and construction.
   effects that use of these methods. Some of these methods have effects
   across class hierarchies.
 
-Miller Class Utilization
+Attribute_helper Class Utilization
 +++++++++++++++++++++++++
 
-The *Miller* class is designed to ba a mix-in class for the construction of
+The *Attribute_helper* class is designed to ba a mix-in class for the construction of
 applications. It performs this functionality by providing methods that allow
 a class hierarchy to drive application initialization.
 
-* :meth:'~cognate.core.Miller.__invoke_method_on_children__
+* :meth:'~cognate.Attribute_helper.__invoke_method_on_children__
 
-*Miller* also provides some plain helper methods to ease typical
+*Attribute_helper* also provides some plain helper methods to ease typical
 configuration scenarios.
 
-* :meth:'~cognate.core.Miller.__copy_property_values__
-* :meth:'~cognate.core.Miller.__create_property_bag__
-* :meth:'!cognate.core.Miller.__set_unassigned_attrs__
+* :meth:'~cognate.Attribute_helper.__copy_property_values__
+* :meth:'~cognate.Attribute_helper.__create_property_bag__
+* :meth:'!cognate.Attribute_helper.__set_unassigned_attrs__
 
-Be sure to visit each of the methods for further details on *Miller*
+Be sure to visit each of the methods for further details on *Attribute_helper*
 functionality.
 """
 
 
-class Miller(object):
+class Attribute_helper(object):
     """This is a min-in helper library class.
 
-    *Miller* is used by deriving child classes, which inherit the *Miller*
+    *Attribute_helper* is used by deriving child classes, which inherit the *Attribute_helper*
     functionality. The functionality that crosses class hierarchy will only do
     so along the primary base class chain.
 
-    By way of example, a class declaration to inherit *Miller* functionality::
+    By way of example, a class declaration to inherit *Attribute_helper* functionality::
 
-      class SomeChild(Miller): ...
+      class SomeChild(Attribute_helper): ...
 
-    and *Miller* will operate over *SomeChild* base class methods and
-    attributes, *Miller* can also be utilized as a multi-inheritance
+    and *Attribute_helper* will operate over *SomeChild* base class methods and
+    attributes, *Attribute_helper* can also be utilized as a multi-inheritance
     declaration::
 
-      class SomeChild(ParentClass, Miller): ...
+      class SomeChild(ParentClass, Attribute_helper): ...
 
-    However, *Miller will only operate on the direct base class chain::
+    However, *Attribute_helper will only operate on the direct base class chain::
 
-      class Parent(Miller): ...
+      class Parent(Attribute_helper): ...
 
       # SomeMixin is unrecognized in primary base class chain:
       class OtherChild(Parent, SomeMixin):
 
 
-    In the instance above, *Miller* will only operate over *Parent* and
+    In the instance above, *Attribute_helper* will only operate over *Parent* and
     *OtherChild*
-    when it navigates bases with methods such as :meth:'~cognate.core.Miller
+    when it navigates bases with methods such as :meth:'~cognate.Attribute_helper
     .__invoke_method_on_children__.
     """
 
@@ -86,7 +86,7 @@ class Miller(object):
 
         :Example Usage:
 
-        >>> foo = Miller()
+        >>> foo = Attribute_helper()
         >>> src = foo.__create_property_bag__()
         >>> src.property1 = 1
         >>> src.property2 = 2
@@ -121,7 +121,7 @@ class Miller(object):
 
         :Example Usage:
 
-        >>> foo = Miller()
+        >>> foo = Attribute_helper()
         >>> property_bag = foo.__create_property_bag__()
         >>> assert property_bag
         >>> property_bag.some_attr = 5
@@ -151,7 +151,7 @@ class Miller(object):
 
         .. image:: ../images/invoke_method_on_bases_class_hierarchy.png
 
-        *Miller.__invoke_method_on_children__* will traverse the class hierarchy
+        *Attribute_helper.__invoke_method_on_children__* will traverse the class hierarchy
         invoking target method *the_func* on each base class. This is different
         from normal python resolution, which will only inoke the first instance
         of the method defined in the class hierarchy, which would be Child3
@@ -161,7 +161,7 @@ class Miller(object):
 
         .. note:: Mind the flow of invocation on the class hierarchy.
 
-          Invocation of target *func_name* is from the Miller class as the
+          Invocation of target *func_name* is from the Attribute_helper class as the
           starting point, and the search continuing out toward the final
           ancestor class.
 
@@ -174,7 +174,7 @@ class Miller(object):
           If a method name is supplied for a method that does not exist,
           the *__invoke_method_on_children__* will raise no exception.
 
-        >>> foo = Miller()
+        >>> foo = Attribute_helper()
         >>> foo.__invoke_method_on_children__()
         Traceback (most recent call last):
         ...
@@ -182,18 +182,18 @@ class Miller(object):
         >>> # Now correctly
         >>> foo.__invoke_method_on_children__(func_name='the_func')
 
-        In actual usage, declare a Miller derived child class with a target
+        In actual usage, declare a Attribute_helper derived child class with a target
         function. It is possible to have more than one ancestor class with the
         target function defined. The *__invoke_method_on_children__* will
         execute
         the function on each of the child classes.
 
-        >>> class Bar(Miller):
+        >>> class Bar(Attribute_helper):
         ...   def the_func(self, a_key=None):
         ...     print 'a_key:', a_key
         >>> bar = Bar()
 
-        With an instance of a *Miller* child class, we can invoke the method in
+        With an instance of a *Attribute_helper* child class, we can invoke the method in
         two ways, as exampled below.
 
         >>> # Create a keyword argument dictionary or argument list
@@ -256,7 +256,7 @@ class Miller(object):
 
         :Example Usage:
 
-        >>> foo = Miller()
+        >>> foo = Attribute_helper()
         >>> foo.ignore_attr = True
         >>> attr_list = [('some_attr', 'some_value'),('int_attr', 1),
         ...   ('ignore_attr', False)]
