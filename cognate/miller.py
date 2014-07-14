@@ -16,14 +16,14 @@ The *Miller* class is designed to ba a mix-in class for the construction of
 applications. It performs this functionality by providing methods that allow
 a class hierarchy to drive application initialization.
 
-* :meth:'~windmills.core.Miller.__invoke_method_on_children__
+* :meth:'~cognate.core.Miller.__invoke_method_on_children__
 
 *Miller* also provides some plain helper methods to ease typical
 configuration scenarios.
 
-* :meth:'~windmills.core.Miller.__copy_property_values__
-* :meth:'~windmills.core.Miller.__create_property_bag__
-* :meth:'!windmills.core.Miller.__set_unassigned_attrs__
+* :meth:'~cognate.core.Miller.__copy_property_values__
+* :meth:'~cognate.core.Miller.__create_property_bag__
+* :meth:'!cognate.core.Miller.__set_unassigned_attrs__
 
 Be sure to visit each of the methods for further details on *Miller*
 functionality.
@@ -57,7 +57,7 @@ class Miller(object):
 
     In the instance above, *Miller* will only operate over *Parent* and
     *OtherChild*
-    when it navigates bases with methods such as :meth:'~windmills.core.Miller
+    when it navigates bases with methods such as :meth:'~cognate.core.Miller
     .__invoke_method_on_children__.
     """
 
