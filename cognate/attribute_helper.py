@@ -154,11 +154,11 @@ class AttributeHelper(object):
                      **kwargs)  # This is the function getting invoked
 
 
-def copy_property_values(source, target, property_names):
+def copy_attribute_values(source, target, property_names):
     """This method copies the property values in a given list from a given
     source object to a target source object.
 
-    :title:copy_property_values Method
+    :title:copy_attribute_values Method
 
     :param src: The source object that is to be inspected for property
     values.
@@ -170,7 +170,7 @@ def copy_property_values(source, target, property_names):
     copied from source to object.
     :type property_names: List or set of string property names.
 
-    The *copy_property_values* method will only copy the values from src
+    The *copy_attribute_values* method will only copy the values from src
     when a property name is found in the src. In cases where a property
     value
     is not found in the src object, then no change to the target object is
@@ -184,7 +184,7 @@ def copy_property_values(source, target, property_names):
     >>> src.property3 = 3
     >>> target = create_property_bag()
     >>> property_list = ['property1', 'property2', 'exist_not_property']
-    >>> copy_property_values(src, target, property_list)
+    >>> copy_attribute_values(src, target, property_list)
     >>> assert hasattr(target, 'property1')
     >>> assert hasattr(target, 'property2')
     >>> assert not hasattr(target, 'property3')
