@@ -5,7 +5,7 @@ from cognate import attribute_helper
 
 class AttributeHelperTestCase(TestCase):
     def test_copy_attribute_values(self):
-        """"""
+        """Ensure copy_attribute_value functionality and error handling."""
         src_property_bag = attribute_helper.create_property_bag()
         src_property_bag.prop1 = 'value 1'
         src_property_bag.prop2 = 'value 2'
@@ -52,7 +52,7 @@ class AttributeHelperTestCase(TestCase):
         self.assertFalse(hasattr(trgt_property_bag, 'prop4'))
 
     def test_set_attrs_from_dict(self):
-        """"""
+        """Ensure set_attrs_from_dict features and error handling."""
         a_property_bag = attribute_helper.create_property_bag()
 
         self.assertRaisesRegexp(
@@ -76,7 +76,7 @@ class AttributeHelperTestCase(TestCase):
 
 
     def test_set_unassigned_attrs(self):
-        """"""
+        """Ensure set_unassigned features and error handling."""
         self.assertRaisesRegexp(
             ValueError,
             '"target" must be provided.',
