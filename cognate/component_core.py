@@ -166,10 +166,9 @@ import os
 import shlex
 
 import attribute_helper
-from attribute_helper import AttributeHelper
 
 
-class ComponentCore(AttributeHelper):
+class ComponentCore(object):
     """The *ComponentCore* class is a helper mix-in that evaluates sys.argv into
     options settings for execution of windmill devices.
 
@@ -268,8 +267,8 @@ class ComponentCore(AttributeHelper):
         >>> assert dude.log_level == logging.INFO
         >>> assert dude.verbose == False
         """
-        #: Current log level, set to logging.DEBUG, INFO, WARNING, OR ERROR at
-        #: runtime.
+        # : Current log level, set to logging.DEBUG, INFO, WARNING, OR ERROR at
+        # : runtime.
         self.log_level = 'error'
         #: The path to the log file, if one is set.
         self.log_path = None
@@ -428,10 +427,10 @@ class ComponentCore(AttributeHelper):
 
         # resolve configuration options necessary for runtime execution
         property_list = []
-        #noinspection PyProtectedMember
+        # noinspection PyProtectedMember
         for action in arg_parser._get_positional_actions():
             property_list.append(action.dest)
-            #noinspection PyProtectedMember
+            # noinspection PyProtectedMember
         for action in arg_parser._get_optional_actions():
             property_list.append(action.dest)
         property_list.remove('help')  # remove the help option
@@ -439,8 +438,8 @@ class ComponentCore(AttributeHelper):
 
         # map the properties to attributes assigned to self instance
         attribute_helper.copy_attribute_values(source=args,
-                                              target=self,
-                                              property_names=property_list)
+                                               target=self,
+                                               property_names=property_list)
 
         # now execute the configuration call on each base class
         # in the class inheritance chain
@@ -449,4 +448,96 @@ class ComponentCore(AttributeHelper):
 
         self.log.info('... Component configuration complete ...')
         self.log.info('... configuration: %s', args)
+
+    def __invoke_method_on_children__(self, func_name=None, *args, **kwargs):
+        """This helper method will walk the primary base class hierarchy to
+        invoke a method if it exists for a given base class.
+
+        :param func_name: The name of a function to search for invocation.
+        :type func_name: str
+        :param args: An argument list to pass to the target function.
+        :type args: list
+        :param kwargs: A dictionary of name/value pairs to pass to the target
+        function as named arguments.
+        :type kwargs: dict
+        :return: None
+        ":except:
+          - **ValueError** - Thrown if no function name is provided.
+
+        In an effort to explain, assume that a class hierarchy has been defined
+        as the image below:
+
+        .. image:: ../images/invoke_method_on_bases_class_hierarchy.png
+
+        *AttributeHelper.__invoke_method_on_children__* will traverse the class hierarchy
+        invoking target method *the_func* on each base class. This is different
+        from normal python resolution, which will only inoke the first instance
+        of the method defined in the class hierarchy, which would be Child3
+        .the_func.
+
+        .. image:: ../images/invoke_method_on_bases.png
+
+        .. note:: Mind the flow of invocation on the class hierarchy.
+
+          Invocation of target *func_name* is from the AttributeHelper class as the
+          starting point, and the search continuing out toward the final
+          ancestor class.
+
+        ::Example Usage:
+
+        To utilize this method, a function name must be provided.
+
+        .. warning:: Beware mistyped method names.
+
+          If a method name is supplied for a method that does not exist,
+          the *__invoke_method_on_children__* will raise no exception.
+
+        >>> foo = ComponentCore()
+        >>> foo.__invoke_method_on_children__()
+        Traceback (most recent call last):
+        ...
+        ValueError: __invoke_method_on_children__:func_name parameter required
+        >>> # Now correctly
+        >>> foo.__invoke_method_on_children__(func_name='the_func')
+
+        In actual usage, declare a AttributeHelper derived child class with a target
+        function. It is possible to have more than one ancestor class with the
+        target function defined. The *__invoke_method_on_children__* will
+        execute
+        the function on each of the child classes.
+
+        >>> class Bar(ComponentCore):
+        ...   def the_func(self, a_key=None):
+        ...     print 'a_key:', a_key
+        >>> bar = Bar()
+
+        With an instance of a *AttributeHelper* child class, we can invoke the method in
+        two ways, as exampled below.
+
+        >>> # Create a keyword argument dictionary or argument list
+        >>> kwargs = {'a_key':'a_value'}
+        >>> bar.__invoke_method_on_children__(func_name='the_func', **kwargs)
+        a_key: a_value
+        >>> # Simply pass the argument keyword and value
+        >>> bar.__invoke_method_on_children__(
+        ...     func_name='the_func', a_key='value')
+        a_key: value
+        """
+        if func_name is None:
+            raise ValueError(
+                '__invoke_method_on_children__:func_name parameter required')
+
+        class_stack = []
+        base = self.__class__  # The root class in the hierarchy.
+        while base is not None and base is not object:
+            class_stack.append(base)
+            base = base.__base__  # iterate to the next base class
+
+        while len(class_stack) is not 0:
+            base = class_stack.pop()
+            if func_name in base.__dict__:  # check the func exist on class
+                # instance
+                func = getattr(base, func_name)
+                func(self, *args,
+                     **kwargs)  # This is the function getting invoked
 

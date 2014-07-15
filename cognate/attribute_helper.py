@@ -30,130 +30,6 @@ functionality.
 """
 
 
-class AttributeHelper(object):
-    """This is a min-in helper library class.
-
-    *AttributeHelper* is used by deriving child classes, which inherit the *AttributeHelper*
-    functionality. The functionality that crosses class hierarchy will only do
-    so along the primary base class chain.
-
-    By way of example, a class declaration to inherit *AttributeHelper* functionality::
-
-      class SomeChild(AttributeHelper): ...
-
-    and *AttributeHelper* will operate over *SomeChild* base class methods and
-    attributes, *AttributeHelper* can also be utilized as a multi-inheritance
-    declaration::
-
-      class SomeChild(ParentClass, AttributeHelper): ...
-
-    However, *AttributeHelper will only operate on the direct base class chain::
-
-      class Parent(AttributeHelper): ...
-
-      # SomeMixin is unrecognized in primary base class chain:
-      class OtherChild(Parent, SomeMixin):
-
-
-    In the instance above, *AttributeHelper* will only operate over *Parent* and
-    *OtherChild*
-    when it navigates bases with methods such as :meth:'~cognate.AttributeHelper
-    .__invoke_method_on_children__.
-    """
-
-    def __invoke_method_on_children__(self, func_name=None, *args, **kwargs):
-        """This helper method will walk the primary base class hierarchy to
-        invoke a method if it exists for a given base class.
-
-        :param func_name: The name of a function to search for invocation.
-        :type func_name: str
-        :param args: An argument list to pass to the target function.
-        :type args: list
-        :param kwargs: A dictionary of name/value pairs to pass to the target
-        function as named arguments.
-        :type kwargs: dict
-        :return: None
-        ":except:
-          - **ValueError** - Thrown if no function name is provided.
-
-        In an effort to explain, assume that a class hierarchy has been defined
-        as the image below:
-
-        .. image:: ../images/invoke_method_on_bases_class_hierarchy.png
-
-        *AttributeHelper.__invoke_method_on_children__* will traverse the class hierarchy
-        invoking target method *the_func* on each base class. This is different
-        from normal python resolution, which will only inoke the first instance
-        of the method defined in the class hierarchy, which would be Child3
-        .the_func.
-
-        .. image:: ../images/invoke_method_on_bases.png
-
-        .. note:: Mind the flow of invocation on the class hierarchy.
-
-          Invocation of target *func_name* is from the AttributeHelper class as the
-          starting point, and the search continuing out toward the final
-          ancestor class.
-
-        ::Example Usage:
-
-        To utilize this method, a function name must be provided.
-
-        .. warning:: Beware mistyped method names.
-
-          If a method name is supplied for a method that does not exist,
-          the *__invoke_method_on_children__* will raise no exception.
-
-        >>> foo = AttributeHelper()
-        >>> foo.__invoke_method_on_children__()
-        Traceback (most recent call last):
-        ...
-        ValueError: __invoke_method_on_children__:func_name parameter required
-        >>> # Now correctly
-        >>> foo.__invoke_method_on_children__(func_name='the_func')
-
-        In actual usage, declare a AttributeHelper derived child class with a target
-        function. It is possible to have more than one ancestor class with the
-        target function defined. The *__invoke_method_on_children__* will
-        execute
-        the function on each of the child classes.
-
-        >>> class Bar(AttributeHelper):
-        ...   def the_func(self, a_key=None):
-        ...     print 'a_key:', a_key
-        >>> bar = Bar()
-
-        With an instance of a *AttributeHelper* child class, we can invoke the method in
-        two ways, as exampled below.
-
-        >>> # Create a keyword argument dictionary or argument list
-        >>> kwargs = {'a_key':'a_value'}
-        >>> bar.__invoke_method_on_children__(func_name='the_func', **kwargs)
-        a_key: a_value
-        >>> # Simply pass the argument keyword and value
-        >>> bar.__invoke_method_on_children__(
-        ...     func_name='the_func', a_key='value')
-        a_key: value
-        """
-        if func_name is None:
-            raise ValueError(
-                '__invoke_method_on_children__:func_name parameter required')
-
-        class_stack = []
-        base = self.__class__  # The root class in the hierarchy.
-        while base is not None and base is not object:
-            class_stack.append(base)
-            base = base.__base__  # iterate to the next base class
-
-        while len(class_stack) is not 0:
-            base = class_stack.pop()
-            if func_name in base.__dict__:  # check the func exist on class
-                # instance
-                func = getattr(base, func_name)
-                func(self, *args,
-                     **kwargs)  # This is the function getting invoked
-
-
 def copy_attribute_values(source, target, property_names):
     """This method copies the property values in a given list from a given
     source object to a target source object.
@@ -270,7 +146,7 @@ def set_unassigned_attrs(target, attr_list):
 
     :Example Usage:
 
-    >>> foo = AttributeHelper()
+    >>> foo = create_attr_bag()
     >>> foo.ignore_attr = True
     >>> attr_list = [('some_attr', 'some_value'),('int_attr', 1),
     ...   ('ignore_attr', False)]
