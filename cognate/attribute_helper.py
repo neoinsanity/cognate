@@ -178,11 +178,11 @@ def copy_attribute_values(source, target, property_names):
 
     :Example Usage:
 
-    >>> src = create_property_bag()
+    >>> src = create_attr_bag()
     >>> src.property1 = 1
     >>> src.property2 = 2
     >>> src.property3 = 3
-    >>> target = create_property_bag()
+    >>> target = create_attr_bag()
     >>> property_list = ['property1', 'property2', 'exist_not_property']
     >>> copy_attribute_values(src, target, property_list)
     >>> assert hasattr(target, 'property1')
@@ -205,7 +205,7 @@ def copy_attribute_values(source, target, property_names):
             setattr(target, property_name, getattr(source, property_name))
 
 
-def create_property_bag():
+def create_attr_bag():
     """This method will create a property bag that can be used to assign
     attributes.
 
@@ -219,7 +219,7 @@ def create_property_bag():
 
     :Example Usage:
 
-    >>> property_bag = create_property_bag()
+    >>> property_bag = create_attr_bag()
     >>> assert property_bag
     >>> property_bag.some_attr = 5
     >>> assert property_bag.some_attr == 5
@@ -232,7 +232,7 @@ def set_attrs_from__dict(src_dict=None, target=None):
     """
 
     >>> src_dict = {'prop1': 'val1', 'prop2': 2}
-    >>> target = create_property_bag()
+    >>> target = create_attr_bag()
     >>> assert not hasattr(target, 'prop1')
     >>> assert not hasattr(target, 'prop2')
     >>> set_attrs_from__dict(src_dict, target)

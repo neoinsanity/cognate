@@ -6,12 +6,12 @@ from cognate import attribute_helper
 class AttributeHelperTestCase(TestCase):
     def test_copy_attribute_values(self):
         """Ensure copy_attribute_value functionality and error handling."""
-        src_property_bag = attribute_helper.create_property_bag()
+        src_property_bag = attribute_helper.create_attr_bag()
         src_property_bag.prop1 = 'value 1'
         src_property_bag.prop2 = 'value 2'
         src_property_bag.prop3 = 'value 3'
         src_property_bag.prop4 = 'value 4'
-        trgt_property_bag = attribute_helper.create_property_bag()
+        trgt_property_bag = attribute_helper.create_attr_bag()
         trgt_property_bag.prop2 = 'another 2'
         trgt_property_bag.prop3 = 'another 3'
         property_names = {'prop1', 'prop3'}
@@ -53,7 +53,7 @@ class AttributeHelperTestCase(TestCase):
 
     def test_set_attrs_from_dict(self):
         """Ensure set_attrs_from_dict features and error handling."""
-        a_property_bag = attribute_helper.create_property_bag()
+        a_property_bag = attribute_helper.create_attr_bag()
 
         self.assertRaisesRegexp(
             ValueError,
@@ -82,7 +82,7 @@ class AttributeHelperTestCase(TestCase):
             '"target" must be provided.',
             attribute_helper.set_unassigned_attrs, None, ['prop', 'value'])
 
-        a_property_bag = attribute_helper.create_property_bag()
+        a_property_bag = attribute_helper.create_attr_bag()
 
         self.assertRaisesRegexp(
             ValueError,
