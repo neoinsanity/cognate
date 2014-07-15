@@ -438,7 +438,7 @@ class ComponentCore(AttributeHelper):
         args = arg_parser.parse_args(argv)
 
         # map the properties to attributes assigned to self instance
-        attribute_helper.copy_property_values(src=args,
+        attribute_helper.copy_property_values(source=args,
                                               target=self,
                                               property_names=property_list)
 

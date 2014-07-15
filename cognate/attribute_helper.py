@@ -140,21 +140,21 @@ class AttributeHelper(object):
                 '__invoke_method_on_children__:func_name parameter required')
 
         class_stack = []
-        base = self.__class__ # The root class in the hierarchy.
+        base = self.__class__  # The root class in the hierarchy.
         while base is not None and base is not object:
             class_stack.append(base)
-            base = base.__base__ # iterate to the next base class
+            base = base.__base__  # iterate to the next base class
 
         while len(class_stack) is not 0:
             base = class_stack.pop()
-            if func_name in base.__dict__: # check the func exist on class
-            # instance
+            if func_name in base.__dict__:  # check the func exist on class
+                # instance
                 func = getattr(base, func_name)
                 func(self, *args,
-                     **kwargs) # This is the function getting invoked
+                     **kwargs)  # This is the function getting invoked
 
 
-def copy_property_values(src=None, target=None, property_names=list()):
+def copy_property_values(source, target, property_names):
     """This method copies the property values in a given list from a given
     source object to a target source object.
 
@@ -190,13 +190,19 @@ def copy_property_values(src=None, target=None, property_names=list()):
     >>> assert not hasattr(target, 'property3')
     >>> assert not hasattr(target, 'exist_not_property')
     """
-    assert src
-    assert target
-    assert property_names is not None
+    if source is None:
+        raise ValueError('"source" must be provided.')
+    if target is None:
+        raise ValueError('"target" must be provided.')
+    if property_names is None:
+        raise ValueError('"property_list" must be provided.')
+    if not hasattr(property_names, '__iter__'):
+        raise ValueError(
+            '"property_names" must be a sequence type, such as list or set.')
 
     for property_name in property_names:
-        if hasattr(src, property_name):
-            setattr(target, property_name, getattr(src, property_name))
+        if hasattr(source, property_name):
+            setattr(target, property_name, getattr(source, property_name))
 
 
 def create_property_bag():
@@ -273,7 +279,13 @@ def set_unassigned_attrs(target, attr_list):
     >>> assert foo.int_attr == 1
     >>> assert foo.ignore_attr == True # ignored value from attr_list
     """
-    assert target
+    if target is None:
+        raise ValueError('"target" must be provided.')
+    if attr_list is None:
+        raise ValueError('"attr_list" must be provided.')
+    if not hasattr(attr_list, '__iter__'):
+        raise ValueError(
+            '"attr_list" must be a sequence type, such as list or set.')
 
     for (name, value) in attr_list:
         if not hasattr(target, name):
