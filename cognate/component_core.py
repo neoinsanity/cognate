@@ -218,8 +218,8 @@ class ComponentCore(object):
       argument is irrelevant. The *_execute_configuration* method will detect
       the for this state and removes the path argument.
     """
-    # : A map for setting ``logging`` level upon log configuration during
-    # : invocation of :meth:`~cognate.ComponentCore._
+    # A map for setting ``logging`` level upon log configuration during
+    # invocation of :meth:`~cognate.ComponentCore._
     LOG_LEVEL_MAP = {
         'debug': logging.DEBUG,
         'info': logging.INFO,
@@ -267,16 +267,16 @@ class ComponentCore(object):
         >>> assert dude.log_level == logging.INFO
         >>> assert dude.verbose == False
         """
-        # : Current log level, set to logging.DEBUG, INFO, WARNING, OR ERROR at
-        # : runtime.
+        # Current log level, set to logging.DEBUG, INFO, WARNING, OR ERROR at
+        # runtime.
         self.log_level = 'error'
-        #: The path to the log file, if one is set.
+        # The path to the log file, if one is set.
         self.log_path = None
-        #: The name of the application. Overridden by '--app_name' option.
+        # The name of the application. Overridden by '--app_name' option.
         self.app_name = self.__class__.__name__
-        #: Set to true if the '--app-name' is utilized
+        # Set to true if the '--app-name' is utilized
         self.app_name_set = False
-        #: Set to true if '--verbose' option flag is utilized
+        # Set to true if '--verbose' option flag is utilized
         self.verbose = False
 
         #: The log attribute to use for logging message
@@ -422,8 +422,8 @@ class ComponentCore(object):
 
         # execute configuration_option method on all child classes of ComponentCore
         # to gather all of the runtime options.
-        self.__invoke_method_on_children__(func_name='cognate_options',
-                                           arg_parser=arg_parser)
+        self._invoke_method_on_children(func_name='cognate_options',
+                                        arg_parser=arg_parser)
 
         # resolve configuration options necessary for runtime execution
         property_list = []
@@ -434,6 +434,7 @@ class ComponentCore(object):
         for action in arg_parser._get_optional_actions():
             property_list.append(action.dest)
         property_list.remove('help')  # remove the help option
+
         args = arg_parser.parse_args(argv)
 
         # map the properties to attributes assigned to self instance
@@ -443,13 +444,13 @@ class ComponentCore(object):
 
         # now execute the configuration call on each base class
         # in the class inheritance chain
-        self.__invoke_method_on_children__(func_name='cognate_configure',
-                                           args=args)
+        self._invoke_method_on_children(func_name='cognate_configure',
+                                        args=args)
 
         self.log.info('... Component configuration complete ...')
         self.log.info('... configuration: %s', args)
 
-    def __invoke_method_on_children__(self, func_name=None, *args, **kwargs):
+    def _invoke_method_on_children(self, func_name=None, *args, **kwargs):
         """This helper method will walk the primary base class hierarchy to
         invoke a method if it exists for a given base class.
 
@@ -469,7 +470,7 @@ class ComponentCore(object):
 
         .. image:: ../images/invoke_method_on_bases_class_hierarchy.png
 
-        *AttributeHelper.__invoke_method_on_children__* will traverse the class hierarchy
+        *AttributeHelper._invoke_method_on_children* will traverse the class hierarchy
         invoking target method *the_func* on each base class. This is different
         from normal python resolution, which will only inoke the first instance
         of the method defined in the class hierarchy, which would be Child3
@@ -490,19 +491,19 @@ class ComponentCore(object):
         .. warning:: Beware mistyped method names.
 
           If a method name is supplied for a method that does not exist,
-          the *__invoke_method_on_children__* will raise no exception.
+          the *_invoke_method_on_children* will raise no exception.
 
         >>> foo = ComponentCore()
-        >>> foo.__invoke_method_on_children__()
+        >>> foo._invoke_method_on_children()
         Traceback (most recent call last):
         ...
-        ValueError: __invoke_method_on_children__:func_name parameter required
+        ValueError: _invoke_method_on_children:func_name parameter required
         >>> # Now correctly
-        >>> foo.__invoke_method_on_children__(func_name='the_func')
+        >>> foo._invoke_method_on_children(func_name='the_func')
 
         In actual usage, declare a AttributeHelper derived child class with a target
         function. It is possible to have more than one ancestor class with the
-        target function defined. The *__invoke_method_on_children__* will
+        target function defined. The *_invoke_method_on_children* will
         execute
         the function on each of the child classes.
 
@@ -516,16 +517,16 @@ class ComponentCore(object):
 
         >>> # Create a keyword argument dictionary or argument list
         >>> kwargs = {'a_key':'a_value'}
-        >>> bar.__invoke_method_on_children__(func_name='the_func', **kwargs)
+        >>> bar._invoke_method_on_children(func_name='the_func', **kwargs)
         a_key: a_value
         >>> # Simply pass the argument keyword and value
-        >>> bar.__invoke_method_on_children__(
+        >>> bar._invoke_method_on_children(
         ...     func_name='the_func', a_key='value')
         a_key: value
         """
         if func_name is None:
             raise ValueError(
-                '__invoke_method_on_children__:func_name parameter required')
+                '_invoke_method_on_children:func_name parameter required')
 
         class_stack = []
         base = self.__class__  # The root class in the hierarchy.
