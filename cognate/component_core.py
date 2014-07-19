@@ -279,7 +279,7 @@ class ComponentCore(object):
         # Set to true if '--verbose' option flag is utilized
         self.verbose = False
 
-        #: The log attribute to use for logging message
+        # : The log attribute to use for logging message
         self.log = None
         # helper to allow using string for configuration
         if argv is not None and isinstance(argv, basestring):
@@ -291,13 +291,13 @@ class ComponentCore(object):
 
         self._execute_configuration(argv)
 
-    def cognate_options(self, arg_parser=argparse.ArgumentParser()):
+    def cognate_options(self, arg_parser):
         """This method will be called to get the *ComponentCore* configuration
         options.
 
         :param arg_parser: An *ArgumentParser* instance to add configuration
                            options.
-        :type arg_parser: `argparse.ArgumentParser`
+        :type arg_parser: argparse.ArgumentParser
         :return: None
         """
         arg_parser.add_argument('--app_name',
@@ -324,11 +324,11 @@ class ComponentCore(object):
                                 help='Enable verbose log output to console. '
                                      'Useful for debugging.')
 
-    def cognate_configure(self, args=None):
+    def cognate_configure(self, args):
         """ This method is called by *ComponentCore* during instance initialization.
 
         :param args: An object with configuration properties.
-        :type args: Property Object
+        :type args: object
         :return: None
 
         .. note:: Properties set to `self`.
@@ -355,10 +355,11 @@ class ComponentCore(object):
 
         # if log level is debug, then we add source information to log output
         formatter = logging.Formatter(
-            '%(asctime)s -%(name)s - %(levelname)s -- %(message)s')
+            '%(threadName)s:%(asctime)s -%(name)s - %(levelname)s -- %('
+            'message)s')
         if self.log_level == logging.DEBUG:
             formatter = logging.Formatter(
-                '%(asctime)s -%(name)s - %(levelname)s -- '
+                '%(threadName)s:%(asctime)s -%(name)s - %(levelname)s -- '
                 '%(pathname)s:%(lineno)d -- %(message)s')
 
         # assign the windmill instance logger
@@ -387,7 +388,7 @@ class ComponentCore(object):
         self.log.info('Logging configured for: %s', self.app_name)
 
 
-    def _execute_configuration(self, argv=None):
+    def _execute_configuration(self, argv):
         """This method assigns an argument list to attributes assigned to self.
 
         :param argv: A list of arguments.

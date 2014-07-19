@@ -16,6 +16,8 @@ class TestComponentCoreArgsPassing(CognateTestCase):
         pass
 
     def test_simplest_cognate(self):
+        """Most basic component test configuration."""
+
         class Simplest(ComponentCore):
             pass
 
@@ -41,7 +43,7 @@ class TestComponentCoreArgsPassing(CognateTestCase):
 
 
     def test_positional_args(self):
-        """"""
+        """Ensure positional argument configuration."""
 
         class PositionalArgs(ComponentCore):
             def cognate_options(self, arg_parser):
@@ -49,12 +51,48 @@ class TestComponentCoreArgsPassing(CognateTestCase):
 
         pos = PositionalArgs(argv=None)
         self.assertIsNotNone(pos)
+        self.assertEqual(pos.file, 'input.dat')
+
+        argv = ['output.dat']
+        pos = PositionalArgs(argv=argv)
+        self.assertIsNotNone(pos)
+        self.assertEqual(pos.file, 'output.dat')
 
     def test_optional_args(self):
-        pass
+        """Ensure optional argument configuration."""
+
+        class OptionalArgs(ComponentCore):
+            def cognate_options(self, arg_parser):
+                arg_parser.add_argument('-f', '--file', default='input.dat')
+
+        opt = OptionalArgs(argv=None)
+        self.assertIsNotNone(opt)
+        self.assertEqual(opt.file, 'input.dat')
+
+        argv = '-f output.dat'
+        opt = OptionalArgs(argv=argv)
+        self.assertIsNotNone(opt)
+        self.assertEqual(opt.file, 'output.dat')
 
     def test_positional_and_optional_args(self):
-        pass
+        """Ensure combo of postional and optional argument configuration."""
+
+        class ComboArgs(ComponentCore):
+            def cognate_options(self, arg_parser):
+                arg_parser.add_argument('input_file', nargs='?',
+                                        default='input.dat')
+                arg_parser.add_argument('--output_file')
+
+        combo = ComboArgs(argv=None)
+        self.assertIsNotNone(combo)
+        self.assertEqual(combo.input_file, 'input.dat')
+        self.assertIsNone(combo.output_file)
+
+        argv = 'input.txt --output_file output.txt'
+        combo = ComboArgs(argv=argv)
+        self.assertIsNotNone(combo)
+        self.assertEqual(combo.input_file, 'input.txt')
+        self.assertEqual(combo.output_file, 'output.txt')
 
 
 class TestComponentCoreLogSetup(CognateTestCase):
