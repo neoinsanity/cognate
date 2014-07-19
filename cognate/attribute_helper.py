@@ -9,8 +9,8 @@ and construction.
   effects that use of these methods. Some of these methods have effects
   across class hierarchies.
 
-AttributeHelper Class Utilization
-+++++++++++++++++++++++++
+AttributeHelper Utilization
+============================
 
 The *AttributeHelper* class is designed to ba a mix-in class for the construction of
 applications. It performs this functionality by providing methods that allow
@@ -86,6 +86,7 @@ def create_attr_bag():
     attributes.
 
     :return: An empty obect that supports assigning properties.
+    :rtype: type
 
     It is not valid to create a python instance of *object* for use as a
     property bag. The underlying reason is that there is no __dict__
@@ -95,10 +96,10 @@ def create_attr_bag():
 
     :Example Usage:
 
-    >>> property_bag = create_attr_bag()
-    >>> assert property_bag
-    >>> property_bag.some_attr = 5
-    >>> assert property_bag.some_attr == 5
+    >>> attr_bag = create_attr_bag()
+    >>> assert attr_bag
+    >>> attr_bag.some_attr = 5
+    >>> assert attr_bag.some_attr == 5
     """
 
     return type('__property_bag', (object,), dict())
@@ -132,7 +133,7 @@ def set_attrs_from__dict(src_dict=None, target=None):
 
 
 def set_unassigned_attrs(target, attr_list):
-    """This method takes a list of name/value tuple and assigns the property
+    """Method takes a list of name/value tuple and assigns the property
     value to the given target, if the property does NOT exist.
 
     :param target: The target object that is to have name values applied.
