@@ -1,4 +1,4 @@
-from logging import DEBUG, INFO, WARNING
+from logging import DEBUG, ERROR, INFO, WARNING
 from os import path, remove
 
 from cognate_test_case import CognateTestCase, TEST_OUT
@@ -6,7 +6,98 @@ from cognate_test_case import CognateTestCase, TEST_OUT
 from cognate.component_core import ComponentCore
 
 
-class TestComponentCore(CognateTestCase):
+class TestComponentCoreArgsPassing(CognateTestCase):
+    """Test various scenarios for passing args."""
+
+    def setUp(self):
+        pass
+
+    def tearDown(self):
+        pass
+
+    def test_simplest_cognate(self):
+        """Most basic component test configuration."""
+
+        class Simplest(ComponentCore):
+            pass
+
+        simplest = Simplest(argv=None)
+        self.assertIsNotNone(simplest)
+        self.assertEqual(simplest.app_name, 'Simplest')
+        self.assertEqual(simplest.app_name_set, False)
+        self.assertIsNotNone(simplest.log)
+        self.assertEqual(simplest.log_level, ERROR)
+        self.assertIsNone(simplest.log_path)
+        self.assertEqual(simplest.verbose, False)
+
+        argv = ('--app_name Dog --verbose --log_level info --log_path %s' %
+                TEST_OUT)
+        simplest = Simplest(argv=argv)
+        self.assertIsNotNone(simplest)
+        self.assertEqual(simplest.app_name, 'Dog')
+        self.assertEqual(simplest.app_name_set, True)
+        self.assertIsNotNone(simplest.log)
+        self.assertEqual(simplest.log_level, INFO)
+        self.assertEqual(simplest.log_path, './TEST_OUT/')
+        self.assertEqual(simplest.verbose, True)
+
+
+    def test_positional_args(self):
+        """Ensure positional argument configuration."""
+
+        class PositionalArgs(ComponentCore):
+            def cognate_options(self, arg_parser):
+                arg_parser.add_argument('file', nargs='?', default='input.dat')
+
+        pos = PositionalArgs(argv=None)
+        self.assertIsNotNone(pos)
+        self.assertEqual(pos.file, 'input.dat')
+
+        argv = ['output.dat']
+        pos = PositionalArgs(argv=argv)
+        self.assertIsNotNone(pos)
+        self.assertEqual(pos.file, 'output.dat')
+
+    def test_optional_args(self):
+        """Ensure optional argument configuration."""
+
+        class OptionalArgs(ComponentCore):
+            def cognate_options(self, arg_parser):
+                arg_parser.add_argument('-f', '--file', default='input.dat')
+
+        opt = OptionalArgs(argv=None)
+        self.assertIsNotNone(opt)
+        self.assertEqual(opt.file, 'input.dat')
+
+        argv = '-f output.dat'
+        opt = OptionalArgs(argv=argv)
+        self.assertIsNotNone(opt)
+        self.assertEqual(opt.file, 'output.dat')
+
+    def test_positional_and_optional_args(self):
+        """Ensure combo of postional and optional argument configuration."""
+
+        class ComboArgs(ComponentCore):
+            def cognate_options(self, arg_parser):
+                arg_parser.add_argument('input_file', nargs='?',
+                                        default='input.dat')
+                arg_parser.add_argument('--output_file')
+
+        combo = ComboArgs(argv=None)
+        self.assertIsNotNone(combo)
+        self.assertEqual(combo.input_file, 'input.dat')
+        self.assertIsNone(combo.output_file)
+
+        argv = 'input.txt --output_file output.txt'
+        combo = ComboArgs(argv=argv)
+        self.assertIsNotNone(combo)
+        self.assertEqual(combo.input_file, 'input.txt')
+        self.assertEqual(combo.output_file, 'output.txt')
+
+
+class TestComponentCoreLogSetup(CognateTestCase):
+    """Test the logging features of the component core."""
+
     def setUp(self):
         pass
 
@@ -14,7 +105,7 @@ class TestComponentCore(CognateTestCase):
         pass
 
     def test_default_file_logging(self):
-
+        """Test the default file logging."""
         # The target path to the expected file created by component_core
         log_path = path.join(TEST_OUT, 'ComponentCore.log')
         if path.exists(log_path):
@@ -32,7 +123,7 @@ class TestComponentCore(CognateTestCase):
         self.assertEqual(component_core.log_level, INFO)
 
     def test_app_name_file_logging(self):
-
+        """Test overriding file name based on setting app_name."""
         # The target path to the expected file created by component_core
         log_path = path.join(TEST_OUT, 'Dude.log')
         if path.exists(log_path):
@@ -51,7 +142,7 @@ class TestComponentCore(CognateTestCase):
         self.assertEqual(component_core.log_level, DEBUG)
 
     def test_explicit_log_file(self):
-
+        """Test overriding log file path."""
         # The target path to the log file
         log_path = path.join(TEST_OUT, 'the_file.log')
         if path.exists(log_path):

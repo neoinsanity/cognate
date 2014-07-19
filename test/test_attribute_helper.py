@@ -74,7 +74,6 @@ class AttributeHelperTestCase(TestCase):
         attribute_helper.set_attrs_from__dict({'prop': 'val'}, a_property_bag)
         self.assertEqual(a_property_bag.prop, 'val')
 
-
     def test_set_unassigned_attrs(self):
         """Ensure set_unassigned features and error handling."""
         self.assertRaisesRegexp(
