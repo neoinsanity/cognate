@@ -165,8 +165,6 @@ from logging.handlers import WatchedFileHandler
 import os
 import shlex
 
-import attribute_helper
-
 
 class ComponentCore(object):
     """The *ComponentCore* class is a helper mix-in that evaluates sys.argv into
@@ -439,9 +437,9 @@ class ComponentCore(object):
         args = arg_parser.parse_args(argv)
 
         # map the properties to attributes assigned to self instance
-        attribute_helper.copy_attribute_values(source=args,
-                                               target=self,
-                                               property_names=property_list)
+        copy_attribute_values(source=args,
+                              target=self,
+                              property_names=property_list)
 
         # now execute the configuration call on each base class
         # in the class inheritance chain
@@ -542,4 +540,55 @@ class ComponentCore(object):
                 func = getattr(base, func_name)
                 func(self, *args,
                      **kwargs)  # This is the function getting invoked
+
+
+def copy_attribute_values(source, target, property_names):
+    """This method copies the property values in a given list from a given
+    source object to a target source object.
+
+    :title:copy_attribute_values Method
+
+    :param src: The source object that is to be inspected for property
+    values.
+    :type src: Object that supports hasattr() method.
+    :param target: The target object that will be modified with values found
+    in src.
+    :type target: Object that supports setattr() method.
+    :param property_names: List of property names whose values are to be
+    copied from source to object.
+    :type property_names: List or set of string property names.
+
+    The *copy_attribute_values* method will only copy the values from src
+    when a property name is found in the src. In cases where a property
+    value
+    is not found in the src object, then no change to the target object is
+    made.
+
+    :Example Usage:
+
+    >>> src = type('attr_bag', (object,), dict())
+    >>> src.property1 = 1
+    >>> src.property2 = 2
+    >>> src.property3 = 3
+    >>> target = type('attr_bag', (object,), dict())
+    >>> property_list = ['property1', 'property2', 'exist_not_property']
+    >>> copy_attribute_values(src, target, property_list)
+    >>> assert hasattr(target, 'property1')
+    >>> assert hasattr(target, 'property2')
+    >>> assert not hasattr(target, 'property3')
+    >>> assert not hasattr(target, 'exist_not_property')
+    """
+    if source is None:
+        raise ValueError('"source" must be provided.')
+    if target is None:
+        raise ValueError('"target" must be provided.')
+    if property_names is None:
+        raise ValueError('"property_list" must be provided.')
+    if not hasattr(property_names, '__iter__'):
+        raise ValueError(
+            '"property_names" must be a sequence type, such as list or set.')
+
+    for property_name in property_names:
+        if hasattr(source, property_name):
+            setattr(target, property_name, getattr(source, property_name))
 

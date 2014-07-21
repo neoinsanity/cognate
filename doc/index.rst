@@ -16,7 +16,6 @@ API Documentation
 .. toctree::
   :maxdepth: 3
 
-  cognate.attribute_helper
   cognate.component_core
 
 

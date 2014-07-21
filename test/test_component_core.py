@@ -1,9 +1,60 @@
 from logging import DEBUG, ERROR, INFO, WARNING
 from os import path, remove
+from unittest import TestCase
 
 from cognate_test_case import CognateTestCase, TEST_OUT
 
+from cognate import component_core
 from cognate.component_core import ComponentCore
+
+
+class AttributeHelperTestCase(TestCase):
+    def test_copy_attribute_values(self):
+        """Ensure copy_attribute_value functionality and error handling."""
+        src_property_bag = type('attr_bag', (object,), dict())
+        src_property_bag.prop1 = 'value 1'
+        src_property_bag.prop2 = 'value 2'
+        src_property_bag.prop3 = 'value 3'
+        src_property_bag.prop4 = 'value 4'
+        trgt_property_bag = type('attr_bag', (object,), dict())
+        trgt_property_bag.prop2 = 'another 2'
+        trgt_property_bag.prop3 = 'another 3'
+        property_names = {'prop1', 'prop3'}
+
+        self.assertRaisesRegexp(
+            ValueError,
+            '"source" must be provided.',
+            component_core.copy_attribute_values,
+            None, trgt_property_bag, property_names)
+
+        self.assertRaisesRegexp(
+            ValueError,
+            '"target" must be provided.',
+            component_core.copy_attribute_values,
+            src_property_bag, None, property_names)
+
+        self.assertRaisesRegexp(
+            ValueError,
+            '"property_list" must be provided.',
+            component_core.copy_attribute_values,
+            src_property_bag, trgt_property_bag, None)
+
+        self.assertRaisesRegexp(
+            ValueError,
+            '"property_names" must be a sequence type, such as list or set.',
+            component_core.copy_attribute_values,
+            src_property_bag, trgt_property_bag, 'Not a sequence')
+
+        self.assertFalse(hasattr(trgt_property_bag, 'prop1'))
+        self.assertEqual(trgt_property_bag.prop2, 'another 2')
+        self.assertEqual(trgt_property_bag.prop3, 'another 3')
+        self.assertFalse(hasattr(trgt_property_bag, 'prop4'))
+        component_core.copy_attribute_values(
+            src_property_bag, trgt_property_bag, property_names)
+        self.assertEqual(trgt_property_bag.prop1, 'value 1')
+        self.assertEqual(trgt_property_bag.prop2, 'another 2')
+        self.assertEqual(trgt_property_bag.prop3, 'value 3')
+        self.assertFalse(hasattr(trgt_property_bag, 'prop4'))
 
 
 class TestComponentCoreArgsPassing(CognateTestCase):

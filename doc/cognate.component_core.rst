@@ -2,7 +2,7 @@
 Component Core Module
 ======================
 
-.. autoclass:: cognate.component_core
+.. automodule:::: cognate.component_core
 
 Class
 ======
