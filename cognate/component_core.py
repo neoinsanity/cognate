@@ -6,7 +6,7 @@ For details, be sure to checkout the features described under the
 
 - :ref:`configuration_management_and_initialization`
 
-- :ref:`command_and_log_configuration`
+- :ref:`logging_and_log_configuration`
 
 - :ref:`dynamic_service_naming`
 
@@ -57,7 +57,7 @@ By way of example, let's construct a hello world example. First we define
 
 This gives the class hierarchy as in the image below.
 
-.. figure:: ../images/component_core_utilization_example_hierarchy.png
+.. figure:: images/scaffold_utilization_example_hierarchy.png
 
   ComponentCore Example Hierarchy
 
@@ -65,15 +65,15 @@ The essence of how *ComponentCore* performs it's operations is via the use of
 :mod:`cognate.attribute_helper` module to derive configuration of service stack.
 The basic call sequence is depicted in the image below.
 
-.. image:: ../images/component_core_utilization_example_sequence.png
+.. image:: images/scaffold_utilization_example_sequence.png
 
-:meth:`~cognate.ComponentCore.configuration_options` and
-:meth:`~cognate.ComponentCore.configure` methods via the use of the
-:meth:`cognate.Attribute_helper.__invoke_method_on_children__'. This effectively
-calls the *configure_options* and *configure* methods on all primary base
+:meth:`cognate.ComponentCore.cognate_options` and
+:meth:`cognate.ComponentCore.cognate_configure` methods via the use of the
+:meth:`cognate.ComponentCore.__invoke_method_on_children__'. This effectively
+calls the *cognate_options* and *cognate_configure* methods on all primary base
 classes that derive from *ComponentCore*.
 
-** _configuration_management_and_initialization:
+.. _configuration_management_and_initialization:
 
 Configuration Management and Initialization
 =============================================
@@ -99,7 +99,7 @@ This allows for the centralization of common options and the attending code.
 For more detail on this feature, be sure to check out
 :meth:`~cognate.ComponentCore._execute_configuration`.
 
-.. _logging_and_log_configuration
+.. _logging_and_log_configuration:
 
 Logging and Log Configuration
 ------------------------------
@@ -209,10 +209,10 @@ class ComponentCore(object):
 
     .. note: File name sniffing.
 
-      The argument list that is obtained from *sys.argv* will have the path of
-      the invoking python file. For purposes of *ComponentCore* configuration this
-      argument is irrelevant. The *_execute_configuration* method will detect
-      the for this state and removes the path argument.
+    The argument list that is obtained from *sys.argv* will have the path of
+    the invoking python file. For purposes of *ComponentCore* configuration this
+    argument is irrelevant. The *_execute_configuration* method will detect
+    the for this state and removes the path argument.
     """
     # A map for setting ``logging`` level upon log configuration during
     # invocation of :meth:`~cognate.ComponentCore._
@@ -228,7 +228,7 @@ class ComponentCore(object):
 
         :param argv: An array of arguments of the form
                      ['--verbose', '--name', 'my_name', ...]
-        :type argv: String | String List
+        :type argv: str, list<str>
         :return: `ComponentCore` child instance
 
         A default ComponentCore will assume the name of the instantiating class. In
@@ -292,7 +292,7 @@ class ComponentCore(object):
         options.
 
         :param arg_parser: An *ArgumentParser* instance to add configuration
-                           options.
+            options.
         :type arg_parser: argparse.ArgumentParser
         :return: None
         """
@@ -329,9 +329,9 @@ class ComponentCore(object):
 
         .. note:: Properties set to `self`.
 
-          In addition to setting the configuration options to *self*, the *args*
-          parameter has the configuration. This should allow for most complex
-          configuration scenarios.
+        In addition to setting the configuration options to *self*, the *args*
+        parameter has the configuration. This should allow for most complex
+        configuration scenarios.
         """
         assert args
 
@@ -388,7 +388,7 @@ class ComponentCore(object):
         """This method assigns an argument list to attributes assigned to self.
 
         :param argv: A list of arguments.
-        :type argv: string list
+        :type argv: list<str>
         :return: None
 
         This is the work horse method that does the work of invoking
@@ -456,7 +456,7 @@ class ComponentCore(object):
         :param args: An argument list to pass to the target function.
         :type args: list
         :param kwargs: A dictionary of name/value pairs to pass to the target
-        function as named arguments.
+            function as named arguments.
         :type kwargs: dict
         :return: None
         :raises ValueError: Thrown if no function name is provided.
@@ -464,7 +464,7 @@ class ComponentCore(object):
         In an effort to explain, assume that a class hierarchy has been defined
         as the image below:
 
-        .. image:: ../images/invoke_method_on_bases_class_hierarchy.png
+        .. image:: images/invoke_method_on_bases_class_hierarchy.png
 
         *AttributeHelper._invoke_method_on_children* will traverse the class hierarchy
         invoking target method *the_func* on each base class. This is different
@@ -472,7 +472,7 @@ class ComponentCore(object):
         of the method defined in the class hierarchy, which would be Child3
         .the_func.
 
-        .. image:: ../images/invoke_method_on_bases.png
+        .. image:: images/invoke_method_on_bases.png
 
         .. note:: Mind the flow of invocation on the class hierarchy.
 
