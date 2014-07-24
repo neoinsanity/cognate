@@ -1,8 +1,6 @@
 """The *ComponentCore* class provides the means to add some basic features for
 construction of service modules.
 
-.. default-domain::py
-
 For details, be sure to checkout the features described under the
 :ref:`component_core_class_utilization` section.:
 
@@ -19,7 +17,7 @@ requirements and make the expression of those requirements trivial.
 .. _component_core_class_utilization:
 
 ComponentCore Class Utilization
-===========================
+================================
 
 *ComponentCore* operates by accepting an *argv* passed in the
 :meth:'^cognate.ComponentCore.__init__ method`. During the initialization
@@ -543,20 +541,20 @@ class ComponentCore(object):
 
 
 def copy_attribute_values(source, target, property_names):
-    """This method copies the property values in a given list from a given
+    """Function to copy attributes from a source to a target object.
+
+    This method copies the property values in a given list from a given
     source object to a target source object.
 
-    :title:copy_attribute_values Method
-
     :param src: The source object that is to be inspected for property
-    values.
-    :type src: Object that supports hasattr() method.
+        values.
+    :type src: type
     :param target: The target object that will be modified with values found
-    in src.
-    :type target: Object that supports setattr() method.
+        in src.
+    :type target: type
     :param property_names: List of property names whose values are to be
-    copied from source to object.
-    :type property_names: List or set of string property names.
+        copied from source to object.
+    :type property_names: list, set
 
     The *copy_attribute_values* method will only copy the values from src
     when a property name is found in the src. In cases where a property
