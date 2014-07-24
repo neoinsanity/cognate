@@ -10,8 +10,10 @@ Class
 ComponentCore
 --------------
 
-.. autoclass:: ComponentCore
-    :members:
+.. autoclass:: cognate.component_core.ComponentCore
+  :special-members: __init__
+  :members:
+  :private-members: _invoke_method_on_children
 
 Functions
 ==========
