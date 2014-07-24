@@ -459,8 +459,7 @@ class ComponentCore(object):
         function as named arguments.
         :type kwargs: dict
         :return: None
-        ":except:
-          - **ValueError** - Thrown if no function name is provided.
+        :raises ValueError: Thrown if no function name is provided.
 
         In an effort to explain, assume that a class hierarchy has been defined
         as the image below:
@@ -555,6 +554,10 @@ def copy_attribute_values(source, target, property_names):
     :param property_names: List of property names whose values are to be
         copied from source to object.
     :type property_names: list, set
+    :rtype: None
+    :raises ValueError: If src is None.
+    :raises ValueError: If target is None.
+    :raises ValueError: If property list is not iterable or None.
 
     The *copy_attribute_values* method will only copy the values from src
     when a property name is found in the src. In cases where a property

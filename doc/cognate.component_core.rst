@@ -11,9 +11,14 @@ ComponentCore
 --------------
 
 .. autoclass:: cognate.component_core.ComponentCore
-  :special-members: __init__
-  :members:
-  :private-members: _invoke_method_on_children
+
+  .. automethod:: __init__
+
+  .. automethod:: cognate_options
+
+  .. automethod:: cognate_configure
+
+  .. automethod:: _invoke_method_on_children
 
 Functions
 ==========
