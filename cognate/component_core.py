@@ -57,7 +57,7 @@ By way of example, let's construct a hello world example. First we define
 
 This gives the class hierarchy as in the image below.
 
-.. figure:: images/scaffold_utilization_example_hierarchy.png
+.. figure:: images/cognate_utilization_example_hierarchy.png
 
   ComponentCore Example Hierarchy
 
@@ -65,7 +65,7 @@ The essence of how *ComponentCore* performs it's operations is via the use of
 :mod:`cognate.attribute_helper` module to derive configuration of service stack.
 The basic call sequence is depicted in the image below.
 
-.. image:: images/scaffold_utilization_example_sequence.png
+.. image:: images/cognate_utilization_example_sequence.png
 
 :meth:`cognate.ComponentCore.cognate_options` and
 :meth:`cognate.ComponentCore.cognate_configure` methods via the use of the
@@ -464,7 +464,7 @@ class ComponentCore(object):
         In an effort to explain, assume that a class hierarchy has been defined
         as the image below:
 
-        .. image:: images/invoke_method_on_bases_class_hierarchy.png
+        .. image:: images/invoke_method_on_children_class_hierarchy.png
 
         *AttributeHelper._invoke_method_on_children* will traverse the class hierarchy
         invoking target method *the_func* on each base class. This is different
@@ -472,7 +472,7 @@ class ComponentCore(object):
         of the method defined in the class hierarchy, which would be Child3
         .the_func.
 
-        .. image:: images/invoke_method_on_bases.png
+        .. image:: images/invoke_method_on_children.png
 
         .. note:: Mind the flow of invocation on the class hierarchy.
 
