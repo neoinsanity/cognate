@@ -66,7 +66,12 @@ class ComponentCore(object):
         'error': logging.ERROR,
     }
 
-    def __init__(self, argv):
+    def __init__(self,
+                 argv=None,
+                 log_level='error',
+                 log_path=None,
+                 app_name=None,
+                 verbose=False):
         """ Initializes the ComponentCore support infrastructure.
 
         :param argv: An array of arguments of the form
@@ -111,15 +116,19 @@ class ComponentCore(object):
         """
         # Current log level, set to logging.DEBUG, INFO, WARNING, OR ERROR at
         # runtime.
-        self.log_level = 'error'
+        self.log_level = log_level
         # The path to the log file, if one is set.
-        self.log_path = None
+        self.log_path = log_path
         # The name of the application. Overridden by '--app_name' option.
-        self.app_name = self.__class__.__name__
+        if app_name is None:
+            self.app_name = self.__class__.__name__
+        else:
+            self.app_name = app_name
+
         # Set to true if the '--app-name' is utilized
         self.app_name_set = False
         # Set to true if '--verbose' option flag is utilized
-        self.verbose = False
+        self.verbose = verbose
 
         # : The log attribute to use for logging message
         self.log = None
@@ -295,7 +304,7 @@ class ComponentCore(object):
         self.log.info('... Component configuration complete ...')
         self.log.info('... configuration: %s', args)
 
-    def _invoke_method_on_children(self, func_name, *args, **kwargs):
+    def _invoke_method_on_children(self, func_name=None, *args, **kwargs):
         """This helper method will walk the primary base class hierarchy to
         invoke a method if it exists for a given child base class.
 
