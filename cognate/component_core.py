@@ -78,6 +78,18 @@ class ComponentCore(object):
                      ['--verbose', '--name', 'my_name', ...] or an argument
                      string of the form '--verboxe --name my_name'.
         :type argv: str, list<str>
+        :param log_level: The log level setting. The options for leg_level are:
+            debug, info, warn, error. The default is error.
+        :type log_level: str
+        :param log_path: 'Set the path for log output. The default file created
+            is "<log_path>/<app_name>.log". If the path ends with a ".log"
+            extension, then the path be a target file.'
+        :type log_path: str
+        :param app_name: This will set the name for the current instance.
+            This will be reflected in the log output.'
+        :type app_name: str
+        :param verbose: Enable verbose log output to console. Defaults to False.
+        :type verbose: bool
         :return: `ComponentCore` child instance
 
         A default ComponentCore will assume the name of the instantiating
@@ -155,8 +167,7 @@ class ComponentCore(object):
                                 default=self.app_name,
                                 help='This will set the name for the current '
                                      'instance. This will be reflected in the '
-                                     'log '
-                                     'output.')
+                                     'log output.')
         arg_parser.add_argument('--log_level',
                                 default=self.log_level,
                                 choices=['debug', 'info', 'warn', 'error'],
@@ -165,10 +176,9 @@ class ComponentCore(object):
                                 default=self.log_path,
                                 help='Set the path for log output. The default '
                                      'file created is "<log_path>/<app_name>'
-                                     '.log"'
-                                     '. If the path ends with a ".log" '
-                                     'extension,'
-                                     ' then the path be a target file.')
+                                     '.log". If the path ends with a ".log" '
+                                     'extension, then the path be a target '
+                                     'file.')
         arg_parser.add_argument('--verbose',
                                 action='store_true',
                                 default=self.verbose,
