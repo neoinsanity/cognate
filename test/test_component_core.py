@@ -74,19 +74,19 @@ class TestComponentCoreArgsPassing(CognateTestCase):
 
         simplest = Simplest(argv=None)
         self.assertIsNotNone(simplest)
-        self.assertEqual(simplest.app_name, 'Simplest')
-        self.assertEqual(simplest.app_name_set, False)
+        self.assertEqual(simplest.service_name, 'Simplest')
+        self.assertEqual(simplest.service_name_set, False)
         self.assertIsNotNone(simplest.log)
         self.assertEqual(simplest.log_level, ERROR)
         self.assertIsNone(simplest.log_path)
         self.assertEqual(simplest.verbose, False)
 
-        argv = ('--app_name Dog --verbose --log_level info --log_path %s' %
+        argv = ('--service_name Dog --verbose --log_level info --log_path %s' %
                 TEST_OUT)
         simplest = Simplest(argv=argv)
         self.assertIsNotNone(simplest)
-        self.assertEqual(simplest.app_name, 'Dog')
-        self.assertEqual(simplest.app_name_set, True)
+        self.assertEqual(simplest.service_name, 'Dog')
+        self.assertEqual(simplest.service_name_set, True)
         self.assertIsNotNone(simplest.log)
         self.assertEqual(simplest.log_level, INFO)
         self.assertEqual(simplest.log_path, './TEST_OUT/')
@@ -173,22 +173,22 @@ class TestComponentCoreLogSetup(CognateTestCase):
         self.assertEqual(component_core.log_path, 'TEST_OUT')
         self.assertEqual(component_core.log_level, INFO)
 
-    def test_app_name_file_logging(self):
-        """Test overriding file name based on setting app_name."""
+    def test_service_name_file_logging(self):
+        """Test overriding file name based on setting service_name."""
         # The target path to the expected file created by component_core
         log_path = path.join(TEST_OUT, 'Dude.log')
         if path.exists(log_path):
             remove(log_path)
 
         # create the test subject
-        argv = '--app_name Dude --log_level debug --log_path TEST_OUT'
+        argv = '--service_name Dude --log_level debug --log_path TEST_OUT'
         component_core = ComponentCore(argv=argv)
 
         # test to make sure that log file is generated
         self.assertTrue(path.exists(log_path))
 
         # test to make sure component_core internal state is correct
-        self.assertEqual(component_core.app_name, 'Dude')
+        self.assertEqual(component_core.service_name, 'Dude')
         self.assertEqual(component_core.log_path, 'TEST_OUT')
         self.assertEqual(component_core.log_level, DEBUG)
 
@@ -207,6 +207,6 @@ class TestComponentCoreLogSetup(CognateTestCase):
         self.assertTrue(path.exists(log_path))
 
         # test to make sure component_core internal state is correct
-        self.assertEqual(component_core.app_name, 'ComponentCore')
+        self.assertEqual(component_core.service_name, 'ComponentCore')
         self.assertEqual('./' + component_core.log_path, log_path)
         self.assertEqual(component_core.log_level, WARNING)

@@ -4,63 +4,88 @@
 Getting Started with Cognate
 =============================
 
-For details, be sure to checkout the features described under the
-:ref:`component_core_class_utilization` section.:
+.. contents::
 
-- :ref:`configuration_management_and_initialization`
+Welcome to **Cognate**, a package designed with making it easy to create
+component services. **Cognate** strives to ease the burden of configuration
+management and logging configuration, by providing the infrastructure.
+**Cognate** fosters component service architectures by making the design,
+implementation, and testing of services less of a chore.
 
-- :ref:`logging_and_log_configuration`
+To get up and running the following topics will be covered:
 
-- :ref:`dynamic_service_naming`
+    - :ref:`configuration_management_and_initialization`
+
+    - :ref:`logging_and_log_configuration`
+
+    - :ref:`dynamic_service_naming`
 
 The intent is for *ComponentCore* to make your life easier in the implementation
 of stand alone applications. The hope is to take some common service
 requirements and make the expression of those requirements trivial.
 
-.. _component_core_class_utilization:
+To begin, an example implementation of
 
-ComponentCore Class Utilization
-================================
+.. _hola_mundo_class:
 
-*ComponentCore* operates by accepting an *argv* passed in the
-:meth:'^cognate.ComponentCore.__init__ method`. During the initialization
-of instance based on *ComponentCore* derived class, *ComponentCore* will drive
-configuration by applying *argv* options to instance **self**.
-
-By way of example, let's construct a hello world example. First we define
-*HelloWorld* class as below:
-
-.. _hello_world_class:
-
-HelloWorld Class
------------------
+Hola Mundo Example Class
+=========================
 
 .. code-block:: python
-  :linenos:
+    :linenos:
 
-  from cognate import ComponentCore
-  import sys
+    import sys
+    from cognate.component_core import ComponentCore
 
-  class HelloWorld(ComponentCore):
-    def __init__(self, **kwargs):
-      self.response = 'Hello World'
+    class HolaMundo(ComponentCore):
+        salutation_map = {
+            'Basque': u'Kaixo',
+            'Chinese': u"Nǐ hǎo",
+            'English': u'Hello',
+            'French': u'Bonjour',
+            'German': u'Hallo',
+            'Hindi': u"Namastē",
+            'Japanese': u"Kon'nichiwa",
+            'Spanish': u'Hola',
+        }
 
-      # !!! Very important, Do NOT forget. !!!
-      ComponentCore.__init__(self, **kwargs)
+        lang_choices = salutation_map.keys()
 
-    def configuration_options(self, arg_parser):
-      arg_parser.add_argument('-response', default=self.response)
+        def __init__(self, lang='Spanish', **kwargs):
+            self.lang = lang
 
-    def configure(self, args):
-      if(args.response != 'Hello World':  # is default value
-        self.response += ' You Rascal!'
+            ComponentCore.__init__(self, **kwargs)
 
-    def run(self):
-      print self.response
+        def cognate_options(self, arg_parser):
+            arg_parser.add_argument('-l', '--lang',
+                                    default=self.lang,
+                                    choices=self.lang_choices,
+                                    help='Set the language for the salutation.')
 
-  if __name__ == '__main__':
-    helloWorld = HelloWorld(argv=sys.argv)
-    helloWorld.run
+        def cognate_configure(self, args):
+            if args.lang not in self.lang_choices:
+                msg = '"lang" value of %s not allowed.' % args.lang
+                self.log.error(msg)
+                raise ValueError(msg)
+
+        def greet(self, name='Mundo'):
+            salutation = self.salutation_map[self.lang]
+            greeting = salutation + ' ' + name
+            self.log.debug('Greeting: %s', greeting)
+            return greeting
+
+
+    if __name__ == '__main__':
+        argv = sys.argv
+        service = HolaMundo(argv=argv)
+
+        while (True):
+            name = raw_input('Enter name (No input exits):')
+            if not name:
+                break
+
+            greeting = service.greet(name)
+            print greeting
 
 This gives the class hierarchy as in the image below.
 
@@ -88,7 +113,7 @@ Configuration Management and Initialization
 
 *ComponentCore* helps out with configuration management and initialization of
 runtime services. it does this by creating a configuration loop. Utilizing the
-:ref:`hello_world_class` as an example.
+:ref:`hola_mundo_class` as an example.
 
 .. _command_line_option_construction:
 
@@ -110,7 +135,7 @@ For more detail on this feature, be sure to check out
 .. _logging_and_log_configuration:
 
 Logging and Log Configuration
-------------------------------
+==============================
 
 *ComponentCore* supports console and file output. In addition *ComponentCore*
 supports
@@ -125,7 +150,7 @@ The configuration logging options are:
   :arg: --log_path LOG_PATH
 
     Set the path for log output. The default file created is
-    "<log_path>/<app_name>.log". If the path ends with a ".log"
+    "<log_path>/<service_name>.log". If the path ends with a ".log"
     extension, then the path be a target file.
 
   :arg: --verbose
@@ -142,19 +167,19 @@ For example::
   VentilatorWindmill
 
 The <name> value will be assigned by default to the instance class utilizing
-*ComponentCore*, but will be overridden by the use of the '--app_name <name>'
-option.
-
+*ComponentCore*, but will be overridden by the use of the '--service_name
+<name>' option.
 
 .. _dynamic_service_naming:
 
 Dynamic Service Naming
-------------------------
+=======================
 
 *ComponentCore* provides a mechanism to allow for dynamic naming of
 progenitor class
-service instances. This is achieved through the use of the '--app_name <name>'
-option. When this flag is set *ComponentCore* will set the `self.name`
+service instances. This is achieved through the use of the '--service_name
+<name>'
+option. When this flag is set *ComponentCore* will set the `self.service_name`
 instance to
 the designated value. In addition, *ComponentCore* will set the `self.name_set`
 flag to `True`.
@@ -167,4 +192,4 @@ classes that take advantage of *ComponentCore* dynamic naming.
 
 Child classes of ComponentCore can access the configured service app name
 through
-`self.app_name`.
+`self.service_name`.

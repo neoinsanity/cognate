@@ -46,21 +46,22 @@ With the ``HelloWorld`` component service above, the complete service features
 can be demonstrated with the listing of the service usage. As in::
 
     /cognate > python example/hello_world.py -h
-    usage: hello_world.py [-h] [--app_name APP_NAME]
+    usage: hello_world.py [-h] [--service_name SERVICE_NAME]
                           [--log_level {debug,info,warn,error}]
                           [--log_path LOG_PATH] [--verbose] [--name NAME]
 
     optional arguments:
       -h, --help            show this help message and exit
-      --app_name APP_NAME   This will set the name for the current instance. This
-                            will be reflected in the log output. (default:
-                            HelloWorld)
+      --service_name SERVICE_NAME
+                            This will set the name for the current instance.
+                            This will be reflected in the log output.
+                            (default: HelloWorld)
       --log_level {debug,info,warn,error}
                             Set the log level for the log output. (default: error)
       --log_path LOG_PATH   Set the path for log output. The default file created
-                            is "<log_path>/<app_name>.log". If the path ends with
-                            a ".log" extension, then the path be a target file.
-                            (default: None)
+                            is "<log_path>/<service_name>.log". If the path
+                            ends with a ".log" extension, then the path be a
+                            target file. (default: None)
       --verbose             Enable verbose log output to console. Useful for
                             debugging. (default: False)
       --name NAME           Whom will receive the salutation. (default: World)
@@ -76,10 +77,9 @@ as the *verbose* option is *False*.
 To demonstrate *HelloWorld* with output, run::
 
     /cognate > python example/hello_world.py  --verbose --log_level info
-    MainThread:2014-08-01 12:04:27,900 -HelloWorld - INFO -- Logging configured for: HelloWorld
-    MainThread:2014-08-01 12:04:27,900 -HelloWorld - INFO -- ... Component configuration complete ...
-    MainThread:2014-08-01 12:04:27,900 -HelloWorld - INFO -- ... configuration: Namespace(app_name='HelloWorld', log_level='info', log_path=None, name='World', verbose=True)
-    MainThread:2014-08-01 12:04:27,900 -HelloWorld - INFO -- Hello World
+    MainThread:2014-08-02 13:30:57,988 -HelloWorld - INFO -- Logging configured for: HelloWorld
+    MainThread:2014-08-02 13:30:57,988 -HelloWorld - INFO -- Component service configuration complete with argv: Namespace(log_level='info', log_path=None, name='World', service_name='HelloWorld', verbose=True)
+    MainThread:2014-08-02 13:30:57,989 -HelloWorld - INFO -- Hello World
 
 Note the setting of the `verbose` flag to enable logging output to console.
 In addition, the `log_level` flag is set to info, to enable logging output of
@@ -92,10 +92,9 @@ net effect is to allow configuration of the service via command line args,
 as in::
 
     /cognate > python example/hello_world.py  --verbose --log_level info --name Dog
-    MainThread:2014-08-01 12:04:30,345 -HelloWorld - INFO -- Logging configured for: HelloWorld
-    MainThread:2014-08-01 12:04:30,345 -HelloWorld - INFO -- ... Component configuration complete ...
-    MainThread:2014-08-01 12:04:30,345 -HelloWorld - INFO -- ... configuration: Namespace(app_name='HelloWorld', log_level='info', log_path=None, name='Dog', verbose=True)
-    MainThread:2014-08-01 12:04:30,345 -HelloWorld - INFO -- Hello Dog
+    MainThread:2014-08-02 13:30:16,022 -HelloWorld - INFO -- Logging configured for: HelloWorld
+    MainThread:2014-08-02 13:30:16,022 -HelloWorld - INFO -- Component service configuration complete with argv: Namespace(log_level='info', log_path=None, name='Dog', service_name='HelloWorld', verbose=True)
+    MainThread:2014-08-02 13:30:16,022 -HelloWorld - INFO -- Hello Dog
 
 A benefit to defining component services with *ComponentCore* is the ability
 to  utilize the component as an instance. For example::
@@ -103,13 +102,13 @@ to  utilize the component as an instance. For example::
     from hello_world import HelloWorld
 
     # Configure with argv string
-    argv = '--verbose --log_level info --app_name CatWorld --name Cat'
+    argv = '--verbose --log_level info --service_name CatWorld --name Cat'
     hello_cat = HelloWorld(argv=argv)
 
     # Configure with parameters
     hello_dog = HelloWorld(verbose=True,
                            log_level='info',
-                           app_name='DogWorld',
+                           service_name='DogWorld',
                            name='Dog')
 
     hello_cat.run()
@@ -121,14 +120,12 @@ instantiated via direct parameter passing. The script above would give output
 such as::
 
     /cognate > python example/hello_script.py
-    MainThread:2014-08-01 16:32:07,481 -CatWorld - INFO -- Logging configured for: CatWorld
-    MainThread:2014-08-01 16:32:07,481 -CatWorld - INFO -- ... Component configuration complete ...
-    MainThread:2014-08-01 16:32:07,481 -CatWorld - INFO -- ... configuration: Namespace(app_name='CatWorld', log_level='info', log_path=None, name='Cat', verbose=True)
-    MainThread:2014-08-01 16:32:07,482 -DogWorld - INFO -- Logging configured for: DogWorld
-    MainThread:2014-08-01 16:32:07,482 -DogWorld - INFO -- ... Component configuration complete ...
-    MainThread:2014-08-01 16:32:07,482 -DogWorld - INFO -- ... configuration: Namespace(app_name='DogWorld', log_level='info', log_path=None, name='Dog', verbose=True)
-    MainThread:2014-08-01 16:32:07,482 -CatWorld - INFO -- Hello Cat
-    MainThread:2014-08-01 16:32:07,482 -DogWorld - INFO -- Hello Dog
+    MainThread:2014-08-02 13:32:11,237 -CatWorld - INFO -- Logging configured for: CatWorld
+    MainThread:2014-08-02 13:32:11,237 -CatWorld - INFO -- Component service configuration complete with argv: Namespace(log_level='info', log_path=None, name='Cat', service_name='CatWorld', verbose=True)
+    MainThread:2014-08-02 13:32:11,237 -DogWorld - INFO -- Logging configured for: DogWorld
+    MainThread:2014-08-02 13:32:11,237 -DogWorld - INFO -- Component service configuration complete with argv: Namespace(log_level='info', log_path=None, name='Dog', service_name='DogWorld', verbose=True)
+    MainThread:2014-08-02 13:32:11,238 -CatWorld - INFO -- Hello Cat
+    MainThread:2014-08-02 13:32:11,238 -DogWorld - INFO -- Hello Dog
 
 The ability to treat component services as isolated code with well defined
 interfaces make reuse of components much easier, as well as usage in

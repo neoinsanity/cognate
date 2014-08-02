@@ -15,19 +15,20 @@ class ComponentCore(object):
 
     *ComponentCore* supports the following command line options::
 
-        usage:  [-h] [--app_name APP_NAME] [--log_level {debug,info,warn,error}]
+        usage:  [-h] [--service_name SERVICE_NAME] [--log_level {debug,info,warn,error}]
                 [--log_path LOG_PATH] [--verbose]
 
         optional arguments:
           -h, --help            show this help message and exit
-          --app_name APP_NAME   This will set the name for the current instance.
+          --service_name SERVICE_NAME
+                                This will set the name for the current instance.
                                 This will be reflected in the log output.
                                 (default:ComponentCore)
           --log_level {debug,info,warn,error}
                                 Set the log level for the log output.
                                 (default: error)
           --log_path LOG_PATH   Set the path for log output. The default file
-                                created is "<log_path>/<app_name>.log". If
+                                created is "<log_path>/<service_name>.log". If
                                 the path ends with a ".log" extension,
                                 then the path be a target file.
                                 (default: None)
@@ -70,7 +71,7 @@ class ComponentCore(object):
                  argv=None,
                  log_level='error',
                  log_path=None,
-                 app_name=None,
+                 service_name=None,
                  verbose=False):
         """ Initializes the ComponentCore support infrastructure.
 
@@ -82,12 +83,12 @@ class ComponentCore(object):
             debug, info, warn, error. The default is error.
         :type log_level: str
         :param log_path: 'Set the path for log output. The default file created
-            is "<log_path>/<app_name>.log". If the path ends with a ".log"
+            is "<log_path>/<service_name>.log". If the path ends with a ".log"
             extension, then the path be a target file.'
         :type log_path: str
-        :param app_name: This will set the name for the current instance.
+        :param service_name: This will set the name for the current instance.
             This will be reflected in the log output.'
-        :type app_name: str
+        :type service_name: str
         :param verbose: Enable verbose log output to console. Defaults to False.
         :type verbose: bool
         :return: `ComponentCore` child instance
@@ -100,8 +101,8 @@ class ComponentCore(object):
         ...     def __init__(self, **kwargs):
         ...         ComponentCore.__init__(self, **kwargs)
         >>> foo = Foo()
-        >>> assert foo.app_name == 'Foo'
-        >>> assert foo.app_name_set == False
+        >>> assert foo.service_name == 'Foo'
+        >>> assert foo.service_name_set == False
         >>> assert foo.log_level == logging.ERROR
         >>> assert foo.log_path == None
         >>> assert foo.verbose == False
@@ -109,9 +110,9 @@ class ComponentCore(object):
         A ComponentCore can be configured utilizing the an array style
         argument list.
 
-        >>> bar = ComponentCore(['--app_name','Bar','--log_level','debug'])
-        >>> assert bar.app_name == 'Bar'
-        >>> assert bar.app_name_set == True
+        >>> bar = ComponentCore(['--service_name','Bar','--log_level','debug'])
+        >>> assert bar.service_name == 'Bar'
+        >>> assert bar.service_name_set == True
         >>> assert bar.log_level == logging.DEBUG
         >>> assert bar.log_path == None
         >>> assert bar.verbose == False
@@ -119,10 +120,10 @@ class ComponentCore(object):
         In addition, the ComponentCore can be configured from a string.
 
         >>> dude = ComponentCore(
-        ...   '--app_name Dude --log_level info')
+        ...   '--service_name Dude --log_level info')
         >>> assert dude
-        >>> assert dude.app_name == 'Dude'
-        >>> assert dude.app_name_set == True
+        >>> assert dude.service_name == 'Dude'
+        >>> assert dude.service_name_set == True
         >>> assert dude.log_level == logging.INFO
         >>> assert dude.verbose == False
         """
@@ -131,14 +132,14 @@ class ComponentCore(object):
         self.log_level = log_level
         # The path to the log file, if one is set.
         self.log_path = log_path
-        # The name of the application. Overridden by '--app_name' option.
-        if app_name is None:
-            self.app_name = self.__class__.__name__
-        else:
-            self.app_name = app_name
-
         # Set to true if the '--app-name' is utilized
-        self.app_name_set = False
+        self.service_name_set = False
+        # The name of the application. Overridden by '--service_name' option.
+        if service_name is None:
+            self.service_name = self.__class__.__name__
+        else:
+            self.service_name = service_name
+            self.service_name_set = True
         # Set to true if '--verbose' option flag is utilized
         self.verbose = verbose
 
@@ -149,8 +150,9 @@ class ComponentCore(object):
             argv = shlex.split(argv)  # convert string to args style list
 
         # determine if a name has been set for the instantiating class instance
-        if argv and '--app_name' in argv:
-            self.app_name_set = True
+        # from command line
+        if argv and '--service_name' in argv:
+            self.service_name_set = True
 
         self._execute_configuration(argv)
 
@@ -163,8 +165,8 @@ class ComponentCore(object):
         :type arg_parser: argparse.ArgumentParser
         :return: None
         """
-        arg_parser.add_argument('--app_name',
-                                default=self.app_name,
+        arg_parser.add_argument('--service_name',
+                                default=self.service_name,
                                 help='This will set the name for the current '
                                      'instance. This will be reflected in the '
                                      'log output.')
@@ -175,7 +177,7 @@ class ComponentCore(object):
         arg_parser.add_argument('--log_path',
                                 default=self.log_path,
                                 help='Set the path for log output. The default '
-                                     'file created is "<log_path>/<app_name>'
+                                     'file created is "<log_path>/<service_name>'
                                      '.log". If the path ends with a ".log" '
                                      'extension, then the path be a target '
                                      'file.')
@@ -226,14 +228,14 @@ class ComponentCore(object):
                 '%(pathname)s:%(lineno)d -- %(message)s')
 
         # assign the windmill instance logger
-        self.log = logging.getLogger(self.app_name)
+        self.log = logging.getLogger(self.service_name)
         self.log.setLevel(self.log_level)
 
         # cognate_configure log file output if necessary
         if self.log_path:
             file_path = self.log_path
             if not self.log_path.endswith('.log'):
-                file_path = os.path.join(self.log_path, self.app_name + '.log')
+                file_path = os.path.join(self.log_path, self.service_name + '.log')
 
             file_handler = WatchedFileHandler(file_path)
             file_handler.setLevel(self.log_level)
@@ -248,7 +250,7 @@ class ComponentCore(object):
             console_handler.setFormatter(formatter)
             self.log.addHandler(console_handler)
 
-        self.log.info('Logging configured for: %s', self.app_name)
+        self.log.info('Logging configured for: %s', self.service_name)
 
 
     def _execute_configuration(self, argv):
@@ -275,17 +277,16 @@ class ComponentCore(object):
         if argv is None:
             argv = []  # just create an empty arg list
 
-        arg_parser = argparse.ArgumentParser(
-            formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-
-        # if this is the command line args directly, then we need to remove the
-        # first argument which is the python execution command. The first
-        # argument is the name of the executing python script.
+        # if this is the command line args directly passed, then we need to
+        # remove the first argument which is the python execution command.
+        # The first argument is the name of the executing python script.
         if len(argv) > 0 and argv[0].endswith('.py'):
             argv.pop(0)
 
         # execute configuration_option method on all child classes of
         # ComponentCore to gather all of the runtime options.
+        arg_parser = argparse.ArgumentParser(
+            formatter_class=argparse.ArgumentDefaultsHelpFormatter)
         self._invoke_method_on_children(func_name='cognate_options',
                                         arg_parser=arg_parser)
 
@@ -311,8 +312,8 @@ class ComponentCore(object):
         self._invoke_method_on_children(func_name='cognate_configure',
                                         args=args)
 
-        self.log.info('... Component configuration complete ...')
-        self.log.info('... configuration: %s', args)
+        self.log.info(
+            'Component service configuration complete with argv: %s', args)
 
     def _invoke_method_on_children(self, func_name=None, *args, **kwargs):
         """This helper method will walk the primary base class hierarchy to

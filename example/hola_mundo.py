@@ -23,10 +23,16 @@ class HolaMundo(ComponentCore):
         ComponentCore.__init__(self, **kwargs)
 
     def cognate_options(self, arg_parser):
-        arg_parser.add_argument('-l',
+        arg_parser.add_argument('-l', '--lang',
                                 default=self.lang,
                                 choices=self.lang_choices,
                                 help='Set the language for the salutation.')
+
+    def cognate_configure(self, args):
+        if args.lang not in self.lang_choices:
+            msg = '"lang" value of %s not allowed.' % args.lang
+            self.log.error(msg)
+            raise ValueError(msg)
 
     def greet(self, name='Mundo'):
         salutation = self.salutation_map[self.lang]
@@ -40,7 +46,7 @@ if __name__ == '__main__':
     service = HolaMundo(argv=argv)
 
     while (True):
-        name = raw_input('Enter name (No input quites):')
+        name = raw_input('Enter name (No input exits):')
         if not name:
             break
 
