@@ -31,6 +31,10 @@ By way of example, let's construct a hello world example. First we define
 *HelloWorld* class as below:
 
 .. _hello_world_class:
+
+HelloWorld Class
+-----------------
+
 .. code-block:: python
   :linenos:
 
@@ -70,11 +74,12 @@ The basic call sequence is depicted in the image below.
 
 .. image:: images/cognate_utilization_example_sequence.png
 
-:meth:`cognate.ComponentCore.cognate_options` and
-:meth:`cognate.ComponentCore.cognate_configure` methods via the use of the
-:meth:`cognate.ComponentCore.__invoke_method_on_children__'. This effectively
-calls the *cognate_options* and *cognate_configure* methods on all primary base
-classes that derive from *ComponentCore*.
+:meth:`cognate.component_core.ComponentCore.cognate_options` and
+:meth:`cognate.component_core.ComponentCore.cognate_configure` methods via the
+use of the
+:meth:`cognate.component_core.ComponentCore.__invoke_method_on_children__`.
+This effectively calls the *cognate_options* and *cognate_configure* methods
+on all primary base classes that derive from *ComponentCore*.
 
 .. _configuration_management_and_initialization:
 
