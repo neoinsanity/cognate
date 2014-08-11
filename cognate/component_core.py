@@ -6,7 +6,7 @@ import logging
 from logging.handlers import WatchedFileHandler
 import os
 import shlex
-
+import sys
 
 class ComponentCore(object):
     """The *ComponentCore* class provides configuration services for components.
@@ -15,7 +15,8 @@ class ComponentCore(object):
 
     *ComponentCore* supports the following command line options::
 
-        usage:  [-h] [--service_name SERVICE_NAME] [--log_level {debug,info,warn,error}]
+        usage:  [-h] [--service_name SERVICE_NAME]
+                [--log_level {debug,info,warn,error}]
                 [--log_path LOG_PATH] [--verbose]
 
         optional arguments:
@@ -177,10 +178,10 @@ class ComponentCore(object):
         arg_parser.add_argument('--log_path',
                                 default=self.log_path,
                                 help='Set the path for log output. The default '
-                                     'file created is "<log_path>/<service_name>'
-                                     '.log". If the path ends with a ".log" '
-                                     'extension, then the path be a target '
-                                     'file.')
+                                     'file created is '
+                                     '"<log_path>/<service_name>.log". If the '
+                                     'path ends with a ".log" extension, then '
+                                     'the path be a target file.')
         arg_parser.add_argument('--verbose',
                                 action='store_true',
                                 default=self.verbose,
@@ -235,7 +236,8 @@ class ComponentCore(object):
         if self.log_path:
             file_path = self.log_path
             if not self.log_path.endswith('.log'):
-                file_path = os.path.join(self.log_path, self.service_name + '.log')
+                file_path = os.path.join(self.log_path,
+                                         self.service_name + '.log')
 
             file_handler = WatchedFileHandler(file_path)
             file_handler.setLevel(self.log_level)
@@ -277,7 +279,11 @@ class ComponentCore(object):
         if argv is None:
             argv = []  # just create an empty arg list
 
-        # if this is the command line args directly passed, then we need to
+        # ensure that sys.argv is not modified in case it was passed.
+        if argv is sys.argv:
+            argv = list(sys.argv)
+
+        # If this is the command line args directly passed, then we need to
         # remove the first argument which is the python execution command.
         # The first argument is the name of the executing python script.
         if len(argv) > 0 and argv[0].endswith('.py'):

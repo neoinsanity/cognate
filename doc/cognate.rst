@@ -20,16 +20,36 @@ To get up and running the following topics will be covered:
 
     - :ref:`dynamic_service_naming`
 
-The intent is for *ComponentCore* to make your life easier in the implementation
+The intent is for *ComponentCore* to make life easier in the implementation
 of stand alone applications. The hope is to take some common service
 requirements and make the expression of those requirements trivial.
 
-To begin, an example implementation of
+This guide will demonstrate utilizing the *ComponentCore* class to implement
+a service component in :ref:`hola_mundo_service`. The example service will be
+used to explain the configuration and logging features of *Cognate*.
 
-.. _hola_mundo_class:
+.. _hola_mundo_service:
 
-Hola Mundo Example Class
-=========================
+Hola Mundo Demo Service
+========================
+
+The *HolaMundo* example is a service that will print out a salutation,
+such as "Hola Mundo". *HolaMundo* will allow for configuring the language
+translations of 'Hola' as the exclamation of the salutation. Language
+configuration should be per *HolaMundo* service instance. The default language
+setting will be Spanish. *HolaMundo* should allow for dynamically setting of
+the target of the salutation, with the default being `Mundo`.
+
+Another requirement for the *HolaMundo* service, is that it should be easy to
+execute as a runnable service, and also be usable as a component to create
+more complex services.
+
+The *HolaMundo* service is defined by the ``HolaMundo`` class,
+which is listed below. The source for ``HolaMundo`` can also be found at
+*'example/hola_mundo.py'* of the `Cognate source`_ afterwards explanation of
+key features will be covered.
+
+.. _Cognate source: https://github.com/neoinsanity/cognate/tree/master
 
 .. code-block:: python
     :linenos:
@@ -63,12 +83,14 @@ Hola Mundo Example Class
                                     help='Set the language for the salutation.')
 
         def cognate_configure(self, args):
-            if args.lang not in self.lang_choices:
+            if self.lang not in self.lang_choices:
                 msg = '"lang" value of %s not allowed.' % args.lang
                 self.log.error(msg)
                 raise ValueError(msg)
 
         def greet(self, name='Mundo'):
+            if not name:
+                name = 'Mundo'
             salutation = self.salutation_map[self.lang]
             greeting = salutation + ' ' + name
             self.log.debug('Greeting: %s', greeting)
@@ -80,12 +102,27 @@ Hola Mundo Example Class
         service = HolaMundo(argv=argv)
 
         while (True):
-            name = raw_input('Enter name (No input exits):')
-            if not name:
+            name = raw_input('Enter name ("quit" exits):')
+            if name == 'quit':
                 break
 
             greeting = service.greet(name)
             print greeting
+
+The ``HolaMundo`` class ``lang`` attribute is used to control the language
+option of the service. The ``salutation_map`` and ``lang_choices`` class
+attributes manage the languages supported. The ``greet`` method will return a
+greeting with the configured language exclamation and the target name.
+
+Running the ``hola_mundo`` package will
+
+The *HolaMundo* service can be executed with the command
+``python example/hola_mundo``
+
+.. _configuration_management_and_initialization:
+
+Configuration Management and Initialization
+=============================================
 
 This gives the class hierarchy as in the image below.
 
@@ -106,14 +143,9 @@ use of the
 This effectively calls the *cognate_options* and *cognate_configure* methods
 on all primary base classes that derive from *ComponentCore*.
 
-.. _configuration_management_and_initialization:
-
-Configuration Management and Initialization
-=============================================
-
 *ComponentCore* helps out with configuration management and initialization of
 runtime services. it does this by creating a configuration loop. Utilizing the
-:ref:`hola_mundo_class` as an example.
+:ref:`hola_mundo_service` as an example.
 
 .. _command_line_option_construction:
 
