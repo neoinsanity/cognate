@@ -293,7 +293,7 @@ class ComponentCore(object):
         # ComponentCore to gather all of the runtime options.
         arg_parser = argparse.ArgumentParser(
             formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-        self._invoke_method_on_children(func_name='cognate_options',
+        self.invoke_method_on_children(func_name='cognate_options',
                                         arg_parser=arg_parser)
 
         # resolve configuration options necessary for runtime execution
@@ -315,13 +315,13 @@ class ComponentCore(object):
 
         # now execute the configuration call on each base class
         # in the class inheritance chain
-        self._invoke_method_on_children(func_name='cognate_configure',
+        self.invoke_method_on_children(func_name='cognate_configure',
                                         args=args)
 
         self.log.info(
             'Component service configuration complete with argv: %s', args)
 
-    def _invoke_method_on_children(self, func_name=None, *args, **kwargs):
+    def invoke_method_on_children(self, func_name=None, *args, **kwargs):
         """This helper method will walk the primary base class hierarchy to
         invoke a method if it exists for a given child base class.
 
@@ -340,7 +340,7 @@ class ComponentCore(object):
 
         .. image:: images/invoke_method_on_children_class_hierarchy.png
 
-        *_invoke_method_on_children* will traverse the class hierarchy
+        *invoke_method_on_children* will traverse the class hierarchy
         invoking target method *the_func* on each child class. This is different
         from normal python resolution, which will only invoke the first instance
         of the method defined in the class hierarchy, which would be
@@ -361,19 +361,19 @@ class ComponentCore(object):
         .. warning:: Beware mistyped method names.
 
         If a method name is supplied for a method that does not exist,
-        the *_invoke_method_on_children* will raise no exception.
+        the *invoke_method_on_children* will raise no exception.
 
         >>> foo = ComponentCore()
-        >>> foo._invoke_method_on_children()
+        >>> foo.invoke_method_on_children()
         Traceback (most recent call last):
         ...
-        ValueError: _invoke_method_on_children:func_name parameter required
+        ValueError: invoke_method_on_children:func_name parameter required
         >>> # Now correctly
-        >>> foo._invoke_method_on_children(func_name='the_func')
+        >>> foo.invoke_method_on_children(func_name='the_func')
 
         In actual usage, declare a *ComponentCore* derived child class with a
         target function. It is possible to have more than one ancestor class
-        with the target function defined. The *_invoke_method_on_children* will
+        with the target function defined. The *invoke_method_on_children* will
         execute the function on each of the child classes.
 
         >>> class Bar(ComponentCore):
@@ -386,16 +386,16 @@ class ComponentCore(object):
 
         >>> # Create a keyword argument dictionary or argument list
         >>> kwargs = {'a_key':'a_value'}
-        >>> bar._invoke_method_on_children(func_name='the_func', **kwargs)
+        >>> bar.invoke_method_on_children(func_name='the_func', **kwargs)
         a_key: a_value
         >>> # Simply pass the argument keyword and value
-        >>> bar._invoke_method_on_children(
+        >>> bar.invoke_method_on_children(
         ...     func_name='the_func', a_key='value')
         a_key: value
         """
         if func_name is None:
             raise ValueError(
-                '_invoke_method_on_children:func_name parameter required')
+                'invoke_method_on_children:func_name parameter required')
 
         class_stack = []
         base = self.__class__  # The root class in the hierarchy.

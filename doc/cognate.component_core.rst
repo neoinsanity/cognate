@@ -18,7 +18,7 @@ ComponentCore
 
   .. automethod:: cognate_configure
 
-  .. automethod:: _invoke_method_on_children
+  .. automethod:: invoke_method_on_children
 
 Functions
 ==========
