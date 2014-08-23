@@ -210,3 +210,9 @@ class TestComponentCoreLogSetup(CognateTestCase):
         self.assertEqual(component_core.service_name, 'ComponentCore')
         self.assertEqual('./' + component_core.log_path, log_path)
         self.assertEqual(component_core.log_level, WARNING)
+
+    def test_string_configuration_with_filename(self):
+        """Ensure correct parsing of arguments with script filename arg."""
+        argv = '/Users/neoinsanity/samples/samples/my-argparser.py --verbose'
+        foo = ComponentCore(argv=argv)
+        assert foo.verbose == True

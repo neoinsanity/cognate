@@ -8,6 +8,7 @@ import os
 import shlex
 import sys
 
+
 class ComponentCore(object):
     """The *ComponentCore* class provides configuration services for components.
 
@@ -68,8 +69,15 @@ class ComponentCore(object):
         'error': logging.ERROR,
     }
 
+    LOG_FORMATTER = logging.Formatter(
+        '%(threadName)s:%(asctime)s -%(name)s - %(levelname)s -- %(message)s')
+    DEBUG_LOG_FORMATTER = logging.Formatter(
+        '%(threadName)s:%(asctime)s -%(name)s - %(levelname)s -- '
+        '%(pathname)s:%(lineno)d -- %(message)s')
+
     def __init__(self,
                  argv=None,
+                 log=None,
                  log_level='error',
                  log_path=None,
                  service_name=None,
@@ -204,7 +212,14 @@ class ComponentCore(object):
         """
         assert args
 
-        self._configure_logging()
+        if self.log:
+            self.log_level = self.log.level
+            self.verbose = False
+            for h in self.log.handlers:
+                self.verbose = True if isinstance(
+                    h, logging.StreamHandler) else self.verbose
+        else:
+            self._configure_logging()
 
     def _configure_logging(self):
         """This method configures the self.log entity for log handling.
@@ -219,15 +234,6 @@ class ComponentCore(object):
         self.log_level = ComponentCore.LOG_LEVEL_MAP.get(self.log_level,
                                                          logging.ERROR)
 
-        # if log level is debug, then we add source information to log output
-        formatter = logging.Formatter(
-            '%(threadName)s:%(asctime)s -%(name)s - %(levelname)s -- %('
-            'message)s')
-        if self.log_level == logging.DEBUG:
-            formatter = logging.Formatter(
-                '%(threadName)s:%(asctime)s -%(name)s - %(levelname)s -- '
-                '%(pathname)s:%(lineno)d -- %(message)s')
-
         # assign the windmill instance logger
         self.log = logging.getLogger(self.service_name)
         self.log.setLevel(self.log_level)
@@ -241,7 +247,7 @@ class ComponentCore(object):
 
             file_handler = WatchedFileHandler(file_path)
             file_handler.setLevel(self.log_level)
-            file_handler.setFormatter(formatter)
+            file_handler.setFormatter(self._log_formatter())
             self.log.addHandler(file_handler)
 
         # if we are in verbose mode, the we send log output to console
@@ -249,7 +255,7 @@ class ComponentCore(object):
             # add the console logger for verbose mode
             console_handler = logging.StreamHandler()
             console_handler.setLevel(self.log_level)
-            console_handler.setFormatter(formatter)
+            console_handler.setFormatter(self._log_formatter())
             self.log.addHandler(console_handler)
 
         self.log.info('Logging configured for: %s', self.service_name)
@@ -266,15 +272,6 @@ class ComponentCore(object):
         *configuration_option* and *cognate_configure* methods on progenitor
         classes of *ComponentCore*. In addition it takes the resolved
         arguments from *argparse.ArgumentParser* and assigns them to `self`.
-
-        :Example Usage:
-
-        >>> foo = ComponentCore()
-        >>> argv = [
-        ... '/Users/neoinsanity/samples/samples/my-argparse/simple_argparse.py',
-        ... '--verbose']
-        >>> foo._execute_configuration(argv=argv)
-        >>> assert foo.verbose == True
         """
         if argv is None:
             argv = []  # just create an empty arg list
@@ -294,7 +291,7 @@ class ComponentCore(object):
         arg_parser = argparse.ArgumentParser(
             formatter_class=argparse.ArgumentDefaultsHelpFormatter)
         self.invoke_method_on_children(func_name='cognate_options',
-                                        arg_parser=arg_parser)
+                                       arg_parser=arg_parser)
 
         # resolve configuration options necessary for runtime execution
         property_list = []
@@ -316,7 +313,7 @@ class ComponentCore(object):
         # now execute the configuration call on each base class
         # in the class inheritance chain
         self.invoke_method_on_children(func_name='cognate_configure',
-                                        args=args)
+                                       args=args)
 
         self.log.info(
             'Component service configuration complete with argv: %s', args)
@@ -411,6 +408,11 @@ class ComponentCore(object):
                 func(self, *args,
                      **kwargs)  # This is the function getting invoked
 
+    def _log_formatter(self):
+        if self.log_level != 'debug':
+            return self.LOG_FORMATTER
+        else:
+            return self.DEBUG_LOG_FORMATTER
 
 def copy_attribute_values(source, target, property_names):
     """Function to copy attributes from a source to a target object.
