@@ -224,3 +224,5 @@ class TestComponentCoreLogSetup(CognateTestCase):
 
         foo = ComponentCore(log=log)
         self.assertIsNotNone(foo)
+
+        self.assertIs(log, foo.log)
