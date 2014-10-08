@@ -153,7 +153,7 @@ class ComponentCore(object):
         self.verbose = verbose
 
         # : The log attribute to use for logging message
-        self.log = None
+        self.log = log
         # helper to allow using string for configuration
         if argv is not None and isinstance(argv, basestring):
             argv = shlex.split(argv)  # convert string to args style list
@@ -212,13 +212,7 @@ class ComponentCore(object):
         """
         assert args
 
-        if self.log:
-            self.log_level = self.log.level
-            self.verbose = False
-            for h in self.log.handlers:
-                self.verbose = True if isinstance(
-                    h, logging.StreamHandler) else self.verbose
-        else:
+        if not self.log:
             self._configure_logging()
 
     def _configure_logging(self):
@@ -413,6 +407,7 @@ class ComponentCore(object):
             return self.LOG_FORMATTER
         else:
             return self.DEBUG_LOG_FORMATTER
+
 
 def copy_attribute_values(source, target, property_names):
     """Function to copy attributes from a source to a target object.

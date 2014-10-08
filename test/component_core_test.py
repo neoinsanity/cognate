@@ -1,3 +1,4 @@
+import logging
 from logging import DEBUG, ERROR, INFO, WARNING
 from os import path, remove
 from unittest import TestCase
@@ -145,6 +146,12 @@ class TestComponentCoreArgsPassing(CognateTestCase):
         self.assertEqual(combo.input_file, 'input.txt')
         self.assertEqual(combo.output_file, 'output.txt')
 
+    def test_string_configuration_with_filename(self):
+        """Ensure correct parsing of arguments with script filename arg."""
+        argv = '/Users/neoinsanity/samples/samples/my-argparser.py --verbose'
+        foo = ComponentCore(argv=argv)
+        assert foo.verbose == True
+
 
 class TestComponentCoreLogSetup(CognateTestCase):
     """Test the logging features of the component core."""
@@ -164,14 +171,14 @@ class TestComponentCoreLogSetup(CognateTestCase):
 
         # create the test subject
         argv = '--log_level info --log_path TEST_OUT'
-        component_core = ComponentCore(argv=argv)
+        foo = ComponentCore(argv=argv)
 
         # test to make sure that log file is generated
         self.assertTrue(path.exists(log_path))
 
         # test to make sure component_core internal state is correct
-        self.assertEqual(component_core.log_path, 'TEST_OUT')
-        self.assertEqual(component_core.log_level, INFO)
+        self.assertEqual(foo.log_path, 'TEST_OUT')
+        self.assertEqual(foo.log_level, INFO)
 
     def test_service_name_file_logging(self):
         """Test overriding file name based on setting service_name."""
@@ -182,15 +189,15 @@ class TestComponentCoreLogSetup(CognateTestCase):
 
         # create the test subject
         argv = '--service_name Dude --log_level debug --log_path TEST_OUT'
-        component_core = ComponentCore(argv=argv)
+        foo = ComponentCore(argv=argv)
 
         # test to make sure that log file is generated
         self.assertTrue(path.exists(log_path))
 
         # test to make sure component_core internal state is correct
-        self.assertEqual(component_core.service_name, 'Dude')
-        self.assertEqual(component_core.log_path, 'TEST_OUT')
-        self.assertEqual(component_core.log_level, DEBUG)
+        self.assertEqual(foo.service_name, 'Dude')
+        self.assertEqual(foo.log_path, 'TEST_OUT')
+        self.assertEqual(foo.log_level, DEBUG)
 
     def test_explicit_log_file(self):
         """Test overriding log file path."""
@@ -201,18 +208,19 @@ class TestComponentCoreLogSetup(CognateTestCase):
 
         # create the test subject
         argv = '--log_level warn --log_path TEST_OUT/the_file.log'
-        component_core = ComponentCore(argv=argv)
+        foo = ComponentCore(argv=argv)
 
         # test to make sure that log file is generated
         self.assertTrue(path.exists(log_path))
 
         # test to make sure component_core internal state is correct
-        self.assertEqual(component_core.service_name, 'ComponentCore')
-        self.assertEqual('./' + component_core.log_path, log_path)
-        self.assertEqual(component_core.log_level, WARNING)
+        self.assertEqual(foo.service_name, 'ComponentCore')
+        self.assertEqual('./' + foo.log_path, log_path)
+        self.assertEqual(foo.log_level, WARNING)
 
-    def test_string_configuration_with_filename(self):
-        """Ensure correct parsing of arguments with script filename arg."""
-        argv = '/Users/neoinsanity/samples/samples/my-argparser.py --verbose'
-        foo = ComponentCore(argv=argv)
-        assert foo.verbose == True
+    def test_explict_log_passing(self):
+        """Test that a component_core can accept and external logger."""
+        log = logging.getLogger('SOME_LOGGER')
+
+        foo = ComponentCore(log=log)
+        self.assertIsNotNone(foo)
