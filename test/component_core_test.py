@@ -93,6 +93,13 @@ class TestComponentCoreArgsPassing(CognateTestCase):
         self.assertEqual(simplest.log_path, './TEST_OUT/')
         self.assertEqual(simplest.verbose, True)
 
+    def test_parameter_configuration(self):
+        """Ensure parameter configuration of component core."""
+        foo = ComponentCore(log_level='debug',
+                            log_path='./TEST_OUT/',
+                            service_name='Foo',
+                            verbose=True)
+        self.assertIsNotNone(foo)
 
     def test_positional_args(self):
         """Ensure positional argument configuration."""

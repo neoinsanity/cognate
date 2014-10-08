@@ -403,7 +403,7 @@ class ComponentCore(object):
                      **kwargs)  # This is the function getting invoked
 
     def _log_formatter(self):
-        if self.log_level != 'debug':
+        if self.log_level != logging.DEBUG:
             return self.LOG_FORMATTER
         else:
             return self.DEBUG_LOG_FORMATTER
