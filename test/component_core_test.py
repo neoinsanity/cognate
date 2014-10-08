@@ -102,7 +102,7 @@ class TestComponentCoreArgsPassing(CognateTestCase):
         self.assertIsNotNone(foo)
 
         self.assertEqual(DEBUG, foo.log_level)
-        self.assertEqual('', foo.log_path)
+        self.assertEqual('./TEST_OUT/', foo.log_path)
         self.assertEqual('Foo', foo.service_name)
         self.assertEqual(True, foo.service_name_set)
         self.assertEqual(True, foo.verbose)
