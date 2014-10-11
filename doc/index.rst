@@ -34,7 +34,7 @@ create a component service class::
         service = HelloWorld(argv=argv)
         service.run()
 
-The ``HelloWorld`` class defines a property ``name`` that will be used to to
+The ``HelloWorld`` class defines a property ``name`` that will be used to
 construct the log output during execution of the ``run`` method. The
 ``cognate_options`` method is used to declare any attributes of the service
 utilizing an **argparse.ArgumentParser** instance passed as the ``arg_parser``

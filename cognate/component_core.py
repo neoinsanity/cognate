@@ -88,6 +88,10 @@ class ComponentCore(object):
                      ['--verbose', '--name', 'my_name', ...] or an argument
                      string of the form '--verboxe --name my_name'.
         :type argv: str, list<str>
+        :param log: An explicit logger. If this parameter is set, then all
+            other log related parameters are ignored.  Log parameters ignored:
+            log_level, log_path and verbose.
+        :type log: logging.Logger
         :param log_level: The log level setting. The options for leg_level are:
             debug, info, warn, error. The default is error.
         :type log_level: str
@@ -116,8 +120,8 @@ class ComponentCore(object):
         >>> assert foo.log_path == None
         >>> assert foo.verbose == False
 
-        A ComponentCore can be configured utilizing the an array style
-        argument list.
+        A ComponentCore can be configured utilizing an array style argument
+        list.
 
         >>> bar = ComponentCore(['--service_name','Bar','--log_level','debug'])
         >>> assert bar.service_name == 'Bar'
