@@ -1,208 +1,50 @@
 """The *ComponentCore* class provides the means to add some basic features for
 construction of service modules.
-
-.. default-domain::py
-
-For details, be sure to checkout the features described under the
-:ref:`component_core_class_utilization` section.:
-
-- :ref:`configuration_management_and_initialization`
-
-- :ref:`command_and_log_configuration`
-
-- :ref:`dynamic_service_naming`
-
-The intent is for *ComponentCore* to make your life easier in the implementation
-of stand alone applications. The hope is to take some common service
-requirements and make the expression of those requirements trivial.
-
-.. _component_core_class_utilization:
-
-ComponentCore Class Utilization
-===========================
-
-*ComponentCore* operates by accepting an *argv* passed in the
-:meth:'^cognate.ComponentCore.__init__ method`. During the initialization
-of instance based on *ComponentCore* derived class, *ComponentCore* will drive
-configuration by applying *argv* options to instance **self**.
-
-By way of example, let's construct a hello world example. First we define
-*HelloWorld* class as below:
-
-.. _hello_world_class:
-.. code-block:: python
-  :linenos:
-
-  from cognate import ComponentCore
-  import sys
-
-  class HelloWorld(ComponentCore):
-    def __init__(self, **kwargs):
-      self.response = 'Hello World'
-
-      # !!! Very important, Do NOT forget. !!!
-      ComponentCore.__init__(self, **kwargs)
-
-    def configuration_options(self, arg_parser):
-      arg_parser.add_argument('-response', default=self.response)
-
-    def configure(self, args):
-      if(args.response != 'Hello World':  # is default value
-        self.response += ' You Rascal!'
-
-    def run(self):
-      print self.response
-
-  if __name__ == '__main__':
-    helloWorld = HelloWorld(argv=sys.argv)
-    helloWorld.run
-
-This gives the class hierarchy as in the image below.
-
-.. figure:: ../images/component_core_utilization_example_hierarchy.png
-
-  ComponentCore Example Hierarchy
-
-The essence of how *ComponentCore* performs it's operations is via the use of
-:mod:`cognate.attribute_helper` module to derive configuration of service stack.
-The basic call sequence is depicted in the image below.
-
-.. image:: ../images/component_core_utilization_example_sequence.png
-
-:meth:`~cognate.ComponentCore.configuration_options` and
-:meth:`~cognate.ComponentCore.configure` methods via the use of the
-:meth:`cognate.Attribute_helper.__invoke_method_on_children__'. This effectively
-calls the *configure_options* and *configure* methods on all primary base
-classes that derive from *ComponentCore*.
-
-** _configuration_management_and_initialization:
-
-Configuration Management and Initialization
-=============================================
-
-*ComponentCore* helps out with configuration management and initialization of
-runtime services. it does this by creating a configuration loop. Utilizing the
-:ref:`hello_world_class` as an example.
-
-.. _command_line_option_construction:
-
-Command Line Option Construction
----------------------------------
-
-*ComponentCore* provides the means for command line construction to inheriting
-classes. This is achieved by the ingestion of command line options through
-invocation of *configure_option* method on the chain of ancestor classes that
-declare the *configuration_option* method.
-
-The net effect is that *ComponentCore* will collect all of the configuration
-options in one bundle, and manage them as a unified instance configuration.
-This allows for the centralization of common options and the attending code.
-
-For more detail on this feature, be sure to check out
-:meth:`~cognate.ComponentCore._execute_configuration`.
-
-.. _logging_and_log_configuration
-
-Logging and Log Configuration
-------------------------------
-
-*ComponentCore* supports console and file output. In addition *ComponentCore* supports
-the four basic log levels: `debug`,`info`,`warning`,`error`.
-
-The configuration logging options are:
-
-  :arg: --log_level {debug,info,warning,error}
-
-    Set the log level for the log output.
-
-  :arg: --log_path LOG_PATH
-
-    Set the path for log output. The default file created is
-    "<log_path>/<app_name>.log". If the path ends with a ".log"
-    extension, then the path be a target file.
-
-  :arg: --verbose
-
-    Enable verbose log output to console. Useful for debugging.
-
-*ComponentCore* log configuration takes advantage of the
-:ref:`dynamic_service_naming` for log file naming, as well as in log name
-output.
-
-For example::
-
-  2012-12-02 03:26:03,030 - <name> - INFO - Logging configured for:
-  VentilatorWindmill
-
-The <name> value will be assigned by default to the instance class utilizing
-*ComponentCore*, but will be overridden by the use of the '--app_name <name>'
-option.
-
-
-.. _dynamic_service_naming:
-
-Dynamic Service Naming
-------------------------
-
-*ComponentCore* provides a mechanism to allow for dynamic naming of progenitor class
-service instances. This is achieved through the use of the '--app_name <name>'
-option. When this flag is set *ComponentCore* will set the `self.name` instance to
-the designated value. In addition, *ComponentCore* will set the `self.name_set`
-flag to `True`.
-
-By default *ComponentCore* will set the name of the instance class.
-
-The assigned name can effect the output log name, as well as name of the log
-output. The use of `self.name` may also effect features from other progenitor
-classes that take advantage of *ComponentCore* dynamic naming.
-
-Child classes of ComponentCore can access the configured service app name through
-`self.app_name`.
 """
 import argparse
 import logging
 from logging.handlers import WatchedFileHandler
 import os
 import shlex
-
-import attribute_helper
+import sys
 
 
 class ComponentCore(object):
-    """The *ComponentCore* class is a helper mix-in that evaluates sys.argv into
-    options settings for execution of windmill devices.
+    """The *ComponentCore* class provides configuration services for components.
 
     :Command Line Usage:
 
     *ComponentCore* supports the following command line options::
 
-      usage: <some_class>.py [-h] [--log_level {debug,info,warn,error}]
-                          [--log_path LOG_PATH] [--app_name APP_NAME] [
-                          --verbose]
+        usage:  [-h] [--service_name SERVICE_NAME]
+                [--log_level {debug,info,warn,error}]
+                [--log_path LOG_PATH] [--verbose]
 
-      optional arguments:
-        -h, --help            show this help message and exit
-        --log_level {debug,info,warning,error}
-                              Set the log level for the log output.
-        --log_path LOG_PATH   Set the path for log output. The default file
-                              created is the path/name.log. If the path ends
-                              with a ".log", then the path will assume a file
-                              path.
-        --name NAME           This will set the name for the current instance.
-                              The name is used for both log output and zmq
-                              socket
-                              identification
-        --verbose             Enable verbose log output to console. Useful for
-                              debugging.
-
+        optional arguments:
+          -h, --help            show this help message and exit
+          --service_name SERVICE_NAME
+                                This will set the name for the current instance.
+                                This will be reflected in the log output.
+                                (default:ComponentCore)
+          --log_level {debug,info,warn,error}
+                                Set the log level for the log output.
+                                (default: error)
+          --log_path LOG_PATH   Set the path for log output. The default file
+                                created is "<log_path>/<service_name>.log". If
+                                the path ends with a ".log" extension,
+                                then the path be a target file.
+                                (default: None)
+          --verbose             Enable verbose log output to console. Useful for
+                                debugging. (default: False)
 
     .. note:: *ComponentCore* will cause the application to exit if the ``-h``
-      or ``--help`` cognate_configure arguments are one of the options. In addition to
-      exiting, *ComponentCore* will display the command line help message.
+      or ``--help`` cognate_configure arguments are one of the options. In
+      addition to exiting, *ComponentCore* will display the command line help
+      message.
 
     Any classes sharing a base class chain with *ComponentCore* may implement:
 
-      - configure_options(self, arg_parser)
+      - cognate_options(self, arg_parser)
 
       - cognate_configure(self, args)
 
@@ -213,10 +55,10 @@ class ComponentCore(object):
 
     .. note: File name sniffing.
 
-      The argument list that is obtained from *sys.argv* will have the path of
-      the invoking python file. For purposes of *ComponentCore* configuration this
-      argument is irrelevant. The *_execute_configuration* method will detect
-      the for this state and removes the path argument.
+    The argument list that is obtained from *sys.argv* will have the path of
+    the invoking python file. For purposes of *ComponentCore* configuration this
+    argument is irrelevant. The *_execute_configuration* method will detect
+    for this state and removes the path argument.
     """
     # A map for setting ``logging`` level upon log configuration during
     # invocation of :meth:`~cognate.ComponentCore._
@@ -227,32 +69,63 @@ class ComponentCore(object):
         'error': logging.ERROR,
     }
 
-    def __init__(self, argv=list()):
+    LOG_FORMATTER = logging.Formatter(
+        '%(threadName)s:%(asctime)s -%(name)s - %(levelname)s -- %(message)s')
+    DEBUG_LOG_FORMATTER = logging.Formatter(
+        '%(threadName)s:%(asctime)s -%(name)s - %(levelname)s -- '
+        '%(pathname)s:%(lineno)d -- %(message)s')
+
+    def __init__(self,
+                 argv=None,
+                 log=None,
+                 log_level='error',
+                 log_path=None,
+                 service_name=None,
+                 verbose=False):
         """ Initializes the ComponentCore support infrastructure.
 
         :param argv: An array of arguments of the form
-                     ['--verbose', '--name', 'my_name', ...]
-        :type argv: String | String List
+                     ['--verbose', '--name', 'my_name', ...] or an argument
+                     string of the form '--verboxe --name my_name'.
+        :type argv: str, list<str>
+        :param log: An explicit logger. If this parameter is set, then all
+            other log related parameters are ignored.  Log parameters ignored:
+            log_level, log_path and verbose.
+        :type log: logging.Logger
+        :param log_level: The log level setting. The options for leg_level are:
+            debug, info, warn, error. The default is error.
+        :type log_level: str
+        :param log_path: 'Set the path for log output. The default file created
+            is "<log_path>/<service_name>.log". If the path ends with a ".log"
+            extension, then the path be a target file.'
+        :type log_path: str
+        :param service_name: This will set the name for the current instance.
+            This will be reflected in the log output.'
+        :type service_name: str
+        :param verbose: Enable verbose log output to console. Defaults to False.
+        :type verbose: bool
         :return: `ComponentCore` child instance
 
-        A default ComponentCore will assume the name of the instantiating class. In
+        A default ComponentCore will assume the name of the instantiating
+        class. In
         addition, it will not consider the name to have been set.
 
         >>> class Foo(ComponentCore):
         ...     def __init__(self, **kwargs):
         ...         ComponentCore.__init__(self, **kwargs)
         >>> foo = Foo()
-        >>> assert foo.app_name == 'Foo'
-        >>> assert foo.app_name_set == False
+        >>> assert foo.service_name == 'Foo'
+        >>> assert foo.service_name_set == False
         >>> assert foo.log_level == logging.ERROR
         >>> assert foo.log_path == None
         >>> assert foo.verbose == False
 
-        A ComponentCore can be configured utilizing the an array style argument list.
+        A ComponentCore can be configured utilizing an array style argument
+        list.
 
-        >>> bar = ComponentCore(['--app_name','Bar','--log_level','debug'])
-        >>> assert bar.app_name == 'Bar'
-        >>> assert bar.app_name_set == True
+        >>> bar = ComponentCore(['--service_name','Bar','--log_level','debug'])
+        >>> assert bar.service_name == 'Bar'
+        >>> assert bar.service_name_set == True
         >>> assert bar.log_level == logging.DEBUG
         >>> assert bar.log_path == None
         >>> assert bar.verbose == False
@@ -260,34 +133,39 @@ class ComponentCore(object):
         In addition, the ComponentCore can be configured from a string.
 
         >>> dude = ComponentCore(
-        ...   '--app_name Dude --log_level info')
+        ...   '--service_name Dude --log_level info')
         >>> assert dude
-        >>> assert dude.app_name == 'Dude'
-        >>> assert dude.app_name_set == True
+        >>> assert dude.service_name == 'Dude'
+        >>> assert dude.service_name_set == True
         >>> assert dude.log_level == logging.INFO
         >>> assert dude.verbose == False
         """
         # Current log level, set to logging.DEBUG, INFO, WARNING, OR ERROR at
         # runtime.
-        self.log_level = 'error'
+        self.log_level = log_level
         # The path to the log file, if one is set.
-        self.log_path = None
-        # The name of the application. Overridden by '--app_name' option.
-        self.app_name = self.__class__.__name__
+        self.log_path = log_path
         # Set to true if the '--app-name' is utilized
-        self.app_name_set = False
+        self.service_name_set = False
+        # The name of the application. Overridden by '--service_name' option.
+        if service_name is None:
+            self.service_name = self.__class__.__name__
+        else:
+            self.service_name = service_name
+            self.service_name_set = True
         # Set to true if '--verbose' option flag is utilized
-        self.verbose = False
+        self.verbose = verbose
 
         # : The log attribute to use for logging message
-        self.log = None
+        self.log = log
         # helper to allow using string for configuration
         if argv is not None and isinstance(argv, basestring):
             argv = shlex.split(argv)  # convert string to args style list
 
         # determine if a name has been set for the instantiating class instance
-        if argv and '--app_name' in argv:
-            self.app_name_set = True
+        # from command line
+        if argv and '--service_name' in argv:
+            self.service_name_set = True
 
         self._execute_configuration(argv)
 
@@ -296,16 +174,15 @@ class ComponentCore(object):
         options.
 
         :param arg_parser: An *ArgumentParser* instance to add configuration
-                           options.
+            options.
         :type arg_parser: argparse.ArgumentParser
         :return: None
         """
-        arg_parser.add_argument('--app_name',
-                                default=self.app_name,
+        arg_parser.add_argument('--service_name',
+                                default=self.service_name,
                                 help='This will set the name for the current '
                                      'instance. This will be reflected in the '
-                                     'log '
-                                     'output.')
+                                     'log output.')
         arg_parser.add_argument('--log_level',
                                 default=self.log_level,
                                 choices=['debug', 'info', 'warn', 'error'],
@@ -313,11 +190,10 @@ class ComponentCore(object):
         arg_parser.add_argument('--log_path',
                                 default=self.log_path,
                                 help='Set the path for log output. The default '
-                                     'file created is "<log_path>/<app_name>'
-                                     '.log"'
-                                     '. If the path ends with a ".log" '
-                                     'extension,'
-                                     ' then the path be a target file.')
+                                     'file created is '
+                                     '"<log_path>/<service_name>.log". If the '
+                                     'path ends with a ".log" extension, then '
+                                     'the path be a target file.')
         arg_parser.add_argument('--verbose',
                                 action='store_true',
                                 default=self.verbose,
@@ -325,7 +201,8 @@ class ComponentCore(object):
                                      'Useful for debugging.')
 
     def cognate_configure(self, args):
-        """ This method is called by *ComponentCore* during instance initialization.
+        """ This method is called by *ComponentCore* during instance
+        initialization.
 
         :param args: An object with configuration properties.
         :type args: object
@@ -333,48 +210,42 @@ class ComponentCore(object):
 
         .. note:: Properties set to `self`.
 
-          In addition to setting the configuration options to *self*, the *args*
-          parameter has the configuration. This should allow for most complex
-          configuration scenarios.
+        In addition to setting the configuration options to *self*, the *args*
+        parameter has the configuration. This should allow for most complex
+        configuration scenarios.
         """
         assert args
 
-        self._configure_logging()
+        if not self.log:
+            self._configure_logging()
 
     def _configure_logging(self):
         """This method configures the self.log entity for log handling.
 
         :return: None
 
-        The method will cognate_configure the logging facilities for the derive service
-        instance. This includes setting up logging to files and console. The
-        configured log will be available to the service instance with `self.log`
+        The method will cognate_configure the logging facilities for the
+        derive service instance. This includes setting up logging to files
+        and console. The configured log will be available to the service
+        instance with `self.log`
         """
         self.log_level = ComponentCore.LOG_LEVEL_MAP.get(self.log_level,
                                                          logging.ERROR)
 
-        # if log level is debug, then we add source information to log output
-        formatter = logging.Formatter(
-            '%(threadName)s:%(asctime)s -%(name)s - %(levelname)s -- %('
-            'message)s')
-        if self.log_level == logging.DEBUG:
-            formatter = logging.Formatter(
-                '%(threadName)s:%(asctime)s -%(name)s - %(levelname)s -- '
-                '%(pathname)s:%(lineno)d -- %(message)s')
-
         # assign the windmill instance logger
-        self.log = logging.getLogger(self.app_name)
+        self.log = logging.getLogger(self.service_name)
         self.log.setLevel(self.log_level)
 
         # cognate_configure log file output if necessary
         if self.log_path:
             file_path = self.log_path
             if not self.log_path.endswith('.log'):
-                file_path = os.path.join(self.log_path, self.app_name + '.log')
+                file_path = os.path.join(self.log_path,
+                                         self.service_name + '.log')
 
             file_handler = WatchedFileHandler(file_path)
             file_handler.setLevel(self.log_level)
-            file_handler.setFormatter(formatter)
+            file_handler.setFormatter(self._log_formatter())
             self.log.addHandler(file_handler)
 
         # if we are in verbose mode, the we send log output to console
@@ -382,49 +253,43 @@ class ComponentCore(object):
             # add the console logger for verbose mode
             console_handler = logging.StreamHandler()
             console_handler.setLevel(self.log_level)
-            console_handler.setFormatter(formatter)
+            console_handler.setFormatter(self._log_formatter())
             self.log.addHandler(console_handler)
 
-        self.log.info('Logging configured for: %s', self.app_name)
+        self.log.info('Logging configured for: %s', self.service_name)
 
 
     def _execute_configuration(self, argv):
         """This method assigns an argument list to attributes assigned to self.
 
         :param argv: A list of arguments.
-        :type argv: string list
+        :type argv: list<str>
         :return: None
 
         This is the work horse method that does the work of invoking
-        *configuration_option* and *cognate_configure* methods on progenitor classes of
-        *ComponentCore*. In addition it takes the resolved
+        *configuration_option* and *cognate_configure* methods on progenitor
+        classes of *ComponentCore*. In addition it takes the resolved
         arguments from *argparse.ArgumentParser* and assigns them to `self`.
-
-        :Example Usage:
-
-        >>> foo = ComponentCore()
-        >>> argv = [
-        ... '/Users/neoinsanity/samples/samples/my-argparse/simple_argparse.py',
-        ... '--verbose']
-        >>> foo._execute_configuration(argv=argv)
-        >>> assert foo.verbose == True
         """
         if argv is None:
             argv = []  # just create an empty arg list
 
-        arg_parser = argparse.ArgumentParser(
-            formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+        # ensure that sys.argv is not modified in case it was passed.
+        if argv is sys.argv:
+            argv = list(sys.argv)
 
-        # if this is the command line args directly, then we need to remove the
-        # first argument which is the python execution command. The first
-        # argument is the name of the executing python script.
+        # If this is the command line args directly passed, then we need to
+        # remove the first argument which is the python execution command.
+        # The first argument is the name of the executing python script.
         if len(argv) > 0 and argv[0].endswith('.py'):
             argv.pop(0)
 
-        # execute configuration_option method on all child classes of ComponentCore
-        # to gather all of the runtime options.
-        self._invoke_method_on_children(func_name='cognate_options',
-                                        arg_parser=arg_parser)
+        # execute configuration_option method on all child classes of
+        # ComponentCore to gather all of the runtime options.
+        arg_parser = argparse.ArgumentParser(
+            formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+        self.invoke_method_on_children(func_name='cognate_options',
+                                       arg_parser=arg_parser)
 
         # resolve configuration options necessary for runtime execution
         property_list = []
@@ -439,51 +304,50 @@ class ComponentCore(object):
         args = arg_parser.parse_args(argv)
 
         # map the properties to attributes assigned to self instance
-        attribute_helper.copy_attribute_values(source=args,
-                                               target=self,
-                                               property_names=property_list)
+        copy_attribute_values(source=args,
+                              target=self,
+                              property_names=property_list)
 
         # now execute the configuration call on each base class
         # in the class inheritance chain
-        self._invoke_method_on_children(func_name='cognate_configure',
-                                        args=args)
+        self.invoke_method_on_children(func_name='cognate_configure',
+                                       args=args)
 
-        self.log.info('... Component configuration complete ...')
-        self.log.info('... configuration: %s', args)
+        self.log.info(
+            'Component service configuration complete with argv: %s', args)
 
-    def _invoke_method_on_children(self, func_name=None, *args, **kwargs):
+    def invoke_method_on_children(self, func_name=None, *args, **kwargs):
         """This helper method will walk the primary base class hierarchy to
-        invoke a method if it exists for a given base class.
+        invoke a method if it exists for a given child base class.
 
         :param func_name: The name of a function to search for invocation.
         :type func_name: str
         :param args: An argument list to pass to the target function.
         :type args: list
         :param kwargs: A dictionary of name/value pairs to pass to the target
-        function as named arguments.
+            function as named arguments.
         :type kwargs: dict
         :return: None
-        ":except:
-          - **ValueError** - Thrown if no function name is provided.
+        :raises ValueError: Thrown if no function name is provided.
 
         In an effort to explain, assume that a class hierarchy has been defined
-        as the image below:
+        as in the image below:
 
-        .. image:: ../images/invoke_method_on_bases_class_hierarchy.png
+        .. image:: images/invoke_method_on_children_class_hierarchy.png
 
-        *AttributeHelper._invoke_method_on_children* will traverse the class hierarchy
-        invoking target method *the_func* on each base class. This is different
-        from normal python resolution, which will only inoke the first instance
-        of the method defined in the class hierarchy, which would be Child3
-        .the_func.
+        *invoke_method_on_children* will traverse the class hierarchy
+        invoking target method *the_func* on each child class. This is different
+        from normal python resolution, which will only invoke the first instance
+        of the method defined in the class hierarchy, which would be
+        *Child3.the_func*.
 
-        .. image:: ../images/invoke_method_on_bases.png
+        .. image:: images/invoke_method_on_children.png
 
         .. note:: Mind the flow of invocation on the class hierarchy.
 
-          Invocation of target *func_name* is from the AttributeHelper class as the
-          starting point, and the search continuing out toward the final
-          ancestor class.
+        Invocation of target *func_name* is from the *ComponentCore* class
+        as the starting point, and the search continuing out toward the final
+        ancestor class.
 
         ::Example Usage:
 
@@ -491,43 +355,42 @@ class ComponentCore(object):
 
         .. warning:: Beware mistyped method names.
 
-          If a method name is supplied for a method that does not exist,
-          the *_invoke_method_on_children* will raise no exception.
+        If a method name is supplied for a method that does not exist,
+        the *invoke_method_on_children* will raise no exception.
 
         >>> foo = ComponentCore()
-        >>> foo._invoke_method_on_children()
+        >>> foo.invoke_method_on_children()
         Traceback (most recent call last):
         ...
-        ValueError: _invoke_method_on_children:func_name parameter required
+        ValueError: invoke_method_on_children:func_name parameter required
         >>> # Now correctly
-        >>> foo._invoke_method_on_children(func_name='the_func')
+        >>> foo.invoke_method_on_children(func_name='the_func')
 
-        In actual usage, declare a AttributeHelper derived child class with a target
-        function. It is possible to have more than one ancestor class with the
-        target function defined. The *_invoke_method_on_children* will
-        execute
-        the function on each of the child classes.
+        In actual usage, declare a *ComponentCore* derived child class with a
+        target function. It is possible to have more than one ancestor class
+        with the target function defined. The *invoke_method_on_children* will
+        execute the function on each of the child classes.
 
         >>> class Bar(ComponentCore):
         ...   def the_func(self, a_key=None):
         ...     print 'a_key:', a_key
         >>> bar = Bar()
 
-        With an instance of a *AttributeHelper* child class, we can invoke the method in
-        two ways, as exampled below.
+        With an instance of a *AttributeHelper* child class, we can invoke
+        the method in two ways, as exampled below.
 
         >>> # Create a keyword argument dictionary or argument list
         >>> kwargs = {'a_key':'a_value'}
-        >>> bar._invoke_method_on_children(func_name='the_func', **kwargs)
+        >>> bar.invoke_method_on_children(func_name='the_func', **kwargs)
         a_key: a_value
         >>> # Simply pass the argument keyword and value
-        >>> bar._invoke_method_on_children(
+        >>> bar.invoke_method_on_children(
         ...     func_name='the_func', a_key='value')
         a_key: value
         """
         if func_name is None:
             raise ValueError(
-                '_invoke_method_on_children:func_name parameter required')
+                'invoke_method_on_children:func_name parameter required')
 
         class_stack = []
         base = self.__class__  # The root class in the hierarchy.
@@ -542,4 +405,64 @@ class ComponentCore(object):
                 func = getattr(base, func_name)
                 func(self, *args,
                      **kwargs)  # This is the function getting invoked
+
+    def _log_formatter(self):
+        if self.log_level != logging.DEBUG:
+            return self.LOG_FORMATTER
+        else:
+            return self.DEBUG_LOG_FORMATTER
+
+
+def copy_attribute_values(source, target, property_names):
+    """Function to copy attributes from a source to a target object.
+
+    This method copies the property values in a given list from a given
+    source object to a target source object.
+
+    :param src: The source object that is to be inspected for property
+        values.
+    :type src: type
+    :param target: The target object that will be modified with values found
+        in src.
+    :type target: type
+    :param property_names: List of property names whose values are to be
+        copied from source to object.
+    :type property_names: list, set
+    :rtype: None
+    :raises ValueError: If src is None.
+    :raises ValueError: If target is None.
+    :raises ValueError: If property list is not iterable or None.
+
+    The *copy_attribute_values* method will only copy the values from src
+    when a property name is found in the src. In cases where a property
+    value is not found in the src object, then no change to the target object is
+    made.
+
+    :Example Usage:
+
+    >>> src = type('attr_bag', (object,), dict())
+    >>> src.property1 = 1
+    >>> src.property2 = 2
+    >>> src.property3 = 3
+    >>> target = type('attr_bag', (object,), dict())
+    >>> property_list = ['property1', 'property2', 'exist_not_property']
+    >>> copy_attribute_values(src, target, property_list)
+    >>> assert hasattr(target, 'property1')
+    >>> assert hasattr(target, 'property2')
+    >>> assert not hasattr(target, 'property3')
+    >>> assert not hasattr(target, 'exist_not_property')
+    """
+    if source is None:
+        raise ValueError('"source" must be provided.')
+    if target is None:
+        raise ValueError('"target" must be provided.')
+    if property_names is None:
+        raise ValueError('"property_list" must be provided.')
+    if not hasattr(property_names, '__iter__'):
+        raise ValueError(
+            '"property_names" must be a sequence type, such as list or set.')
+
+    for property_name in property_names:
+        if hasattr(source, property_name):
+            setattr(target, property_name, getattr(source, property_name))
 

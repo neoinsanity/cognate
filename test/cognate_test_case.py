@@ -13,3 +13,4 @@ class CognateTestCase(unittest.TestCase):
         d = TEST_OUT
         if not os.path.exists(d):
             os.makedirs(d)
+
