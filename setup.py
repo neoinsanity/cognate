@@ -11,10 +11,19 @@ setup(
     author_email='mindbender@gmail.com',
     url='https://github.com/neoinsanity/cognate',
     license='Apache License 2.0',
-    description='From the same root',
+    description='From the same Root.',
     long_description=long_description,
     packages=['cognate',],
     install_requires=[],
     include_package_data = True,
+    classifiers=[
+        'Development Status :: 3 - Alpha',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: Apache Software License',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Topic :: Software Development',
+    ]
 )
 
