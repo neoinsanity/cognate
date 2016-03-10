@@ -136,20 +136,6 @@ goodness.
 
 **Share and Enjoy**
 
-Usage Documentation
---------------------
-.. toctree::
-  :maxdepth: 3
-
-  cognate
-
-API Documentation
-------------------
-.. toctree::
-  :maxdepth: 3
-
-  cognate.component_core
-
 
 Indices and Tables
 ===================
