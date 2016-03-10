@@ -159,7 +159,7 @@ class ComponentCore(object):
         # : The log attribute to use for logging message
         self.log = log
         # helper to allow using string for configuration
-        if argv is not None and isinstance(argv, basestring):
+        if argv is not None and isinstance(argv, str):
             argv = shlex.split(argv)  # convert string to args style list
 
         # determine if a name has been set for the instantiating class instance
@@ -257,7 +257,6 @@ class ComponentCore(object):
             self.log.addHandler(console_handler)
 
         self.log.info('Logging configured for: %s', self.service_name)
-
 
     def _execute_configuration(self, argv):
         """This method assigns an argument list to attributes assigned to self.
@@ -373,7 +372,7 @@ class ComponentCore(object):
 
         >>> class Bar(ComponentCore):
         ...   def the_func(self, a_key=None):
-        ...     print 'a_key:', a_key
+        ...     print('a_key:', a_key)
         >>> bar = Bar()
 
         With an instance of a *AttributeHelper* child class, we can invoke
@@ -458,11 +457,11 @@ def copy_attribute_values(source, target, property_names):
         raise ValueError('"target" must be provided.')
     if property_names is None:
         raise ValueError('"property_list" must be provided.')
-    if not hasattr(property_names, '__iter__'):
+    if (not hasattr(property_names, '__iter__') or
+            isinstance(property_names, str)):
         raise ValueError(
             '"property_names" must be a sequence type, such as list or set.')
 
     for property_name in property_names:
         if hasattr(source, property_name):
             setattr(target, property_name, getattr(source, property_name))
-

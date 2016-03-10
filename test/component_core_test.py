@@ -3,7 +3,7 @@ from logging import DEBUG, ERROR, INFO, WARNING
 from os import path, remove
 from unittest import TestCase
 
-from cognate_test_case import CognateTestCase, TEST_OUT
+from test.cognate_test_case import CognateTestCase, TEST_OUT
 
 from cognate import component_core
 from cognate.component_core import ComponentCore
@@ -45,6 +45,13 @@ class AttributeHelperTestCase(TestCase):
             '"property_names" must be a sequence type, such as list or set.',
             component_core.copy_attribute_values,
             src_property_bag, trgt_property_bag, 'Not a sequence')
+
+        self.assertRaisesRegexp(
+            ValueError,
+            '"property_names" must be a sequence type, such as list or set.',
+            component_core.copy_attribute_values,
+            src_property_bag, trgt_property_bag, 2)
+
 
         self.assertFalse(hasattr(trgt_property_bag, 'prop1'))
         self.assertEqual(trgt_property_bag.prop2, 'another 2')

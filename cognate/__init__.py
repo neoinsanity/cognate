@@ -224,6 +224,6 @@ Child classes of ComponentCore can access the configured service app name
 through
 `self.service_name`.
 """
-import component_core
+from cognate import component_core
 
 __all__ = ['component_core']
