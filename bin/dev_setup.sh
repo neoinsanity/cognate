@@ -9,7 +9,10 @@
 ###########################################################
 
 # Create the virtual environment
-virtualenv venv
+# The virtualenv will attempt to make python 3
+# environment. If the '-p python3' doesn't work, them most
+# likely there is no python3 installed on local system.
+virtualenv -p python3 venv
 
 echo
 echo "------------------------------------------------"

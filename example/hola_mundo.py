@@ -20,7 +20,7 @@ class HolaMundo(ComponentCore):
     def __init__(self, lang='Spanish', **kwargs):
         self.lang = lang
 
-        ComponentCore.__init__(self, **kwargs)
+        super(HolaMundo, self).__init__(**kwargs)
 
     def cognate_options(self, arg_parser):
         arg_parser.add_argument('-l', '--lang',
@@ -48,9 +48,9 @@ if __name__ == '__main__':
     service = HolaMundo(argv=argv)
 
     while (True):
-        name = raw_input('Enter name ("quit" exits):')
+        name = input('Enter name ("quit" exits):')
         if name == 'quit':
             break
 
         greeting = service.greet(name)
-        print greeting
+        print(greeting)
