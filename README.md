@@ -1,6 +1,6 @@
-==============
-Cognate 0.0.1
-==============
+========
+Cognate
+========
 
 Welcome to **Cognate**, a package designed with making it easy to create
 component services. **Cognate** strives to ease the burden of configuration
