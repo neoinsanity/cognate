@@ -17,7 +17,7 @@ create a component service class::
         def __init__(self, name='World', **kwargs):
             self.name = name
 
-            ComponentCore.__init__(self, **kwargs)
+            super(ComponentCore, self).__init__(**kwargs)
 
         def cognate_options(self, arg_parser):
             arg_parser.add_argument(
@@ -135,20 +135,6 @@ Be sure to checkout :ref:`getting-started-with-cognate` to delve into all the
 goodness.
 
 **Share and Enjoy**
-
-Usage Documentation
---------------------
-.. toctree::
-  :maxdepth: 3
-
-  cognate
-
-API Documentation
-------------------
-.. toctree::
-  :maxdepth: 3
-
-  cognate.component_core
 
 
 Indices and Tables

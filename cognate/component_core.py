@@ -7,6 +7,7 @@ from logging.handlers import WatchedFileHandler
 import os
 import shlex
 import sys
+from typing import Any, Dict, List
 
 
 class ComponentCore(object):
@@ -75,7 +76,7 @@ class ComponentCore(object):
         '%(threadName)s:%(asctime)s -%(name)s - %(levelname)s -- '
         '%(pathname)s:%(lineno)d -- %(message)s')
 
-    def __init__(self,
+    def __init__(self,  # pylint: disable=too-many-arguments
                  argv=None,
                  log=None,
                  log_level='error',
@@ -107,17 +108,16 @@ class ComponentCore(object):
         :return: `ComponentCore` child instance
 
         A default ComponentCore will assume the name of the instantiating
-        class. In
-        addition, it will not consider the name to have been set.
+        class. In addition, it will not consider the name to have been set.
 
         >>> class Foo(ComponentCore):
         ...     def __init__(self, **kwargs):
-        ...         ComponentCore.__init__(self, **kwargs)
+        ...         super(Foo, self).__init__(**kwargs)
         >>> foo = Foo()
         >>> assert foo.service_name == 'Foo'
         >>> assert foo.service_name_set == False
         >>> assert foo.log_level == logging.ERROR
-        >>> assert foo.log_path == None
+        >>> assert foo.log_path is None
         >>> assert foo.verbose == False
 
         A ComponentCore can be configured utilizing an array style argument
@@ -127,7 +127,7 @@ class ComponentCore(object):
         >>> assert bar.service_name == 'Bar'
         >>> assert bar.service_name_set == True
         >>> assert bar.log_level == logging.DEBUG
-        >>> assert bar.log_path == None
+        >>> assert bar.log_path is None
         >>> assert bar.verbose == False
 
         In addition, the ComponentCore can be configured from a string.
@@ -159,7 +159,7 @@ class ComponentCore(object):
         # : The log attribute to use for logging message
         self.log = log
         # helper to allow using string for configuration
-        if argv is not None and isinstance(argv, basestring):
+        if argv is not None and isinstance(argv, str):
             argv = shlex.split(argv)  # convert string to args style list
 
         # determine if a name has been set for the instantiating class instance
@@ -169,7 +169,7 @@ class ComponentCore(object):
 
         self._execute_configuration(argv)
 
-    def cognate_options(self, arg_parser):
+    def cognate_options(self, arg_parser: argparse.ArgumentParser) -> None:
         """This method will be called to get the *ComponentCore* configuration
         options.
 
@@ -200,12 +200,12 @@ class ComponentCore(object):
                                 help='Enable verbose log output to console. '
                                      'Useful for debugging.')
 
-    def cognate_configure(self, args):
+    def cognate_configure(self, args: Dict) -> None:
         """ This method is called by *ComponentCore* during instance
         initialization.
 
         :param args: An object with configuration properties.
-        :type args: object
+        :type args: Namespace
         :return: None
 
         .. note:: Properties set to `self`.
@@ -258,8 +258,10 @@ class ComponentCore(object):
 
         self.log.info('Logging configured for: %s', self.service_name)
 
-
-    def _execute_configuration(self, argv):
+    def _execute_configuration(
+            self,
+            argv: List[Any] = None  # pylint: disable=bad-whitespace,invalid-sequence-index
+    ) -> None:
         """This method assigns an argument list to attributes assigned to self.
 
         :param argv: A list of arguments.
@@ -294,10 +296,10 @@ class ComponentCore(object):
         # resolve configuration options necessary for runtime execution
         property_list = []
         # noinspection PyProtectedMember
-        for action in arg_parser._get_positional_actions():
+        for action in arg_parser._get_positional_actions():  # pylint: disable=protected-access
             property_list.append(action.dest)
             # noinspection PyProtectedMember
-        for action in arg_parser._get_optional_actions():
+        for action in arg_parser._get_optional_actions():  # pylint: disable=protected-access
             property_list.append(action.dest)
         property_list.remove('help')  # remove the help option
 
@@ -316,7 +318,10 @@ class ComponentCore(object):
         self.log.info(
             'Component service configuration complete with argv: %s', args)
 
-    def invoke_method_on_children(self, func_name=None, *args, **kwargs):
+    def invoke_method_on_children(
+            self,
+            func_name: str = None,  # pylint: disable=bad-whitespace
+            *args, **kwargs) -> None:
         """This helper method will walk the primary base class hierarchy to
         invoke a method if it exists for a given child base class.
 
@@ -373,7 +378,7 @@ class ComponentCore(object):
 
         >>> class Bar(ComponentCore):
         ...   def the_func(self, a_key=None):
-        ...     print 'a_key:', a_key
+        ...     print('a_key:', a_key)
         >>> bar = Bar()
 
         With an instance of a *AttributeHelper* child class, we can invoke
@@ -413,15 +418,18 @@ class ComponentCore(object):
             return self.DEBUG_LOG_FORMATTER
 
 
-def copy_attribute_values(source, target, property_names):
+def copy_attribute_values(
+        source: object,
+        target: object,
+        property_names: List[str]) -> None:  # pylint: disable=invalid-sequence-index
     """Function to copy attributes from a source to a target object.
 
     This method copies the property values in a given list from a given
     source object to a target source object.
 
-    :param src: The source object that is to be inspected for property
+    :param source: The source object that is to be inspected for property
         values.
-    :type src: type
+    :type source: type
     :param target: The target object that will be modified with values found
         in src.
     :type target: type
@@ -458,11 +466,11 @@ def copy_attribute_values(source, target, property_names):
         raise ValueError('"target" must be provided.')
     if property_names is None:
         raise ValueError('"property_list" must be provided.')
-    if not hasattr(property_names, '__iter__'):
+    if (not hasattr(property_names, '__iter__') or
+            isinstance(property_names, str)):
         raise ValueError(
             '"property_names" must be a sequence type, such as list or set.')
 
     for property_name in property_names:
         if hasattr(source, property_name):
             setattr(target, property_name, getattr(source, property_name))
-
