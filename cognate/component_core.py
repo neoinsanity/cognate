@@ -9,6 +9,7 @@ import shlex
 import sys
 from typing import Any, Dict, List
 
+
 class ComponentCore(object):
     """The *ComponentCore* class provides configuration services for components.
 
