@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -6,15 +8,16 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Getting Started with Cognate &mdash; Cognate 0.0.1 Documentation</title>
+    <title>Getting Started with Cognate &mdash; Cognate 0.0.2 Documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.0.1',
+        VERSION:     '0.0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,13 +26,17 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/sidebar.js"></script>
-    <link rel="top" title="Cognate 0.0.1 Documentation" href="index.html" />
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+    <link rel="top" title="Cognate 0.0.2 Documentation" href="contents.html" />
     <link rel="next" title="Component Core Module" href="cognate.component_core.html" />
     <link rel="prev" title="Cognate - Related to the Same Common Root" href="index.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="relbar-top">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -37,35 +44,41 @@
              accesskey="I">index</a></li>
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="contents.html" title="Table Of Contents"
+             accesskey="C">toc</a> &nbsp; &nbsp;</li>
         <li class="right" >
           <a href="cognate.component_core.html" title="Component Core Module"
-             accesskey="N">next</a> |</li>
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
         <li class="right" >
           <a href="index.html" title="Cognate - Related to the Same Common Root"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Cognate 0.0.1 Documentation</a> &raquo;</li> 
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+    <li><a href="index.html">Cognate 0.0.2 Documentation</a> &raquo;</li>
+ 
       </ul>
-    </div>  
+    </div>
+    </div>
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="module-cognate">
-<span id="id1"></span><span id="getting-started-with-cognate"></span><h1><a class="toc-backref" href="#id6">Getting Started with Cognate</a><a class="headerlink" href="#module-cognate" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><span id="getting-started-with-cognate"></span><h1><a class="toc-backref" href="#id7">Getting Started with Cognate</a><a class="headerlink" href="#module-cognate" title="Permalink to this headline">¶</a></h1>
 <div class="contents topic" id="contents">
 <p class="topic-title first">Contents</p>
 <ul class="simple">
-<li><a class="reference internal" href="#module-cognate" id="id6">Getting Started with Cognate</a><ul>
-<li><a class="reference internal" href="#hola-mundo-demo-service" id="id7">Hola Mundo Demo Service</a></li>
-<li><a class="reference internal" href="#configuration-management-and-initialization" id="id8">Configuration Management and Initialization</a><ul>
-<li><a class="reference internal" href="#command-line-option-construction" id="id9">Command Line Option Construction</a></li>
+<li><a class="reference internal" href="#module-cognate" id="id7">Getting Started with Cognate</a><ul>
+<li><a class="reference internal" href="#hola-mundo-demo-service" id="id8">Hola Mundo Demo Service</a></li>
+<li><a class="reference internal" href="#configuration-management-and-initialization" id="id9">Configuration Management and Initialization</a><ul>
+<li><a class="reference internal" href="#command-line-option-construction" id="id10">Command Line Option Construction</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#logging-and-log-configuration" id="id10">Logging and Log Configuration</a></li>
-<li><a class="reference internal" href="#dynamic-service-naming" id="id11">Dynamic Service Naming</a></li>
+<li><a class="reference internal" href="#logging-and-log-configuration" id="id11">Logging and Log Configuration</a></li>
+<li><a class="reference internal" href="#dynamic-service-naming" id="id12">Dynamic Service Naming</a></li>
 </ul>
 </li>
 </ul>
@@ -78,21 +91,21 @@ implementation, and testing of services less of a chore.</p>
 <p>To get up and running the following topics will be covered:</p>
 <blockquote>
 <div><ul class="simple">
-<li><a class="reference internal" href="#configuration-management-and-initialization"><em>Configuration Management and Initialization</em></a></li>
-<li><a class="reference internal" href="#logging-and-log-configuration"><em>Logging and Log Configuration</em></a></li>
-<li><a class="reference internal" href="#dynamic-service-naming"><em>Dynamic Service Naming</em></a></li>
+<li><a class="reference internal" href="#configuration-management-and-initialization"><span>Configuration Management and Initialization</span></a></li>
+<li><a class="reference internal" href="#logging-and-log-configuration"><span>Logging and Log Configuration</span></a></li>
+<li><a class="reference internal" href="#dynamic-service-naming"><span>Dynamic Service Naming</span></a></li>
 </ul>
 </div></blockquote>
 <p>The intent is for <em>ComponentCore</em> to make life easier in the implementation
 of stand alone applications. The hope is to take some common service
 requirements and make the expression of those requirements trivial.</p>
 <p>This guide will demonstrate utilizing the
-<a class="reference internal" href="cognate.component_core.html#cognate.component_core.ComponentCore" title="cognate.component_core.ComponentCore"><tt class="xref py py-class docutils literal"><span class="pre">ComponentCore</span></tt></a>
-class to implement a service component in <a class="reference internal" href="#hola-mundo-service"><em>Hola Mundo Demo Service</em></a>. The
+<a class="reference internal" href="cognate.component_core.html#cognate.component_core.ComponentCore" title="cognate.component_core.ComponentCore"><code class="xref py py-class docutils literal"><span class="pre">ComponentCore</span></code></a>
+class to implement a service component in <a class="reference internal" href="#hola-mundo-service"><span>Hola Mundo Demo Service</span></a>. The
 example service will be used to explain the configuration and logging
 features of <em>Cognate</em>.</p>
 <div class="section" id="hola-mundo-demo-service">
-<span id="hola-mundo-service"></span><h2><a class="toc-backref" href="#id7">Hola Mundo Demo Service</a><a class="headerlink" href="#hola-mundo-demo-service" title="Permalink to this headline">¶</a></h2>
+<span id="hola-mundo-service"></span><h2><a class="toc-backref" href="#id8">Hola Mundo Demo Service</a><a class="headerlink" href="#hola-mundo-demo-service" title="Permalink to this headline">¶</a></h2>
 <p>The <em>HolaMundo</em> example is a service that will print out a salutation,
 such as &#8220;Hola Mundo&#8221;. <em>HolaMundo</em> will allow for configuring the language
 translations of &#8216;Hola&#8217; as the exclamation of the salutation. Language
@@ -102,10 +115,10 @@ the target of the salutation, with the default being <cite>Mundo</cite>.</p>
 <p>Another requirement for the <em>HolaMundo</em> service, is that it should be easy to
 execute as a runnable service, and also be usable as a component to create
 more complex services.</p>
-<p>The <em>HolaMundo</em> service is defined by the <tt class="docutils literal"><span class="pre">HolaMundo</span></tt> class,
-which is listed below. The source for <tt class="docutils literal"><span class="pre">HolaMundo</span></tt> can also be found at
+<p>The <em>HolaMundo</em> service is defined by the <code class="docutils literal"><span class="pre">HolaMundo</span></code> class,
+which is listed below. The source for <code class="docutils literal"><span class="pre">HolaMundo</span></code> can also be found at
 <em>&#8216;example/hola_mundo.py&#8217;</em> of the <a class="reference external" href="https://github.com/neoinsanity/cognate/tree/master">Cognate source</a>. Be sure to review the
-<tt class="docutils literal"><span class="pre">HolaMundo</span></tt> source, afterwards explanation of key features will be covered.</p>
+<code class="docutils literal"><span class="pre">HolaMundo</span></code> source, afterwards explanation of key features will be covered.</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -159,92 +172,93 @@ which is listed below. The source for <tt class="docutils literal"><span class="
 51
 52
 53
-54</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">sys</span>
+54</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">cognate.component_core</span> <span class="kn">import</span> <span class="n">ComponentCore</span>
 
 <span class="k">class</span> <span class="nc">HolaMundo</span><span class="p">(</span><span class="n">ComponentCore</span><span class="p">):</span>
     <span class="n">salutation_map</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s">&#39;Basque&#39;</span><span class="p">:</span> <span class="s">u&#39;Kaixo&#39;</span><span class="p">,</span>
-        <span class="s">&#39;Chinese&#39;</span><span class="p">:</span> <span class="s">u&quot;Nǐ hǎo&quot;</span><span class="p">,</span>
-        <span class="s">&#39;English&#39;</span><span class="p">:</span> <span class="s">u&#39;Hello&#39;</span><span class="p">,</span>
-        <span class="s">&#39;French&#39;</span><span class="p">:</span> <span class="s">u&#39;Bonjour&#39;</span><span class="p">,</span>
-        <span class="s">&#39;German&#39;</span><span class="p">:</span> <span class="s">u&#39;Hallo&#39;</span><span class="p">,</span>
-        <span class="s">&#39;Hindi&#39;</span><span class="p">:</span> <span class="s">u&quot;Namastē&quot;</span><span class="p">,</span>
-        <span class="s">&#39;Japanese&#39;</span><span class="p">:</span> <span class="s">u&quot;Kon&#39;nichiwa&quot;</span><span class="p">,</span>
-        <span class="s">&#39;Spanish&#39;</span><span class="p">:</span> <span class="s">u&#39;Hola&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Basque&#39;</span><span class="p">:</span> <span class="s1">u&#39;Kaixo&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Chinese&#39;</span><span class="p">:</span> <span class="s2">u&quot;Nǐ hǎo&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;English&#39;</span><span class="p">:</span> <span class="s1">u&#39;Hello&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;French&#39;</span><span class="p">:</span> <span class="s1">u&#39;Bonjour&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;German&#39;</span><span class="p">:</span> <span class="s1">u&#39;Hallo&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Hindi&#39;</span><span class="p">:</span> <span class="s2">u&quot;Namastē&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;Japanese&#39;</span><span class="p">:</span> <span class="s2">u&quot;Kon&#39;nichiwa&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;Spanish&#39;</span><span class="p">:</span> <span class="s1">u&#39;Hola&#39;</span><span class="p">,</span>
     <span class="p">}</span>
 
     <span class="n">lang_choices</span> <span class="o">=</span> <span class="n">salutation_map</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lang</span><span class="o">=</span><span class="s">&#39;Spanish&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lang</span><span class="o">=</span><span class="s1">&#39;Spanish&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lang</span> <span class="o">=</span> <span class="n">lang</span>
 
-        <span class="n">ComponentCore</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">HolaMundo</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">cognate_options</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg_parser</span><span class="p">):</span>
-        <span class="n">arg_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;-l&#39;</span><span class="p">,</span> <span class="s">&#39;--lang&#39;</span><span class="p">,</span>
+        <span class="n">arg_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-l&#39;</span><span class="p">,</span> <span class="s1">&#39;--lang&#39;</span><span class="p">,</span>
                                 <span class="n">default</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lang</span><span class="p">,</span>
                                 <span class="n">choices</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lang_choices</span><span class="p">,</span>
-                                <span class="n">help</span><span class="o">=</span><span class="s">&#39;Set the language for the salutation.&#39;</span><span class="p">)</span>
+                                <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Set the language for the salutation.&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">cognate_configure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lang</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lang_choices</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="s">&#39;&quot;lang&quot; value of </span><span class="si">%s</span><span class="s"> not allowed.&#39;</span> <span class="o">%</span> <span class="n">args</span><span class="o">.</span><span class="n">lang</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;&quot;lang&quot; value of </span><span class="si">%s</span><span class="s1"> not allowed.&#39;</span> <span class="o">%</span> <span class="n">args</span><span class="o">.</span><span class="n">lang</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">greet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;Mundo&#39;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">greet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Mundo&#39;</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="p">:</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;Mundo&#39;</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Mundo&#39;</span>
         <span class="n">salutation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">salutation_map</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">lang</span><span class="p">]</span>
-        <span class="n">greeting</span> <span class="o">=</span> <span class="n">salutation</span> <span class="o">+</span> <span class="s">&#39; &#39;</span> <span class="o">+</span> <span class="n">name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;Greeting: </span><span class="si">%s</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">greeting</span><span class="p">)</span>
+        <span class="n">greeting</span> <span class="o">=</span> <span class="n">salutation</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Greeting: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">greeting</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">greeting</span>
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">argv</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span>
     <span class="n">service</span> <span class="o">=</span> <span class="n">HolaMundo</span><span class="p">(</span><span class="n">argv</span><span class="o">=</span><span class="n">argv</span><span class="p">)</span>
 
     <span class="k">while</span> <span class="p">(</span><span class="bp">True</span><span class="p">):</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">&#39;Enter name (&quot;quit&quot; exits):&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s">&#39;quit&#39;</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s1">&#39;Enter name (&quot;quit&quot; exits):&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;quit&#39;</span><span class="p">:</span>
             <span class="k">break</span>
 
         <span class="n">greeting</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">greet</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="k">print</span> <span class="n">greeting</span>
 </pre></div>
 </td></tr></table></div>
-<p>The <tt class="docutils literal"><span class="pre">HolaMundo</span></tt> class <tt class="docutils literal"><span class="pre">lang</span></tt> attribute is used to control the language
-option of the service. The <tt class="docutils literal"><span class="pre">salutation_map</span></tt> and <tt class="docutils literal"><span class="pre">lang_choices</span></tt> class
-attributes manage the languages supported. The <tt class="docutils literal"><span class="pre">greet</span></tt> method will return a
+<p>The <code class="docutils literal"><span class="pre">HolaMundo</span></code> class <code class="docutils literal"><span class="pre">lang</span></code> attribute is used to control the language
+option of the service. The <code class="docutils literal"><span class="pre">salutation_map</span></code> and <code class="docutils literal"><span class="pre">lang_choices</span></code> class
+attributes manage the languages supported. The <code class="docutils literal"><span class="pre">greet</span></code> method will return a
 greeting with the configured language exclamation and the target name.</p>
 <p>The <em>HolaMundo</em> service can be executed with the command:</p>
-<div class="highlight-python"><pre>python example/hola_mundo.py</pre>
+<div class="highlight-python"><div class="highlight"><pre><span></span>python example/hola_mundo.py
+</pre></div>
 </div>
 </div>
 <div class="section" id="configuration-management-and-initialization">
-<span id="id2"></span><h2><a class="toc-backref" href="#id8">Configuration Management and Initialization</a><a class="headerlink" href="#configuration-management-and-initialization" title="Permalink to this headline">¶</a></h2>
-<p>The <tt class="docutils literal"><span class="pre">HolaMundo</span></tt> class hierarchy is as shown below:</p>
-<div class="figure">
+<span id="id2"></span><h2><a class="toc-backref" href="#id9">Configuration Management and Initialization</a><a class="headerlink" href="#configuration-management-and-initialization" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal"><span class="pre">HolaMundo</span></code> class hierarchy is as shown below:</p>
+<div class="figure" id="id6">
 <img alt="_images/cognate_utilization_example_hierarchy.png" src="_images/cognate_utilization_example_hierarchy.png" />
-<p class="caption">ComponentCore Example Hierarchy</p>
+<p class="caption"><span class="caption-text">ComponentCore Example Hierarchy</span></p>
 </div>
 <p>The essence of how <em>ComponentCore</em> performs it&#8217;s operations is via the use of
-<a class="reference internal" href="cognate.component_core.html#module-cognate.component_core" title="cognate.component_core"><tt class="xref py py-mod docutils literal"><span class="pre">cognate.component_core</span></tt></a> module to derive configuration of service stack.
+<a class="reference internal" href="cognate.component_core.html#module-cognate.component_core" title="cognate.component_core"><code class="xref py py-mod docutils literal"><span class="pre">cognate.component_core</span></code></a> module to derive configuration of service stack.
 The basic call sequence is depicted in the image below.</p>
 <img alt="_images/cognate_utilization_example_sequence.png" src="_images/cognate_utilization_example_sequence.png" />
-<p><a class="reference internal" href="cognate.component_core.html#cognate.component_core.ComponentCore.cognate_options" title="cognate.component_core.ComponentCore.cognate_options"><tt class="xref py py-meth docutils literal"><span class="pre">cognate_options()</span></tt></a> and
-<a class="reference internal" href="cognate.component_core.html#cognate.component_core.ComponentCore.cognate_configure" title="cognate.component_core.ComponentCore.cognate_configure"><tt class="xref py py-meth docutils literal"><span class="pre">cognate_configure()</span></tt></a> methods via the
+<p><a class="reference internal" href="cognate.component_core.html#cognate.component_core.ComponentCore.cognate_options" title="cognate.component_core.ComponentCore.cognate_options"><code class="xref py py-meth docutils literal"><span class="pre">cognate_options()</span></code></a> and
+<a class="reference internal" href="cognate.component_core.html#cognate.component_core.ComponentCore.cognate_configure" title="cognate.component_core.ComponentCore.cognate_configure"><code class="xref py py-meth docutils literal"><span class="pre">cognate_configure()</span></code></a> methods via the
 use of the
-<a class="reference internal" href="cognate.component_core.html#cognate.component_core.ComponentCore.invoke_method_on_children" title="cognate.component_core.ComponentCore.invoke_method_on_children"><tt class="xref py py-meth docutils literal"><span class="pre">invoke_method_on_children()</span></tt></a>.
+<a class="reference internal" href="cognate.component_core.html#cognate.component_core.ComponentCore.invoke_method_on_children" title="cognate.component_core.ComponentCore.invoke_method_on_children"><code class="xref py py-meth docutils literal"><span class="pre">invoke_method_on_children()</span></code></a>.
 This effectively calls the <em>cognate_options</em> and <em>cognate_configure</em> methods
 on all primary base classes that derive from <em>ComponentCore</em>.</p>
 <p><em>ComponentCore</em> helps out with configuration management and initialization of
 runtime services. it does this by creating a configuration loop. Utilizing the
-<a class="reference internal" href="#hola-mundo-service"><em>Hola Mundo Demo Service</em></a> as an example.</p>
+<a class="reference internal" href="#hola-mundo-service"><span>Hola Mundo Demo Service</span></a> as an example.</p>
 <div class="section" id="command-line-option-construction">
-<span id="id3"></span><h3><a class="toc-backref" href="#id9">Command Line Option Construction</a><a class="headerlink" href="#command-line-option-construction" title="Permalink to this headline">¶</a></h3>
+<span id="id3"></span><h3><a class="toc-backref" href="#id10">Command Line Option Construction</a><a class="headerlink" href="#command-line-option-construction" title="Permalink to this headline">¶</a></h3>
 <p><em>ComponentCore</em> provides the means for command line construction to inheriting
 classes. This is achieved by the ingestion of command line options through
 invocation of <em>configure_option</em> method on the chain of ancestor classes that
@@ -253,11 +267,11 @@ declare the <em>configuration_option</em> method.</p>
 options in one bundle, and manage them as a unified instance configuration.
 This allows for the centralization of common options and the attending code.</p>
 <p>For more detail on this feature, be sure to check out
-<tt class="xref py py-meth docutils literal"><span class="pre">_execute_configuration()</span></tt>.</p>
+<code class="xref py py-meth docutils literal"><span class="pre">_execute_configuration()</span></code>.</p>
 </div>
 </div>
 <div class="section" id="logging-and-log-configuration">
-<span id="id4"></span><h2><a class="toc-backref" href="#id10">Logging and Log Configuration</a><a class="headerlink" href="#logging-and-log-configuration" title="Permalink to this headline">¶</a></h2>
+<span id="id4"></span><h2><a class="toc-backref" href="#id11">Logging and Log Configuration</a><a class="headerlink" href="#logging-and-log-configuration" title="Permalink to this headline">¶</a></h2>
 <p><em>ComponentCore</em> supports console and file output. In addition <em>ComponentCore</em>
 supports
 the four basic log levels: <cite>debug</cite>,`info`,`warning`,`error`.</p>
@@ -285,18 +299,19 @@ extension, then the path be a target file.</p>
 </table>
 </div></blockquote>
 <p><em>ComponentCore</em> log configuration takes advantage of the
-<a class="reference internal" href="#dynamic-service-naming"><em>Dynamic Service Naming</em></a> for log file naming, as well as in log name
+<a class="reference internal" href="#dynamic-service-naming"><span>Dynamic Service Naming</span></a> for log file naming, as well as in log name
 output.</p>
 <p>For example:</p>
-<div class="highlight-python"><pre>2012-12-02 03:26:03,030 - &lt;name&gt; - INFO - Logging configured for:
-VentilatorWindmill</pre>
+<div class="highlight-python"><div class="highlight"><pre><span></span>2012-12-02 03:26:03,030 - &lt;name&gt; - INFO - Logging configured for:
+VentilatorWindmill
+</pre></div>
 </div>
 <p>The &lt;name&gt; value will be assigned by default to the instance class utilizing
 <em>ComponentCore</em>, but will be overridden by the use of the &#8216;&#8211;service_name
 &lt;name&gt;&#8217; option.</p>
 </div>
 <div class="section" id="dynamic-service-naming">
-<span id="id5"></span><h2><a class="toc-backref" href="#id11">Dynamic Service Naming</a><a class="headerlink" href="#dynamic-service-naming" title="Permalink to this headline">¶</a></h2>
+<span id="id5"></span><h2><a class="toc-backref" href="#id12">Dynamic Service Naming</a><a class="headerlink" href="#dynamic-service-naming" title="Permalink to this headline">¶</a></h2>
 <p><em>ComponentCore</em> provides a mechanism to allow for dynamic naming of
 progenitor class
 service instances. This is achieved through the use of the &#8216;&#8211;service_name
@@ -319,10 +334,10 @@ through
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="sphinxlocaltoc">
+    <h3><a href="contents.html">Page contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">Getting Started with Cognate</a><ul>
 <li><a class="reference internal" href="#hola-mundo-demo-service">Hola Mundo Demo Service</a></li>
 <li><a class="reference internal" href="#configuration-management-and-initialization">Configuration Management and Initialization</a><ul>
@@ -335,18 +350,25 @@ through
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="index.html"
-                        title="previous chapter">Cognate - Related to the Same Common Root</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="cognate.component_core.html"
-                        title="next chapter">Component Core Module</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/cognate.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  </div>
+  <div class="sphinxprev">
+    <h4>Previous page</h4>
+    <p class="topless"><a href="index.html"
+                          title="Previous page">&larr; Cognate - Related to the Same Common Root</a></p>
+  </div>
+  <div class="sphinxnext">
+    <h4>Next page</h4>
+    <p class="topless"><a href="cognate.component_core.html"
+                          title="Next page">&rarr; Component Core Module</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/cognate.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -363,7 +385,9 @@ through
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="relbar-bottom">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -371,19 +395,26 @@ through
              >index</a></li>
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="contents.html" title="Table Of Contents"
+             >toc</a> &nbsp; &nbsp;</li>
         <li class="right" >
           <a href="cognate.component_core.html" title="Component Core Module"
-             >next</a> |</li>
+             >next</a> &nbsp; &nbsp;</li>
         <li class="right" >
           <a href="index.html" title="Cognate - Related to the Same Common Root"
-             >previous</a> |</li>
-        <li><a href="index.html">Cognate 0.0.1 Documentation</a> &raquo;</li> 
+             >previous</a> &nbsp; &nbsp;</li>
+    <li><a href="index.html">Cognate 0.0.2 Documentation</a> &raquo;</li>
+ 
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2014, Raul Gonzalez.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
     </div>
+
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Raul Gonzalez.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+    </div>
+    <!-- cloud_sptheme 1.4 -->
   </body>
 </html>
