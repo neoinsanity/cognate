@@ -7,7 +7,7 @@ from logging.handlers import WatchedFileHandler
 import os
 import shlex
 import sys
-
+from typing import Any, Dict, List
 
 class ComponentCore(object):
     """The *ComponentCore* class provides configuration services for components.
@@ -169,7 +169,7 @@ class ComponentCore(object):
 
         self._execute_configuration(argv)
 
-    def cognate_options(self, arg_parser):
+    def cognate_options(self, arg_parser: argparse.ArgumentParser) -> None:
         """This method will be called to get the *ComponentCore* configuration
         options.
 
@@ -200,12 +200,12 @@ class ComponentCore(object):
                                 help='Enable verbose log output to console. '
                                      'Useful for debugging.')
 
-    def cognate_configure(self, args):
+    def cognate_configure(self, args: Dict) -> None:
         """ This method is called by *ComponentCore* during instance
         initialization.
 
         :param args: An object with configuration properties.
-        :type args: object
+        :type args: Namespace
         :return: None
 
         .. note:: Properties set to `self`.
@@ -258,7 +258,7 @@ class ComponentCore(object):
 
         self.log.info('Logging configured for: %s', self.service_name)
 
-    def _execute_configuration(self, argv):
+    def _execute_configuration(self, argv: List[Any] = None) -> None:
         """This method assigns an argument list to attributes assigned to self.
 
         :param argv: A list of arguments.
@@ -315,7 +315,9 @@ class ComponentCore(object):
         self.log.info(
             'Component service configuration complete with argv: %s', args)
 
-    def invoke_method_on_children(self, func_name=None, *args, **kwargs):
+    def invoke_method_on_children(self,
+                                  func_name: str = None,
+                                  *args, **kwargs) -> None:
         """This helper method will walk the primary base class hierarchy to
         invoke a method if it exists for a given child base class.
 
@@ -412,7 +414,10 @@ class ComponentCore(object):
             return self.DEBUG_LOG_FORMATTER
 
 
-def copy_attribute_values(source, target, property_names):
+def copy_attribute_values(
+        source: object,
+        target: object,
+        property_names: List[str]) -> None:
     """Function to copy attributes from a source to a target object.
 
     This method copies the property values in a given list from a given
