@@ -76,7 +76,7 @@ class ComponentCore(object):
         '%(threadName)s:%(asctime)s -%(name)s - %(levelname)s -- '
         '%(pathname)s:%(lineno)d -- %(message)s')
 
-    def __init__(self,
+    def __init__(self,  # pylint: disable=too-many-arguments
                  argv=None,
                  log=None,
                  log_level='error',
@@ -108,17 +108,16 @@ class ComponentCore(object):
         :return: `ComponentCore` child instance
 
         A default ComponentCore will assume the name of the instantiating
-        class. In
-        addition, it will not consider the name to have been set.
+        class. In addition, it will not consider the name to have been set.
 
         >>> class Foo(ComponentCore):
         ...     def __init__(self, **kwargs):
-        ...         ComponentCore.__init__(self, **kwargs)
+        ...         super(Foo, self).__init__(**kwargs)
         >>> foo = Foo()
         >>> assert foo.service_name == 'Foo'
         >>> assert foo.service_name_set == False
         >>> assert foo.log_level == logging.ERROR
-        >>> assert foo.log_path == None
+        >>> assert foo.log_path is None
         >>> assert foo.verbose == False
 
         A ComponentCore can be configured utilizing an array style argument
@@ -128,7 +127,7 @@ class ComponentCore(object):
         >>> assert bar.service_name == 'Bar'
         >>> assert bar.service_name_set == True
         >>> assert bar.log_level == logging.DEBUG
-        >>> assert bar.log_path == None
+        >>> assert bar.log_path is None
         >>> assert bar.verbose == False
 
         In addition, the ComponentCore can be configured from a string.
@@ -259,7 +258,10 @@ class ComponentCore(object):
 
         self.log.info('Logging configured for: %s', self.service_name)
 
-    def _execute_configuration(self, argv: List[Any] = None) -> None:
+    def _execute_configuration(
+            self,
+            argv: List[Any] = None  # pylint: disable=bad-whitespace,invalid-sequence-index
+    ) -> None:
         """This method assigns an argument list to attributes assigned to self.
 
         :param argv: A list of arguments.
@@ -294,10 +296,10 @@ class ComponentCore(object):
         # resolve configuration options necessary for runtime execution
         property_list = []
         # noinspection PyProtectedMember
-        for action in arg_parser._get_positional_actions():
+        for action in arg_parser._get_positional_actions():  # pylint: disable=protected-access
             property_list.append(action.dest)
             # noinspection PyProtectedMember
-        for action in arg_parser._get_optional_actions():
+        for action in arg_parser._get_optional_actions():  # pylint: disable=protected-access
             property_list.append(action.dest)
         property_list.remove('help')  # remove the help option
 
@@ -316,9 +318,10 @@ class ComponentCore(object):
         self.log.info(
             'Component service configuration complete with argv: %s', args)
 
-    def invoke_method_on_children(self,
-                                  func_name: str = None,
-                                  *args, **kwargs) -> None:
+    def invoke_method_on_children(
+            self,
+            func_name: str = None,  # pylint: disable=bad-whitespace
+            *args, **kwargs) -> None:
         """This helper method will walk the primary base class hierarchy to
         invoke a method if it exists for a given child base class.
 
@@ -418,15 +421,15 @@ class ComponentCore(object):
 def copy_attribute_values(
         source: object,
         target: object,
-        property_names: List[str]) -> None:
+        property_names: List[str]) -> None:  # pylint: disable=invalid-sequence-index
     """Function to copy attributes from a source to a target object.
 
     This method copies the property values in a given list from a given
     source object to a target source object.
 
-    :param src: The source object that is to be inspected for property
+    :param source: The source object that is to be inspected for property
         values.
-    :type src: type
+    :type source: type
     :param target: The target object that will be modified with values found
         in src.
     :type target: type

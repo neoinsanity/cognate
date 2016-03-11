@@ -73,7 +73,7 @@ which is listed below. The source for ``HolaMundo`` can also be found at
         def __init__(self, lang='Spanish', **kwargs):
             self.lang = lang
 
-            ComponentCore.__init__(self, **kwargs)
+            super(HolaMundo, self).__init__(**kwargs)
 
         def cognate_options(self, arg_parser):
             arg_parser.add_argument('-l', '--lang',
@@ -225,5 +225,6 @@ through
 `self.service_name`.
 """
 from cognate import component_core
+from cognate.component_core import ComponentCore
 
-__all__ = ['component_core']
+__all__ = ['ComponentCore', 'component_core']

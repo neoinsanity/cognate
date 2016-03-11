@@ -52,7 +52,6 @@ class AttributeHelperTestCase(TestCase):
             component_core.copy_attribute_values,
             src_property_bag, trgt_property_bag, 2)
 
-
         self.assertFalse(hasattr(trgt_property_bag, 'prop1'))
         self.assertEqual(trgt_property_bag.prop2, 'another 2')
         self.assertEqual(trgt_property_bag.prop3, 'another 3')

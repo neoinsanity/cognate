@@ -17,7 +17,7 @@ create a component service class::
         def __init__(self, name='World', **kwargs):
             self.name = name
 
-            ComponentCore.__init__(self, **kwargs)
+            super(ComponentCore, self).__init__(**kwargs)
 
         def cognate_options(self, arg_parser):
             arg_parser.add_argument(
