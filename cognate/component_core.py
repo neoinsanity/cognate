@@ -295,10 +295,8 @@ class ComponentCore(object):
 
         # resolve configuration options necessary for runtime execution
         property_list = []
-        # noinspection PyProtectedMember
         for action in arg_parser._get_positional_actions():  # pylint: disable=protected-access
             property_list.append(action.dest)
-            # noinspection PyProtectedMember
         for action in arg_parser._get_optional_actions():  # pylint: disable=protected-access
             property_list.append(action.dest)
         property_list.remove('help')  # remove the help option
@@ -420,7 +418,7 @@ class ComponentCore(object):
 
 def copy_attribute_values(
         source: object,
-        target: object,
+        target: ComponentCore,
         property_names: List[str]) -> None:  # pylint: disable=invalid-sequence-index
     """Function to copy attributes from a source to a target object.
 
@@ -429,10 +427,10 @@ def copy_attribute_values(
 
     :param source: The source object that is to be inspected for property
         values.
-    :type source: type
+    :type source: object
     :param target: The target object that will be modified with values found
         in src.
-    :type target: type
+    :type target: object
     :param property_names: List of property names whose values are to be
         copied from source to object.
     :type property_names: list, set
