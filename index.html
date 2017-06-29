@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Cognate - Related to the Same Common Root &mdash; Cognate 0.0.4 Documentation</title>
+    <title>Cognate - Related to the Same Common Root &mdash; Cognate 0.0.5 Documentation</title>
     
     <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -17,7 +17,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.0.4',
+        VERSION:     '0.0.5',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -28,7 +28,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/jquery.cookie.js"></script>
     <script type="text/javascript" src="_static/cloud.js"></script>
-    <link rel="top" title="Cognate 0.0.4 Documentation" href="contents.html" />
+    <link rel="top" title="Cognate 0.0.5 Documentation" href="contents.html" />
     <link rel="next" title="Getting Started with Cognate" href="cognate.html" />
     <link rel="prev" title="Usage Documentation" href="contents.html" /> 
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -54,7 +54,7 @@
         <li class="right" >
           <a href="contents.html" title="Usage Documentation"
              accesskey="P">previous</a> &nbsp; &nbsp;</li>
-    <li><a href="#">Cognate 0.0.4 Documentation</a> &raquo;</li>
+    <li><a href="#">Cognate 0.0.5 Documentation</a> &raquo;</li>
  
       </ul>
     </div>
@@ -78,10 +78,10 @@ create a component service class:</p>
 <span class="kn">import</span> <span class="nn">sys</span>
 
 <span class="k">class</span> <span class="nc">HelloWorld</span><span class="p">(</span><span class="n">ComponentCore</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;World&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;World&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
 
-        <span class="nb">super</span><span class="p">(</span><span class="n">ComponentCore</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ComponentCore</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">cognate_options</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg_parser</span><span class="p">):</span>
         <span class="n">arg_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
@@ -93,7 +93,7 @@ create a component service class:</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Hello </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">argv</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span>
     <span class="n">service</span> <span class="o">=</span> <span class="n">HelloWorld</span><span class="p">(</span><span class="n">argv</span><span class="o">=</span><span class="n">argv</span><span class="p">)</span>
     <span class="n">service</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
@@ -275,7 +275,7 @@ goodness.</p>
         <li class="right" >
           <a href="contents.html" title="Usage Documentation"
              >previous</a> &nbsp; &nbsp;</li>
-    <li><a href="#">Cognate 0.0.4 Documentation</a> &raquo;</li>
+    <li><a href="#">Cognate 0.0.5 Documentation</a> &raquo;</li>
  
       </ul>
     </div>

@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Component Core Module &mdash; Cognate 0.0.4 Documentation</title>
+    <title>Component Core Module &mdash; Cognate 0.0.5 Documentation</title>
     
     <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -17,7 +17,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.0.4',
+        VERSION:     '0.0.5',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -28,7 +28,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/jquery.cookie.js"></script>
     <script type="text/javascript" src="_static/cloud.js"></script>
-    <link rel="top" title="Cognate 0.0.4 Documentation" href="contents.html" />
+    <link rel="top" title="Cognate 0.0.5 Documentation" href="contents.html" />
     <link rel="prev" title="Getting Started with Cognate" href="cognate.html" /> 
         <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
@@ -50,7 +50,7 @@
         <li class="right" >
           <a href="cognate.html" title="Getting Started with Cognate"
              accesskey="P">previous</a> &nbsp; &nbsp;</li>
-    <li><a href="index.html">Cognate 0.0.4 Documentation</a> &raquo;</li>
+    <li><a href="index.html">Cognate 0.0.5 Documentation</a> &raquo;</li>
  
       </ul>
     </div>
@@ -162,8 +162,8 @@ This will be reflected in the log output.&#8217;</li>
 <p>A default ComponentCore will assume the name of the instantiating
 class. In addition, it will not consider the name to have been set.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">ComponentCore</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="gp">... </span>        <span class="nb">super</span><span class="p">(</span><span class="n">Foo</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="nb">super</span><span class="p">(</span><span class="n">Foo</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">foo</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">foo</span><span class="o">.</span><span class="n">service_name</span> <span class="o">==</span> <span class="s1">&#39;Foo&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">foo</span><span class="o">.</span><span class="n">service_name_set</span> <span class="o">==</span> <span class="bp">False</span>
@@ -196,7 +196,7 @@ list.</p>
 
 <dl class="method">
 <dt id="cognate.component_core.ComponentCore.cognate_options">
-<code class="descname">cognate_options</code><span class="sig-paren">(</span><em>arg_parser: argparse.ArgumentParser</em><span class="sig-paren">)</span> &rarr; None<a class="headerlink" href="#cognate.component_core.ComponentCore.cognate_options" title="Permalink to this definition">¶</a></dt>
+<code class="descname">cognate_options</code><span class="sig-paren">(</span><em>arg_parser</em><span class="sig-paren">)</span><a class="headerlink" href="#cognate.component_core.ComponentCore.cognate_options" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method will be called to get the <em>ComponentCore</em> configuration
 options.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -214,7 +214,7 @@ options.</td>
 
 <dl class="method">
 <dt id="cognate.component_core.ComponentCore.cognate_configure">
-<code class="descname">cognate_configure</code><span class="sig-paren">(</span><em>args: typing.Dict</em><span class="sig-paren">)</span> &rarr; None<a class="headerlink" href="#cognate.component_core.ComponentCore.cognate_configure" title="Permalink to this definition">¶</a></dt>
+<code class="descname">cognate_configure</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cognate.component_core.ComponentCore.cognate_configure" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method is called by <em>ComponentCore</em> during instance
 initialization.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -238,7 +238,7 @@ configuration scenarios.</p>
 
 <dl class="method">
 <dt id="cognate.component_core.ComponentCore.invoke_method_on_children">
-<code class="descname">invoke_method_on_children</code><span class="sig-paren">(</span><em>func_name: str=None</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span> &rarr; None<a class="headerlink" href="#cognate.component_core.ComponentCore.invoke_method_on_children" title="Permalink to this definition">¶</a></dt>
+<code class="descname">invoke_method_on_children</code><span class="sig-paren">(</span><em>func_name=None</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cognate.component_core.ComponentCore.invoke_method_on_children" title="Permalink to this definition">¶</a></dt>
 <dd><p>This helper method will walk the primary base class hierarchy to
 invoke a method if it exists for a given child base class.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -309,11 +309,11 @@ the method in two ways, as exampled below.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create a keyword argument dictionary or argument list</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a_key&#39;</span><span class="p">:</span><span class="s1">&#39;a_value&#39;</span><span class="p">}</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bar</span><span class="o">.</span><span class="n">invoke_method_on_children</span><span class="p">(</span><span class="n">func_name</span><span class="o">=</span><span class="s1">&#39;the_func&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="go">a_key: a_value</span>
+<span class="go">(&#39;a_key:&#39;, &#39;a_value&#39;)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Simply pass the argument keyword and value</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bar</span><span class="o">.</span><span class="n">invoke_method_on_children</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">func_name</span><span class="o">=</span><span class="s1">&#39;the_func&#39;</span><span class="p">,</span> <span class="n">a_key</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">)</span>
-<span class="go">a_key: value</span>
+<span class="go">(&#39;a_key:&#39;, &#39;value&#39;)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -328,7 +328,7 @@ the method in two ways, as exampled below.</p>
 <h3>copy_attribute_values<a class="headerlink" href="#copy-attribute-values" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
 <dt id="cognate.component_core.copy_attribute_values">
-<code class="descclassname">cognate.component_core.</code><code class="descname">copy_attribute_values</code><span class="sig-paren">(</span><em>source: object</em>, <em>target: object</em>, <em>property_names: typing.List</em><span class="sig-paren">)</span> &rarr; None<a class="headerlink" href="#cognate.component_core.copy_attribute_values" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">cognate.component_core.</code><code class="descname">copy_attribute_values</code><span class="sig-paren">(</span><em>source</em>, <em>target</em>, <em>property_names</em><span class="sig-paren">)</span><a class="headerlink" href="#cognate.component_core.copy_attribute_values" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to copy attributes from a source to a target object.</p>
 <p>This method copies the property values in a given list from a given
 source object to a target source object.</p>
@@ -457,7 +457,7 @@ made.</p>
         <li class="right" >
           <a href="cognate.html" title="Getting Started with Cognate"
              >previous</a> &nbsp; &nbsp;</li>
-    <li><a href="index.html">Cognate 0.0.4 Documentation</a> &raquo;</li>
+    <li><a href="index.html">Cognate 0.0.5 Documentation</a> &raquo;</li>
  
       </ul>
     </div>

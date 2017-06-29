@@ -129,9 +129,6 @@
 
     
         
-            
-            
-        
         
     
 
@@ -141,9 +138,6 @@
 
     
         
-            
-            
-        
         
     
 
@@ -152,9 +146,6 @@
     
 
     
-        
-            
-            
         
         
     
@@ -909,7 +900,7 @@ div.body h1
     
     
         
-    margin: 0.562em 0
+    margin: 0.563em 0
             1.5em 0;
 
     }div.body h2,
@@ -937,7 +928,7 @@ div.body h3
     
         
     font-size: 1.625em;
-    line-height: 1.8461538461538463em;
+    line-height: 1.84615384615em;
     margin: 0.692em 0
             0.692em 0;
 
@@ -1069,7 +1060,7 @@ div.body h5 {
     
         
     font-size: 1.1em;
-    line-height: 1.3636363636363635em;
+    line-height: 1.36363636364em;
     margin: 1.364em 0
             1.364em 0;
  }
@@ -1427,7 +1418,7 @@ div.admonition, p.deprecated
     
         
     font-size: 0.88em;
-    line-height: 1.7045454545454546em;
+    line-height: 1.70454545455em;
     margin: 0.705em 0
             0.705em 0;
 
@@ -1475,7 +1466,7 @@ div.admonition ol {
     
     
         
-    line-height: 1.7045454545454546em;
+    line-height: 1.70454545455em;
     margin: 0.0em 0
             0.0em 0;
 
@@ -1563,7 +1554,7 @@ div.deprecated, div.versionchanged, div.versionadded
     
         
     font-size: 0.88em;
-    line-height: 1.7045454545454546em;
+    line-height: 1.70454545455em;
     margin: 1.705em 0
             1.705em 0;
 
@@ -1651,13 +1642,13 @@ table.highlighttable div.linenodiv pre
     
 
 
-code
+tt
 {
     font-family: "Droid Sans Mono", monospace;
     font-size: 90%;
 }
 
-code.literal
+tt.literal
 {
     background-color: rgba(0,0,0,.075);
     border: 1px solid rgba(0,0,0,.05);
@@ -1676,9 +1667,9 @@ code.literal
 
 }
 
-p code.literal { white-space: nowrap; }
+p tt.literal { white-space: nowrap; }
 
-code.samp.literal > em
+tt.samp.literal > em
 {
     font-family: "Droid Sans Mono", monospace;
     padding: 0 1px;
@@ -1687,24 +1678,24 @@ code.samp.literal > em
 
 }
 
-code.samp.literal > em:before { content: "{"; }
-code.samp.literal > em:after { content: "}"; }
+tt.samp.literal > em:before { content: "{"; }
+tt.samp.literal > em:after { content: "}"; }
 
-h1 code.literal
+h1 tt.literal
 {
 
     font-size: 80%;
 }
 
-h1 code.samp.literal > em
+h1 tt.samp.literal > em
 {
     font-weight: normal;
 }
 
-div.sphinxsidebar code.literal,
-a.reference code.literal,
-div.related a code.literal,
-code.literal.xref
+div.sphinxsidebar tt.literal,
+a.reference tt.literal,
+div.related a tt.literal,
+tt.literal.xref
 {
     background-color: transparent;
     border: none;

@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Getting Started with Cognate &mdash; Cognate 0.0.4 Documentation</title>
+    <title>Getting Started with Cognate &mdash; Cognate 0.0.5 Documentation</title>
     
     <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -17,7 +17,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.0.4',
+        VERSION:     '0.0.5',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -28,7 +28,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/jquery.cookie.js"></script>
     <script type="text/javascript" src="_static/cloud.js"></script>
-    <link rel="top" title="Cognate 0.0.4 Documentation" href="contents.html" />
+    <link rel="top" title="Cognate 0.0.5 Documentation" href="contents.html" />
     <link rel="next" title="Component Core Module" href="cognate.component_core.html" />
     <link rel="prev" title="Cognate - Related to the Same Common Root" href="index.html" /> 
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -54,7 +54,7 @@
         <li class="right" >
           <a href="index.html" title="Cognate - Related to the Same Common Root"
              accesskey="P">previous</a> &nbsp; &nbsp;</li>
-    <li><a href="index.html">Cognate 0.0.4 Documentation</a> &raquo;</li>
+    <li><a href="index.html">Cognate 0.0.5 Documentation</a> &raquo;</li>
  
       </ul>
     </div>
@@ -177,22 +177,22 @@ which is listed below. The source for <code class="docutils literal"><span class
 
 <span class="k">class</span> <span class="nc">HolaMundo</span><span class="p">(</span><span class="n">ComponentCore</span><span class="p">):</span>
     <span class="n">salutation_map</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;Basque&#39;</span><span class="p">:</span> <span class="s1">u&#39;Kaixo&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;Chinese&#39;</span><span class="p">:</span> <span class="s2">u&quot;Nǐ hǎo&quot;</span><span class="p">,</span>
-        <span class="s1">&#39;English&#39;</span><span class="p">:</span> <span class="s1">u&#39;Hello&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;French&#39;</span><span class="p">:</span> <span class="s1">u&#39;Bonjour&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;German&#39;</span><span class="p">:</span> <span class="s1">u&#39;Hallo&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;Hindi&#39;</span><span class="p">:</span> <span class="s2">u&quot;Namastē&quot;</span><span class="p">,</span>
-        <span class="s1">&#39;Japanese&#39;</span><span class="p">:</span> <span class="s2">u&quot;Kon&#39;nichiwa&quot;</span><span class="p">,</span>
-        <span class="s1">&#39;Spanish&#39;</span><span class="p">:</span> <span class="s1">u&#39;Hola&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Basque&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;Kaixo&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Chinese&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s2">&quot;Nǐ hǎo&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;English&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;Hello&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;French&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;Bonjour&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;German&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;Hallo&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Hindi&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s2">&quot;Namastē&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;Japanese&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s2">&quot;Kon&#39;nichiwa&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;Spanish&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;Hola&#39;</span><span class="p">,</span>
     <span class="p">}</span>
 
     <span class="n">lang_choices</span> <span class="o">=</span> <span class="n">salutation_map</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lang</span><span class="o">=</span><span class="s1">&#39;Spanish&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lang</span><span class="o">=</span><span class="s1">&#39;Spanish&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lang</span> <span class="o">=</span> <span class="n">lang</span>
 
-        <span class="nb">super</span><span class="p">(</span><span class="n">HolaMundo</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">HolaMundo</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">cognate_options</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg_parser</span><span class="p">):</span>
         <span class="n">arg_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-l&#39;</span><span class="p">,</span> <span class="s1">&#39;--lang&#39;</span><span class="p">,</span>
@@ -215,7 +215,7 @@ which is listed below. The source for <code class="docutils literal"><span class
         <span class="k">return</span> <span class="n">greeting</span>
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">argv</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span>
     <span class="n">service</span> <span class="o">=</span> <span class="n">HolaMundo</span><span class="p">(</span><span class="n">argv</span><span class="o">=</span><span class="n">argv</span><span class="p">)</span>
 
@@ -405,7 +405,7 @@ through
         <li class="right" >
           <a href="index.html" title="Cognate - Related to the Same Common Root"
              >previous</a> &nbsp; &nbsp;</li>
-    <li><a href="index.html">Cognate 0.0.4 Documentation</a> &raquo;</li>
+    <li><a href="index.html">Cognate 0.0.5 Documentation</a> &raquo;</li>
  
       </ul>
     </div>
