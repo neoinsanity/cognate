@@ -3,11 +3,10 @@ construction of service modules.
 """
 import argparse
 import logging
-from logging.handlers import WatchedFileHandler
 import os
 import shlex
 import sys
-from typing import Any, Dict, List
+from logging.handlers import WatchedFileHandler
 
 
 class ComponentCore(object):
@@ -169,7 +168,7 @@ class ComponentCore(object):
 
         self._execute_configuration(argv)
 
-    def cognate_options(self, arg_parser: argparse.ArgumentParser) -> None:
+    def cognate_options(self, arg_parser):
         """This method will be called to get the *ComponentCore* configuration
         options.
 
@@ -200,7 +199,7 @@ class ComponentCore(object):
                                 help='Enable verbose log output to console. '
                                      'Useful for debugging.')
 
-    def cognate_configure(self, args: Dict) -> None:
+    def cognate_configure(self, args):
         """ This method is called by *ComponentCore* during instance
         initialization.
 
@@ -258,10 +257,7 @@ class ComponentCore(object):
 
         self.log.info('Logging configured for: %s', self.service_name)
 
-    def _execute_configuration(
-            self,
-            argv: List[Any] = None  # pylint: disable=bad-whitespace,invalid-sequence-index
-    ) -> None:
+    def _execute_configuration(self, argv):
         """This method assigns an argument list to attributes assigned to self.
 
         :param argv: A list of arguments.
@@ -318,10 +314,7 @@ class ComponentCore(object):
         self.log.info(
             'Component service configuration complete with argv: %s', args)
 
-    def invoke_method_on_children(
-            self,
-            func_name: str = None,  # pylint: disable=bad-whitespace
-            *args, **kwargs) -> None:
+    def invoke_method_on_children(self, func_name=None, *args, **kwargs):
         """This helper method will walk the primary base class hierarchy to
         invoke a method if it exists for a given child base class.
 
@@ -387,11 +380,11 @@ class ComponentCore(object):
         >>> # Create a keyword argument dictionary or argument list
         >>> kwargs = {'a_key':'a_value'}
         >>> bar.invoke_method_on_children(func_name='the_func', **kwargs)
-        a_key: a_value
+        ('a_key:', 'a_value')
         >>> # Simply pass the argument keyword and value
         >>> bar.invoke_method_on_children(
         ...     func_name='the_func', a_key='value')
-        a_key: value
+        ('a_key:', 'value')
         """
         if func_name is None:
             raise ValueError(
@@ -418,48 +411,45 @@ class ComponentCore(object):
             return self.DEBUG_LOG_FORMATTER
 
 
-def copy_attribute_values(
-        source: object,
-        target: object,
-        property_names: List[str]) -> None:  # pylint: disable=invalid-sequence-index
+def copy_attribute_values(source, target, property_names):
     """Function to copy attributes from a source to a target object.
 
-    This method copies the property values in a given list from a given
-    source object to a target source object.
+This method copies the property values in a given list from a given
+source object to a target source object.
 
-    :param source: The source object that is to be inspected for property
-        values.
-    :type source: type
-    :param target: The target object that will be modified with values found
-        in src.
-    :type target: type
-    :param property_names: List of property names whose values are to be
-        copied from source to object.
-    :type property_names: list, set
-    :rtype: None
-    :raises ValueError: If src is None.
-    :raises ValueError: If target is None.
-    :raises ValueError: If property list is not iterable or None.
+:param source: The source object that is to be inspected for property
+    values.
+:type source: type
+:param target: The target object that will be modified with values found
+    in src.
+:type target: type
+:param property_names: List of property names whose values are to be
+    copied from source to object.
+:type property_names: list, set
+:rtype: None
+:raises ValueError: If src is None.
+:raises ValueError: If target is None.
+:raises ValueError: If property list is not iterable or None.
 
-    The *copy_attribute_values* method will only copy the values from src
-    when a property name is found in the src. In cases where a property
-    value is not found in the src object, then no change to the target object is
-    made.
+The *copy_attribute_values* method will only copy the values from src
+when a property name is found in the src. In cases where a property
+value is not found in the src object, then no change to the target object is
+made.
 
-    :Example Usage:
+:Example Usage:
 
-    >>> src = type('attr_bag', (object,), dict())
-    >>> src.property1 = 1
-    >>> src.property2 = 2
-    >>> src.property3 = 3
-    >>> target = type('attr_bag', (object,), dict())
-    >>> property_list = ['property1', 'property2', 'exist_not_property']
-    >>> copy_attribute_values(src, target, property_list)
-    >>> assert hasattr(target, 'property1')
-    >>> assert hasattr(target, 'property2')
-    >>> assert not hasattr(target, 'property3')
-    >>> assert not hasattr(target, 'exist_not_property')
-    """
+>>> src = type('attr_bag', (object,), dict())
+>>> src.property1 = 1
+>>> src.property2 = 2
+>>> src.property3 = 3
+>>> target = type('attr_bag', (object,), dict())
+>>> property_list = ['property1', 'property2', 'exist_not_property']
+>>> copy_attribute_values(src, target, property_list)
+>>> assert hasattr(target, 'property1')
+>>> assert hasattr(target, 'property2')
+>>> assert not hasattr(target, 'property3')
+>>> assert not hasattr(target, 'exist_not_property')
+"""
     if source is None:
         raise ValueError('"source" must be provided.')
     if target is None:
