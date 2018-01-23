@@ -1,38 +1,38 @@
 
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Component Core Module &mdash; Cognate 0.0.5 Documentation</title>
-    
+    <title>Component Core Module &#8212; Cognate 0.0.6 Documentation</title>
     <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.0.5',
+        VERSION:     '0.0.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.base.js"></script>
     <script type="text/javascript" src="_static/cloud.js"></script>
-    <link rel="top" title="Cognate 0.0.5 Documentation" href="contents.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="Getting Started with Cognate" href="cognate.html" /> 
         <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
-  <body role="document">
+  <body>
     <div class="relbar-top">
         
     <div class="related" role="navigation" aria-label="related navigation">
@@ -50,7 +50,7 @@
         <li class="right" >
           <a href="cognate.html" title="Getting Started with Cognate"
              accesskey="P">previous</a> &nbsp; &nbsp;</li>
-    <li><a href="index.html">Cognate 0.0.5 Documentation</a> &raquo;</li>
+    <li><a href="index.html">Cognate 0.0.6 Documentation</a> &#187;</li>
  
       </ul>
     </div>
@@ -79,31 +79,31 @@ construction of service modules.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name" colspan="2">Command Line Usage:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"></td>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"></td>
 </tr>
 </tbody>
 </table>
 <p><em>ComponentCore</em> supports the following command line options:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>usage:  [-h] [--service_name SERVICE_NAME]
-        [--log_level {debug,info,warn,error}]
-        [--log_path LOG_PATH] [--verbose]
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span>  <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">service_name</span> <span class="n">SERVICE_NAME</span><span class="p">]</span>
+        <span class="p">[</span><span class="o">--</span><span class="n">log_level</span> <span class="p">{</span><span class="n">debug</span><span class="p">,</span><span class="n">info</span><span class="p">,</span><span class="n">warn</span><span class="p">,</span><span class="n">error</span><span class="p">}]</span>
+        <span class="p">[</span><span class="o">--</span><span class="n">log_path</span> <span class="n">LOG_PATH</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">verbose</span><span class="p">]</span>
 
-optional arguments:
-  -h, --help            show this help message and exit
-  --service_name SERVICE_NAME
-                        This will set the name for the current instance.
-                        This will be reflected in the log output.
-                        (default:ComponentCore)
-  --log_level {debug,info,warn,error}
-                        Set the log level for the log output.
-                        (default: error)
-  --log_path LOG_PATH   Set the path for log output. The default file
-                        created is &quot;&lt;log_path&gt;/&lt;service_name&gt;.log&quot;. If
-                        the path ends with a &quot;.log&quot; extension,
-                        then the path be a target file.
-                        (default: None)
-  --verbose             Enable verbose log output to console. Useful for
-                        debugging. (default: False)
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>            <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+  <span class="o">--</span><span class="n">service_name</span> <span class="n">SERVICE_NAME</span>
+                        <span class="n">This</span> <span class="n">will</span> <span class="nb">set</span> <span class="n">the</span> <span class="n">name</span> <span class="k">for</span> <span class="n">the</span> <span class="n">current</span> <span class="n">instance</span><span class="o">.</span>
+                        <span class="n">This</span> <span class="n">will</span> <span class="n">be</span> <span class="n">reflected</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">log</span> <span class="n">output</span><span class="o">.</span>
+                        <span class="p">(</span><span class="n">default</span><span class="p">:</span><span class="n">ComponentCore</span><span class="p">)</span>
+  <span class="o">--</span><span class="n">log_level</span> <span class="p">{</span><span class="n">debug</span><span class="p">,</span><span class="n">info</span><span class="p">,</span><span class="n">warn</span><span class="p">,</span><span class="n">error</span><span class="p">}</span>
+                        <span class="n">Set</span> <span class="n">the</span> <span class="n">log</span> <span class="n">level</span> <span class="k">for</span> <span class="n">the</span> <span class="n">log</span> <span class="n">output</span><span class="o">.</span>
+                        <span class="p">(</span><span class="n">default</span><span class="p">:</span> <span class="n">error</span><span class="p">)</span>
+  <span class="o">--</span><span class="n">log_path</span> <span class="n">LOG_PATH</span>   <span class="n">Set</span> <span class="n">the</span> <span class="n">path</span> <span class="k">for</span> <span class="n">log</span> <span class="n">output</span><span class="o">.</span> <span class="n">The</span> <span class="n">default</span> <span class="n">file</span>
+                        <span class="n">created</span> <span class="ow">is</span> <span class="s2">&quot;&lt;log_path&gt;/&lt;service_name&gt;.log&quot;</span><span class="o">.</span> <span class="n">If</span>
+                        <span class="n">the</span> <span class="n">path</span> <span class="n">ends</span> <span class="k">with</span> <span class="n">a</span> <span class="s2">&quot;.log&quot;</span> <span class="n">extension</span><span class="p">,</span>
+                        <span class="n">then</span> <span class="n">the</span> <span class="n">path</span> <span class="n">be</span> <span class="n">a</span> <span class="n">target</span> <span class="n">file</span><span class="o">.</span>
+                        <span class="p">(</span><span class="n">default</span><span class="p">:</span> <span class="kc">None</span><span class="p">)</span>
+  <span class="o">--</span><span class="n">verbose</span>             <span class="n">Enable</span> <span class="n">verbose</span> <span class="n">log</span> <span class="n">output</span> <span class="n">to</span> <span class="n">console</span><span class="o">.</span> <span class="n">Useful</span> <span class="k">for</span>
+                        <span class="n">debugging</span><span class="o">.</span> <span class="p">(</span><span class="n">default</span><span class="p">:</span> <span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -137,20 +137,20 @@ for this state and removes the path argument.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>argv</strong> (<em>str, list&lt;str&gt;</em>) &#8211; An array of arguments of the form
-[&#8216;&#8211;verbose&#8217;, &#8216;&#8211;name&#8217;, &#8216;my_name&#8217;, ...] or an argument
-string of the form &#8216;&#8211;verboxe &#8211;name my_name&#8217;.</li>
-<li><strong>log</strong> (<em>logging.Logger</em>) &#8211; An explicit logger. If this parameter is set, then all
+<li><strong>argv</strong> (<em>str</em><em>, </em><em>list&lt;str&gt;</em>) – An array of arguments of the form
+[‘–verbose’, ‘–name’, ‘my_name’, …] or an argument
+string of the form ‘–verboxe –name my_name’.</li>
+<li><strong>log</strong> (<em>logging.Logger</em>) – An explicit logger. If this parameter is set, then all
 other log related parameters are ignored.  Log parameters ignored:
 log_level, log_path and verbose.</li>
-<li><strong>log_level</strong> (<em>str</em>) &#8211; The log level setting. The options for leg_level are:
+<li><strong>log_level</strong> (<em>str</em>) – The log level setting. The options for leg_level are:
 debug, info, warn, error. The default is error.</li>
-<li><strong>log_path</strong> (<em>str</em>) &#8211; &#8216;Set the path for log output. The default file created
-is &#8220;&lt;log_path&gt;/&lt;service_name&gt;.log&#8221;. If the path ends with a &#8221;.log&#8221;
-extension, then the path be a target file.&#8217;</li>
-<li><strong>service_name</strong> (<em>str</em>) &#8211; This will set the name for the current instance.
-This will be reflected in the log output.&#8217;</li>
-<li><strong>verbose</strong> (<em>bool</em>) &#8211; Enable verbose log output to console. Defaults to False.</li>
+<li><strong>log_path</strong> (<em>str</em>) – ‘Set the path for log output. The default file created
+is “&lt;log_path&gt;/&lt;service_name&gt;.log”. If the path ends with a “.log”
+extension, then the path be a target file.’</li>
+<li><strong>service_name</strong> (<em>str</em>) – This will set the name for the current instance.
+This will be reflected in the log output.’</li>
+<li><strong>verbose</strong> (<em>bool</em>) – Enable verbose log output to console. Defaults to False.</li>
 </ul>
 </td>
 </tr>
@@ -161,35 +161,35 @@ This will be reflected in the log output.&#8217;</li>
 </table>
 <p>A default ComponentCore will assume the name of the instantiating
 class. In addition, it will not consider the name to have been set.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">ComponentCore</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">ComponentCore</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="nb">super</span><span class="p">(</span><span class="n">Foo</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">foo</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">foo</span><span class="o">.</span><span class="n">service_name</span> <span class="o">==</span> <span class="s1">&#39;Foo&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">foo</span><span class="o">.</span><span class="n">service_name_set</span> <span class="o">==</span> <span class="bp">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">foo</span><span class="o">.</span><span class="n">service_name_set</span> <span class="o">==</span> <span class="kc">False</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">foo</span><span class="o">.</span><span class="n">log_level</span> <span class="o">==</span> <span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">foo</span><span class="o">.</span><span class="n">log_path</span> <span class="ow">is</span> <span class="bp">None</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">foo</span><span class="o">.</span><span class="n">verbose</span> <span class="o">==</span> <span class="bp">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">foo</span><span class="o">.</span><span class="n">log_path</span> <span class="ow">is</span> <span class="kc">None</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">foo</span><span class="o">.</span><span class="n">verbose</span> <span class="o">==</span> <span class="kc">False</span>
 </pre></div>
 </div>
 <p>A ComponentCore can be configured utilizing an array style argument
 list.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bar</span> <span class="o">=</span> <span class="n">ComponentCore</span><span class="p">([</span><span class="s1">&#39;--service_name&#39;</span><span class="p">,</span><span class="s1">&#39;Bar&#39;</span><span class="p">,</span><span class="s1">&#39;--log_level&#39;</span><span class="p">,</span><span class="s1">&#39;debug&#39;</span><span class="p">])</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bar</span> <span class="o">=</span> <span class="n">ComponentCore</span><span class="p">([</span><span class="s1">&#39;--service_name&#39;</span><span class="p">,</span><span class="s1">&#39;Bar&#39;</span><span class="p">,</span><span class="s1">&#39;--log_level&#39;</span><span class="p">,</span><span class="s1">&#39;debug&#39;</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">bar</span><span class="o">.</span><span class="n">service_name</span> <span class="o">==</span> <span class="s1">&#39;Bar&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">bar</span><span class="o">.</span><span class="n">service_name_set</span> <span class="o">==</span> <span class="bp">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">bar</span><span class="o">.</span><span class="n">service_name_set</span> <span class="o">==</span> <span class="kc">True</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">bar</span><span class="o">.</span><span class="n">log_level</span> <span class="o">==</span> <span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">bar</span><span class="o">.</span><span class="n">log_path</span> <span class="ow">is</span> <span class="bp">None</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">bar</span><span class="o">.</span><span class="n">verbose</span> <span class="o">==</span> <span class="bp">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">bar</span><span class="o">.</span><span class="n">log_path</span> <span class="ow">is</span> <span class="kc">None</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">bar</span><span class="o">.</span><span class="n">verbose</span> <span class="o">==</span> <span class="kc">False</span>
 </pre></div>
 </div>
 <p>In addition, the ComponentCore can be configured from a string.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dude</span> <span class="o">=</span> <span class="n">ComponentCore</span><span class="p">(</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dude</span> <span class="o">=</span> <span class="n">ComponentCore</span><span class="p">(</span>
 <span class="gp">... </span>  <span class="s1">&#39;--service_name Dude --log_level info&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">dude</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">dude</span><span class="o">.</span><span class="n">service_name</span> <span class="o">==</span> <span class="s1">&#39;Dude&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">dude</span><span class="o">.</span><span class="n">service_name_set</span> <span class="o">==</span> <span class="bp">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">dude</span><span class="o">.</span><span class="n">service_name_set</span> <span class="o">==</span> <span class="kc">True</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">dude</span><span class="o">.</span><span class="n">log_level</span> <span class="o">==</span> <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">dude</span><span class="o">.</span><span class="n">verbose</span> <span class="o">==</span> <span class="bp">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">dude</span><span class="o">.</span><span class="n">verbose</span> <span class="o">==</span> <span class="kc">False</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -203,7 +203,7 @@ options.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>arg_parser</strong> (<em>argparse.ArgumentParser</em>) &#8211; An <em>ArgumentParser</em> instance to add configuration
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>arg_parser</strong> (<em>argparse.ArgumentParser</em>) – An <em>ArgumentParser</em> instance to add configuration
 options.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
@@ -221,7 +221,7 @@ initialization.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>args</strong> (<em>Namespace</em>) &#8211; An object with configuration properties.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>args</strong> (<em>Namespace</em>) – An object with configuration properties.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
 </tr>
@@ -246,9 +246,9 @@ invoke a method if it exists for a given child base class.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>func_name</strong> (<em>str</em>) &#8211; The name of a function to search for invocation.</li>
-<li><strong>args</strong> (<em>list</em>) &#8211; An argument list to pass to the target function.</li>
-<li><strong>kwargs</strong> (<em>dict</em>) &#8211; A dictionary of name/value pairs to pass to the target
+<li><strong>func_name</strong> (<em>str</em>) – The name of a function to search for invocation.</li>
+<li><strong>args</strong> (<em>list</em>) – An argument list to pass to the target function.</li>
+<li><strong>kwargs</strong> (<em>dict</em>) – A dictionary of name/value pairs to pass to the target
 function as named arguments.</li>
 </ul>
 </td>
@@ -256,7 +256,7 @@ function as named arguments.</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">None</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>ValueError</strong> &#8211; Thrown if no function name is provided.</p>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>ValueError</strong> – Thrown if no function name is provided.</p>
 </td>
 </tr>
 </tbody>
@@ -285,7 +285,7 @@ ancestor class.</p>
 </div>
 <p>If a method name is supplied for a method that does not exist,
 the <em>invoke_method_on_children</em> will raise no exception.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">foo</span> <span class="o">=</span> <span class="n">ComponentCore</span><span class="p">()</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">foo</span> <span class="o">=</span> <span class="n">ComponentCore</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">foo</span><span class="o">.</span><span class="n">invoke_method_on_children</span><span class="p">()</span>
 <span class="gt">Traceback (most recent call last):</span>
 <span class="c">...</span>
@@ -298,15 +298,15 @@ the <em>invoke_method_on_children</em> will raise no exception.</p>
 target function. It is possible to have more than one ancestor class
 with the target function defined. The <em>invoke_method_on_children</em> will
 execute the function on each of the child classes.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Bar</span><span class="p">(</span><span class="n">ComponentCore</span><span class="p">):</span>
-<span class="gp">... </span>  <span class="k">def</span> <span class="nf">the_func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a_key</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;a_key:&#39;</span><span class="p">,</span> <span class="n">a_key</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Bar</span><span class="p">(</span><span class="n">ComponentCore</span><span class="p">):</span>
+<span class="gp">... </span>  <span class="k">def</span> <span class="nf">the_func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a_key</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;a_key:&#39;</span><span class="p">,</span> <span class="n">a_key</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bar</span> <span class="o">=</span> <span class="n">Bar</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>With an instance of a <em>AttributeHelper</em> child class, we can invoke
 the method in two ways, as exampled below.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create a keyword argument dictionary or argument list</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create a keyword argument dictionary or argument list</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a_key&#39;</span><span class="p">:</span><span class="s1">&#39;a_value&#39;</span><span class="p">}</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bar</span><span class="o">.</span><span class="n">invoke_method_on_children</span><span class="p">(</span><span class="n">func_name</span><span class="o">=</span><span class="s1">&#39;the_func&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 <span class="go">(&#39;a_key:&#39;, &#39;a_value&#39;)</span>
@@ -337,11 +337,11 @@ source object to a target source object.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>source</strong> (<em>type</em>) &#8211; The source object that is to be inspected for property
+<li><strong>source</strong> (<em>type</em>) – The source object that is to be inspected for property
 values.</li>
-<li><strong>target</strong> (<em>type</em>) &#8211; The target object that will be modified with values found
+<li><strong>target</strong> (<em>type</em>) – The target object that will be modified with values found
 in src.</li>
-<li><strong>property_names</strong> (<em>list, set</em>) &#8211; List of property names whose values are to be
+<li><strong>property_names</strong> (<em>list</em><em>, </em><em>set</em>) – List of property names whose values are to be
 copied from source to object.</li>
 </ul>
 </td>
@@ -350,9 +350,9 @@ copied from source to object.</li>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
-<li><strong>ValueError</strong> &#8211; If src is None.</li>
-<li><strong>ValueError</strong> &#8211; If target is None.</li>
-<li><strong>ValueError</strong> &#8211; If property list is not iterable or None.</li>
+<li><strong>ValueError</strong> – If src is None.</li>
+<li><strong>ValueError</strong> – If target is None.</li>
+<li><strong>ValueError</strong> – If property list is not iterable or None.</li>
 </ul>
 </td>
 </tr>
@@ -370,7 +370,7 @@ made.</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">src</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s1">&#39;attr_bag&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nb">object</span><span class="p">,),</span> <span class="nb">dict</span><span class="p">())</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">src</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s1">&#39;attr_bag&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nb">object</span><span class="p">,),</span> <span class="nb">dict</span><span class="p">())</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">src</span><span class="o">.</span><span class="n">property1</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">src</span><span class="o">.</span><span class="n">property2</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">src</span><span class="o">.</span><span class="n">property3</span> <span class="o">=</span> <span class="mi">3</span>
@@ -394,7 +394,7 @@ made.</p>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="sphinxlocaltoc">
+        <div class="sphinxsidebarwrapper"><div class="sphinx-toc sphinxlocaltoc">
     <h3><a href="contents.html">Page contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">Component Core Module</a><ul>
@@ -419,25 +419,39 @@ made.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/cognate.component_core.txt"
+      <li><a href="_sources/cognate.component_core.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
+    
+    
+        <div class="sidebar-toggle-group no-js">
+            
+            <button class="sidebar-toggle" id="sidebar-hide" title="Hide the sidebar menu">
+                 «
+                <span class="show-for-small">hide menu</span>
+                
+            </button>
+            <button class="sidebar-toggle" id="sidebar-show" title="Show the sidebar menu">
+                
+                <span class="show-for-small">menu</span>
+                <span class="hide-for-small">sidebar</span>
+                 »
+            </button>
+        </div>
+    
       <div class="clearer"></div>
     </div>
     <div class="relbar-bottom">
@@ -457,15 +471,15 @@ made.</p>
         <li class="right" >
           <a href="cognate.html" title="Getting Started with Cognate"
              >previous</a> &nbsp; &nbsp;</li>
-    <li><a href="index.html">Cognate 0.0.5 Documentation</a> &raquo;</li>
+    <li><a href="index.html">Cognate 0.0.6 Documentation</a> &#187;</li>
  
       </ul>
     </div>
     </div>
 
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2016, Raul Gonzalez.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+        &#169; Copyright 2016, Raul Gonzalez.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
     </div>
     <!-- cloud_sptheme 1.4 -->
   </body>

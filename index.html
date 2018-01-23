@@ -1,39 +1,39 @@
 
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Cognate - Related to the Same Common Root &mdash; Cognate 0.0.5 Documentation</title>
-    
+    <title>Cognate - Related to the Same Common Root &#8212; Cognate 0.0.6 Documentation</title>
     <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.0.5',
+        VERSION:     '0.0.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.base.js"></script>
     <script type="text/javascript" src="_static/cloud.js"></script>
-    <link rel="top" title="Cognate 0.0.5 Documentation" href="contents.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Getting Started with Cognate" href="cognate.html" />
     <link rel="prev" title="Usage Documentation" href="contents.html" /> 
         <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
-  <body role="document">
+  <body>
     <div class="relbar-top">
         
     <div class="related" role="navigation" aria-label="related navigation">
@@ -54,7 +54,7 @@
         <li class="right" >
           <a href="contents.html" title="Usage Documentation"
              accesskey="P">previous</a> &nbsp; &nbsp;</li>
-    <li><a href="#">Cognate 0.0.5 Documentation</a> &raquo;</li>
+    <li><a href="#">Cognate 0.0.6 Documentation</a> &#187;</li>
  
       </ul>
     </div>
@@ -74,14 +74,14 @@ configuration, and service naming. Component here means the creation of isolated
 bits of code with well defined configuration and interfaces.</p>
 <p>To be less cryptic, lets demonstrate the <em>HelloWorld</em> example. To begin,
 create a component service class:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cognate.component_core</span> <span class="kn">import</span> <span class="n">ComponentCore</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cognate.component_core</span> <span class="k">import</span> <span class="n">ComponentCore</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
 <span class="k">class</span> <span class="nc">HelloWorld</span><span class="p">(</span><span class="n">ComponentCore</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;World&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;World&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
 
-        <span class="nb">super</span><span class="p">(</span><span class="n">ComponentCore</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">HelloWorld</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">cognate_options</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg_parser</span><span class="p">):</span>
         <span class="n">arg_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
@@ -108,26 +108,26 @@ python <strong>argparse.ArgumentParser</strong>, and these will be automatically
 attributes of the same name for a given service instance.</p>
 <p>With the <code class="docutils literal"><span class="pre">HelloWorld</span></code> component service above, the complete service features
 can be demonstrated with the listing of the service usage. As in:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>/cognate &gt; python example/hello_world.py -h
-usage: hello_world.py [-h] [--service_name SERVICE_NAME]
-                      [--log_level {debug,info,warn,error}]
-                      [--log_path LOG_PATH] [--verbose] [--name NAME]
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">cognate</span> <span class="o">&gt;</span> <span class="n">python</span> <span class="n">example</span><span class="o">/</span><span class="n">hello_world</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">h</span>
+<span class="n">usage</span><span class="p">:</span> <span class="n">hello_world</span><span class="o">.</span><span class="n">py</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">service_name</span> <span class="n">SERVICE_NAME</span><span class="p">]</span>
+                      <span class="p">[</span><span class="o">--</span><span class="n">log_level</span> <span class="p">{</span><span class="n">debug</span><span class="p">,</span><span class="n">info</span><span class="p">,</span><span class="n">warn</span><span class="p">,</span><span class="n">error</span><span class="p">}]</span>
+                      <span class="p">[</span><span class="o">--</span><span class="n">log_path</span> <span class="n">LOG_PATH</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">verbose</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">name</span> <span class="n">NAME</span><span class="p">]</span>
 
-optional arguments:
-  -h, --help            show this help message and exit
-  --service_name SERVICE_NAME
-                        This will set the name for the current instance.
-                        This will be reflected in the log output.
-                        (default: HelloWorld)
-  --log_level {debug,info,warn,error}
-                        Set the log level for the log output. (default: error)
-  --log_path LOG_PATH   Set the path for log output. The default file created
-                        is &quot;&lt;log_path&gt;/&lt;service_name&gt;.log&quot;. If the path
-                        ends with a &quot;.log&quot; extension, then the path be a
-                        target file. (default: None)
-  --verbose             Enable verbose log output to console. Useful for
-                        debugging. (default: False)
-  --name NAME           Whom will receive the salutation. (default: World)
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>            <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+  <span class="o">--</span><span class="n">service_name</span> <span class="n">SERVICE_NAME</span>
+                        <span class="n">This</span> <span class="n">will</span> <span class="nb">set</span> <span class="n">the</span> <span class="n">name</span> <span class="k">for</span> <span class="n">the</span> <span class="n">current</span> <span class="n">instance</span><span class="o">.</span>
+                        <span class="n">This</span> <span class="n">will</span> <span class="n">be</span> <span class="n">reflected</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">log</span> <span class="n">output</span><span class="o">.</span>
+                        <span class="p">(</span><span class="n">default</span><span class="p">:</span> <span class="n">HelloWorld</span><span class="p">)</span>
+  <span class="o">--</span><span class="n">log_level</span> <span class="p">{</span><span class="n">debug</span><span class="p">,</span><span class="n">info</span><span class="p">,</span><span class="n">warn</span><span class="p">,</span><span class="n">error</span><span class="p">}</span>
+                        <span class="n">Set</span> <span class="n">the</span> <span class="n">log</span> <span class="n">level</span> <span class="k">for</span> <span class="n">the</span> <span class="n">log</span> <span class="n">output</span><span class="o">.</span> <span class="p">(</span><span class="n">default</span><span class="p">:</span> <span class="n">error</span><span class="p">)</span>
+  <span class="o">--</span><span class="n">log_path</span> <span class="n">LOG_PATH</span>   <span class="n">Set</span> <span class="n">the</span> <span class="n">path</span> <span class="k">for</span> <span class="n">log</span> <span class="n">output</span><span class="o">.</span> <span class="n">The</span> <span class="n">default</span> <span class="n">file</span> <span class="n">created</span>
+                        <span class="ow">is</span> <span class="s2">&quot;&lt;log_path&gt;/&lt;service_name&gt;.log&quot;</span><span class="o">.</span> <span class="n">If</span> <span class="n">the</span> <span class="n">path</span>
+                        <span class="n">ends</span> <span class="k">with</span> <span class="n">a</span> <span class="s2">&quot;.log&quot;</span> <span class="n">extension</span><span class="p">,</span> <span class="n">then</span> <span class="n">the</span> <span class="n">path</span> <span class="n">be</span> <span class="n">a</span>
+                        <span class="n">target</span> <span class="n">file</span><span class="o">.</span> <span class="p">(</span><span class="n">default</span><span class="p">:</span> <span class="kc">None</span><span class="p">)</span>
+  <span class="o">--</span><span class="n">verbose</span>             <span class="n">Enable</span> <span class="n">verbose</span> <span class="n">log</span> <span class="n">output</span> <span class="n">to</span> <span class="n">console</span><span class="o">.</span> <span class="n">Useful</span> <span class="k">for</span>
+                        <span class="n">debugging</span><span class="o">.</span> <span class="p">(</span><span class="n">default</span><span class="p">:</span> <span class="kc">False</span><span class="p">)</span>
+  <span class="o">--</span><span class="n">name</span> <span class="n">NAME</span>           <span class="n">Whom</span> <span class="n">will</span> <span class="n">receive</span> <span class="n">the</span> <span class="n">salutation</span><span class="o">.</span> <span class="p">(</span><span class="n">default</span><span class="p">:</span> <span class="n">World</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Note how <em>ComponentCore</em> adds the features for app naming, log configuration
@@ -137,10 +137,10 @@ that is provided by the <code class="docutils literal"><span class="pre">HelloWo
 default <em>log_level</em> is <em>error</em>. In addition, the logging output is silent,
 as the <em>verbose</em> option is <em>False</em>.</p>
 <p>To demonstrate <em>HelloWorld</em> with output, run:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>/cognate &gt; python example/hello_world.py  --verbose --log_level info
-MainThread:2014-08-02 13:30:57,988 -HelloWorld - INFO -- Logging configured for: HelloWorld
-MainThread:2014-08-02 13:30:57,988 -HelloWorld - INFO -- Component service configuration complete with argv: Namespace(log_level=&#39;info&#39;, log_path=None, name=&#39;World&#39;, service_name=&#39;HelloWorld&#39;, verbose=True)
-MainThread:2014-08-02 13:30:57,989 -HelloWorld - INFO -- Hello World
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">cognate</span> <span class="o">&gt;</span> <span class="n">python</span> <span class="n">example</span><span class="o">/</span><span class="n">hello_world</span><span class="o">.</span><span class="n">py</span>  <span class="o">--</span><span class="n">verbose</span> <span class="o">--</span><span class="n">log_level</span> <span class="n">info</span>
+<span class="n">MainThread</span><span class="p">:</span><span class="mi">2014</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">02</span> <span class="mi">13</span><span class="p">:</span><span class="mi">30</span><span class="p">:</span><span class="mi">57</span><span class="p">,</span><span class="mi">988</span> <span class="o">-</span><span class="n">HelloWorld</span> <span class="o">-</span> <span class="n">INFO</span> <span class="o">--</span> <span class="n">Logging</span> <span class="n">configured</span> <span class="k">for</span><span class="p">:</span> <span class="n">HelloWorld</span>
+<span class="n">MainThread</span><span class="p">:</span><span class="mi">2014</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">02</span> <span class="mi">13</span><span class="p">:</span><span class="mi">30</span><span class="p">:</span><span class="mi">57</span><span class="p">,</span><span class="mi">988</span> <span class="o">-</span><span class="n">HelloWorld</span> <span class="o">-</span> <span class="n">INFO</span> <span class="o">--</span> <span class="n">Component</span> <span class="n">service</span> <span class="n">configuration</span> <span class="n">complete</span> <span class="k">with</span> <span class="n">argv</span><span class="p">:</span> <span class="n">Namespace</span><span class="p">(</span><span class="n">log_level</span><span class="o">=</span><span class="s1">&#39;info&#39;</span><span class="p">,</span> <span class="n">log_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;World&#39;</span><span class="p">,</span> <span class="n">service_name</span><span class="o">=</span><span class="s1">&#39;HelloWorld&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">MainThread</span><span class="p">:</span><span class="mi">2014</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">02</span> <span class="mi">13</span><span class="p">:</span><span class="mi">30</span><span class="p">:</span><span class="mi">57</span><span class="p">,</span><span class="mi">989</span> <span class="o">-</span><span class="n">HelloWorld</span> <span class="o">-</span> <span class="n">INFO</span> <span class="o">--</span> <span class="n">Hello</span> <span class="n">World</span>
 </pre></div>
 </div>
 <p>Note the setting of the <cite>verbose</cite> flag to enable logging output to console.
@@ -148,25 +148,25 @@ In addition, the <cite>log_level</cite> flag is set to info, to enable logging o
 the <em>HelloWorld</em> execution.</p>
 <p>The <em>ComponentCore</em> will map arg_parser defined options to an attribute name
 and apply that value to the service instance.  In the <em>HelloWorld</em> example,
-the arg_parser <cite>&#8211;name</cite> option is mapped to the <cite>self.name</cite> attribute. The
+the arg_parser <cite>–name</cite> option is mapped to the <cite>self.name</cite> attribute. The
 net effect is to allow configuration of the service via command line args,
 as in:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>/cognate &gt; python example/hello_world.py  --verbose --log_level info --name Dog
-MainThread:2014-08-02 13:30:16,022 -HelloWorld - INFO -- Logging configured for: HelloWorld
-MainThread:2014-08-02 13:30:16,022 -HelloWorld - INFO -- Component service configuration complete with argv: Namespace(log_level=&#39;info&#39;, log_path=None, name=&#39;Dog&#39;, service_name=&#39;HelloWorld&#39;, verbose=True)
-MainThread:2014-08-02 13:30:16,022 -HelloWorld - INFO -- Hello Dog
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">cognate</span> <span class="o">&gt;</span> <span class="n">python</span> <span class="n">example</span><span class="o">/</span><span class="n">hello_world</span><span class="o">.</span><span class="n">py</span>  <span class="o">--</span><span class="n">verbose</span> <span class="o">--</span><span class="n">log_level</span> <span class="n">info</span> <span class="o">--</span><span class="n">name</span> <span class="n">Dog</span>
+<span class="n">MainThread</span><span class="p">:</span><span class="mi">2014</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">02</span> <span class="mi">13</span><span class="p">:</span><span class="mi">30</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="mi">022</span> <span class="o">-</span><span class="n">HelloWorld</span> <span class="o">-</span> <span class="n">INFO</span> <span class="o">--</span> <span class="n">Logging</span> <span class="n">configured</span> <span class="k">for</span><span class="p">:</span> <span class="n">HelloWorld</span>
+<span class="n">MainThread</span><span class="p">:</span><span class="mi">2014</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">02</span> <span class="mi">13</span><span class="p">:</span><span class="mi">30</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="mi">022</span> <span class="o">-</span><span class="n">HelloWorld</span> <span class="o">-</span> <span class="n">INFO</span> <span class="o">--</span> <span class="n">Component</span> <span class="n">service</span> <span class="n">configuration</span> <span class="n">complete</span> <span class="k">with</span> <span class="n">argv</span><span class="p">:</span> <span class="n">Namespace</span><span class="p">(</span><span class="n">log_level</span><span class="o">=</span><span class="s1">&#39;info&#39;</span><span class="p">,</span> <span class="n">log_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Dog&#39;</span><span class="p">,</span> <span class="n">service_name</span><span class="o">=</span><span class="s1">&#39;HelloWorld&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">MainThread</span><span class="p">:</span><span class="mi">2014</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">02</span> <span class="mi">13</span><span class="p">:</span><span class="mi">30</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="mi">022</span> <span class="o">-</span><span class="n">HelloWorld</span> <span class="o">-</span> <span class="n">INFO</span> <span class="o">--</span> <span class="n">Hello</span> <span class="n">Dog</span>
 </pre></div>
 </div>
 <p>A benefit to defining component services with <em>ComponentCore</em> is the ability
 to  utilize the component as an instance. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">hello_world</span> <span class="kn">import</span> <span class="n">HelloWorld</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">hello_world</span> <span class="k">import</span> <span class="n">HelloWorld</span>
 
 <span class="c1"># Configure with argv string</span>
 <span class="n">argv</span> <span class="o">=</span> <span class="s1">&#39;--verbose --log_level info --service_name CatWorld --name Cat&#39;</span>
 <span class="n">hello_cat</span> <span class="o">=</span> <span class="n">HelloWorld</span><span class="p">(</span><span class="n">argv</span><span class="o">=</span><span class="n">argv</span><span class="p">)</span>
 
 <span class="c1"># Configure with parameters</span>
-<span class="n">hello_dog</span> <span class="o">=</span> <span class="n">HelloWorld</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+<span class="n">hello_dog</span> <span class="o">=</span> <span class="n">HelloWorld</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                        <span class="n">log_level</span><span class="o">=</span><span class="s1">&#39;info&#39;</span><span class="p">,</span>
                        <span class="n">service_name</span><span class="o">=</span><span class="s1">&#39;DogWorld&#39;</span><span class="p">,</span>
                        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Dog&#39;</span><span class="p">)</span>
@@ -179,28 +179,28 @@ to  utilize the component as an instance. For example:</p>
 utilizing a string passed via the <cite>argv</cite> parameter, as well as being
 instantiated via direct parameter passing. The script above would give output
 such as:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>/cognate &gt; python example/hello_script.py
-MainThread:2014-08-02 13:32:11,237 -CatWorld - INFO -- Logging configured for: CatWorld
-MainThread:2014-08-02 13:32:11,237 -CatWorld - INFO -- Component service configuration complete with argv: Namespace(log_level=&#39;info&#39;, log_path=None, name=&#39;Cat&#39;, service_name=&#39;CatWorld&#39;, verbose=True)
-MainThread:2014-08-02 13:32:11,237 -DogWorld - INFO -- Logging configured for: DogWorld
-MainThread:2014-08-02 13:32:11,237 -DogWorld - INFO -- Component service configuration complete with argv: Namespace(log_level=&#39;info&#39;, log_path=None, name=&#39;Dog&#39;, service_name=&#39;DogWorld&#39;, verbose=True)
-MainThread:2014-08-02 13:32:11,238 -CatWorld - INFO -- Hello Cat
-MainThread:2014-08-02 13:32:11,238 -DogWorld - INFO -- Hello Dog
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">cognate</span> <span class="o">&gt;</span> <span class="n">python</span> <span class="n">example</span><span class="o">/</span><span class="n">hello_script</span><span class="o">.</span><span class="n">py</span>
+<span class="n">MainThread</span><span class="p">:</span><span class="mi">2014</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">02</span> <span class="mi">13</span><span class="p">:</span><span class="mi">32</span><span class="p">:</span><span class="mi">11</span><span class="p">,</span><span class="mi">237</span> <span class="o">-</span><span class="n">CatWorld</span> <span class="o">-</span> <span class="n">INFO</span> <span class="o">--</span> <span class="n">Logging</span> <span class="n">configured</span> <span class="k">for</span><span class="p">:</span> <span class="n">CatWorld</span>
+<span class="n">MainThread</span><span class="p">:</span><span class="mi">2014</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">02</span> <span class="mi">13</span><span class="p">:</span><span class="mi">32</span><span class="p">:</span><span class="mi">11</span><span class="p">,</span><span class="mi">237</span> <span class="o">-</span><span class="n">CatWorld</span> <span class="o">-</span> <span class="n">INFO</span> <span class="o">--</span> <span class="n">Component</span> <span class="n">service</span> <span class="n">configuration</span> <span class="n">complete</span> <span class="k">with</span> <span class="n">argv</span><span class="p">:</span> <span class="n">Namespace</span><span class="p">(</span><span class="n">log_level</span><span class="o">=</span><span class="s1">&#39;info&#39;</span><span class="p">,</span> <span class="n">log_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Cat&#39;</span><span class="p">,</span> <span class="n">service_name</span><span class="o">=</span><span class="s1">&#39;CatWorld&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">MainThread</span><span class="p">:</span><span class="mi">2014</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">02</span> <span class="mi">13</span><span class="p">:</span><span class="mi">32</span><span class="p">:</span><span class="mi">11</span><span class="p">,</span><span class="mi">237</span> <span class="o">-</span><span class="n">DogWorld</span> <span class="o">-</span> <span class="n">INFO</span> <span class="o">--</span> <span class="n">Logging</span> <span class="n">configured</span> <span class="k">for</span><span class="p">:</span> <span class="n">DogWorld</span>
+<span class="n">MainThread</span><span class="p">:</span><span class="mi">2014</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">02</span> <span class="mi">13</span><span class="p">:</span><span class="mi">32</span><span class="p">:</span><span class="mi">11</span><span class="p">,</span><span class="mi">237</span> <span class="o">-</span><span class="n">DogWorld</span> <span class="o">-</span> <span class="n">INFO</span> <span class="o">--</span> <span class="n">Component</span> <span class="n">service</span> <span class="n">configuration</span> <span class="n">complete</span> <span class="k">with</span> <span class="n">argv</span><span class="p">:</span> <span class="n">Namespace</span><span class="p">(</span><span class="n">log_level</span><span class="o">=</span><span class="s1">&#39;info&#39;</span><span class="p">,</span> <span class="n">log_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Dog&#39;</span><span class="p">,</span> <span class="n">service_name</span><span class="o">=</span><span class="s1">&#39;DogWorld&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">MainThread</span><span class="p">:</span><span class="mi">2014</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">02</span> <span class="mi">13</span><span class="p">:</span><span class="mi">32</span><span class="p">:</span><span class="mi">11</span><span class="p">,</span><span class="mi">238</span> <span class="o">-</span><span class="n">CatWorld</span> <span class="o">-</span> <span class="n">INFO</span> <span class="o">--</span> <span class="n">Hello</span> <span class="n">Cat</span>
+<span class="n">MainThread</span><span class="p">:</span><span class="mi">2014</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">02</span> <span class="mi">13</span><span class="p">:</span><span class="mi">32</span><span class="p">:</span><span class="mi">11</span><span class="p">,</span><span class="mi">238</span> <span class="o">-</span><span class="n">DogWorld</span> <span class="o">-</span> <span class="n">INFO</span> <span class="o">--</span> <span class="n">Hello</span> <span class="n">Dog</span>
 </pre></div>
 </div>
 <p>The ability to treat component services as isolated code with well defined
 interfaces make reuse of components much easier, as well as usage in
 multi-threaded environments.</p>
-<p>Be sure to checkout <a class="reference internal" href="cognate.html#getting-started-with-cognate"><span>Getting Started with Cognate</span></a> to delve into all the
+<p>Be sure to checkout <a class="reference internal" href="cognate.html#getting-started-with-cognate"><span class="std std-ref">Getting Started with Cognate</span></a> to delve into all the
 goodness.</p>
 <p><strong>Share and Enjoy</strong></p>
 <div class="section" id="indices-and-tables">
 <h2>Indices and Tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
-<li><a class="reference internal" href="genindex.html"><span>Index</span></a></li>
-<li><a class="reference internal" href="py-modindex.html"><span>Module Index</span></a></li>
-<li><a class="reference internal" href="search.html"><span>Search Page</span></a></li>
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
 </ul>
 </div></blockquote>
 </div>
@@ -211,7 +211,7 @@ goodness.</p>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="sphinxlocaltoc">
+        <div class="sphinxsidebarwrapper"><div class="sphinx-toc sphinxlocaltoc">
     <h3><a href="contents.html">Page contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">Cognate - Related to the Same Common Root</a><ul>
@@ -234,25 +234,39 @@ goodness.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/index.txt"
+      <li><a href="_sources/index.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
+    
+    
+        <div class="sidebar-toggle-group no-js">
+            
+            <button class="sidebar-toggle" id="sidebar-hide" title="Hide the sidebar menu">
+                 «
+                <span class="show-for-small">hide menu</span>
+                
+            </button>
+            <button class="sidebar-toggle" id="sidebar-show" title="Show the sidebar menu">
+                
+                <span class="show-for-small">menu</span>
+                <span class="hide-for-small">sidebar</span>
+                 »
+            </button>
+        </div>
+    
       <div class="clearer"></div>
     </div>
     <div class="relbar-bottom">
@@ -275,15 +289,15 @@ goodness.</p>
         <li class="right" >
           <a href="contents.html" title="Usage Documentation"
              >previous</a> &nbsp; &nbsp;</li>
-    <li><a href="#">Cognate 0.0.5 Documentation</a> &raquo;</li>
+    <li><a href="#">Cognate 0.0.6 Documentation</a> &#187;</li>
  
       </ul>
     </div>
     </div>
 
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2016, Raul Gonzalez.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+        &#169; Copyright 2016, Raul Gonzalez.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
     </div>
     <!-- cloud_sptheme 1.4 -->
   </body>
