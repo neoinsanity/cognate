@@ -311,7 +311,7 @@ class ComponentCore(object):
         self.invoke_method_on_children(func_name='cognate_configure',
                                        args=args)
 
-        self.log.info(
+        self.log.debug(
             'Component service configuration complete with argv: %s', args)
 
     def invoke_method_on_children(self, func_name=None, *args, **kwargs):
