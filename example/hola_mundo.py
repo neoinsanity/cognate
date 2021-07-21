@@ -20,7 +20,7 @@ class HolaMundo(ComponentCore):
     def __init__(self, lang='Spanish', **kwargs):
         self.lang = lang
 
-        super(HolaMundo, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     def cognate_options(self, arg_parser):
         arg_parser.add_argument('-l', '--lang',

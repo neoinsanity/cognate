@@ -3,7 +3,7 @@
 
 # Dev environment cruft.
 .idea/
-venv/
+.venv/
 BUILD/
 .coverage
 cognate.egg-info/
