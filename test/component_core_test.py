@@ -22,31 +22,31 @@ class AttributeHelperTestCase(TestCase):
         trgt_property_bag.prop3 = 'another 3'
         property_names = {'prop1', 'prop3'}
 
-        self.assertRaisesRegexp(
+        self.assertRaisesRegex(
             ValueError,
             '"source" must be provided.',
             component_core.copy_attribute_values,
             None, trgt_property_bag, property_names)
 
-        self.assertRaisesRegexp(
+        self.assertRaisesRegex(
             ValueError,
             '"target" must be provided.',
             component_core.copy_attribute_values,
             src_property_bag, None, property_names)
 
-        self.assertRaisesRegexp(
+        self.assertRaisesRegex(
             ValueError,
             '"property_list" must be provided.',
             component_core.copy_attribute_values,
             src_property_bag, trgt_property_bag, None)
 
-        self.assertRaisesRegexp(
+        self.assertRaisesRegex(
             ValueError,
             '"property_names" must be a sequence type, such as list or set.',
             component_core.copy_attribute_values,
             src_property_bag, trgt_property_bag, 'Not a sequence')
 
-        self.assertRaisesRegexp(
+        self.assertRaisesRegex(
             ValueError,
             '"property_names" must be a sequence type, such as list or set.',
             component_core.copy_attribute_values,
