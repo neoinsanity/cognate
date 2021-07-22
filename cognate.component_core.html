@@ -1,38 +1,44 @@
 
 
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Component Core Module &#8212; Cognate 0.0.6 Documentation</title>
-    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.0.6',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
-    <script type="text/javascript" src="_static/cloud.base.js"></script>
-    <script type="text/javascript" src="_static/cloud.js"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Component Core Module &#8212; Cognate 1.0.0 Documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text:400,i,b,bi|Open+Sans:400,i,b,bi|Roboto+Mono:400,i,b,bi&amp;display=swap" type="text/css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+
+    
+    
+     
+        <script src="_static/jquery.cookie.js"></script>
+    
+
+    
+     
+        <script src="_static/cloud.base.js"></script>
+    
+
+    
+     
+        <script src="_static/cloud.js"></script>
+    
+
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="Getting Started with Cognate" href="cognate.html" /> 
         <meta name="viewport" content="width=device-width, initial-scale=1">
-  </head>
-  <body>
+  </head><body>
     <div class="relbar-top">
         
     <div class="related" role="navigation" aria-label="related navigation">
@@ -50,8 +56,9 @@
         <li class="right" >
           <a href="cognate.html" title="Getting Started with Cognate"
              accesskey="P">previous</a> &nbsp; &nbsp;</li>
-    <li><a href="index.html">Cognate 0.0.6 Documentation</a> &#187;</li>
- 
+    <li><a href="index.html">Cognate 1.0.0 Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Component Core Module</a></li> 
       </ul>
     </div>
     </div>
@@ -62,29 +69,24 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="module-cognate.component_core">
+  <section id="module-cognate.component_core">
 <span id="component-core-module"></span><h1>Component Core Module<a class="headerlink" href="#module-cognate.component_core" title="Permalink to this headline">¶</a></h1>
 <p>The <em>ComponentCore</em> class provides the means to add some basic features for
 construction of service modules.</p>
-<div class="section" id="class">
+<section id="class">
 <h2>Class<a class="headerlink" href="#class" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="componentcore">
+<section id="componentcore">
 <h3>ComponentCore<a class="headerlink" href="#componentcore" title="Permalink to this headline">¶</a></h3>
-<dl class="class">
-<dt id="cognate.component_core.ComponentCore">
-<em class="property">class </em><code class="descclassname">cognate.component_core.</code><code class="descname">ComponentCore</code><span class="sig-paren">(</span><em>argv=None</em>, <em>log=None</em>, <em>log_level='error'</em>, <em>log_path=None</em>, <em>service_name=None</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cognate.component_core.ComponentCore" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="cognate.component_core.ComponentCore">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cognate.component_core.</span></span><span class="sig-name descname"><span class="pre">ComponentCore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">argv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'error'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cognate.component_core.ComponentCore" title="Permalink to this definition">¶</a></dt>
 <dd><p>The <em>ComponentCore</em> class provides configuration services for components.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">Command Line Usage:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Command Line Usage</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
 <p><em>ComponentCore</em> supports the following command line options:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span>  <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">service_name</span> <span class="n">SERVICE_NAME</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span>  <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">service_name</span> <span class="n">SERVICE_NAME</span><span class="p">]</span>
         <span class="p">[</span><span class="o">--</span><span class="n">log_level</span> <span class="p">{</span><span class="n">debug</span><span class="p">,</span><span class="n">info</span><span class="p">,</span><span class="n">warn</span><span class="p">,</span><span class="n">error</span><span class="p">}]</span>
         <span class="p">[</span><span class="o">--</span><span class="n">log_path</span> <span class="n">LOG_PATH</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">verbose</span><span class="p">]</span>
 
@@ -107,17 +109,17 @@ construction of service modules.</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last"><em>ComponentCore</em> will cause the application to exit if the <code class="docutils literal"><span class="pre">-h</span></code>
-or <code class="docutils literal"><span class="pre">--help</span></code> cognate_configure arguments are one of the options. In
+<p class="admonition-title">Note</p>
+<p><em>ComponentCore</em> will cause the application to exit if the <code class="docutils literal notranslate"><span class="pre">-h</span></code>
+or <code class="docutils literal notranslate"><span class="pre">--help</span></code> cognate_configure arguments are one of the options. In
 addition to exiting, <em>ComponentCore</em> will display the command line help
 message.</p>
 </div>
 <p>Any classes sharing a base class chain with <em>ComponentCore</em> may implement:</p>
 <blockquote>
 <div><ul class="simple">
-<li>cognate_options(self, arg_parser)</li>
-<li>cognate_configure(self, args)</li>
+<li><p>cognate_options(self, arg_parser)</p></li>
+<li><p>cognate_configure(self, args)</p></li>
 </ul>
 </div></blockquote>
 <p>This method operates by taking an options list in <em>argparse</em> format and
@@ -128,41 +130,37 @@ applied to <cite>self</cite>.</p>
 the invoking python file. For purposes of <em>ComponentCore</em> configuration this
 argument is irrelevant. The <em>_execute_configuration</em> method will detect
 for this state and removes the path argument.</p>
-<dl class="method">
-<dt id="cognate.component_core.ComponentCore.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>argv=None</em>, <em>log=None</em>, <em>log_level='error'</em>, <em>log_path=None</em>, <em>service_name=None</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cognate.component_core.ComponentCore.__init__" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="cognate.component_core.ComponentCore.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">argv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'error'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cognate.component_core.ComponentCore.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initializes the ComponentCore support infrastructure.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>argv</strong> (<em>str</em><em>, </em><em>list&lt;str&gt;</em>) – An array of arguments of the form
-[‘–verbose’, ‘–name’, ‘my_name’, …] or an argument
-string of the form ‘–verboxe –name my_name’.</li>
-<li><strong>log</strong> (<em>logging.Logger</em>) – An explicit logger. If this parameter is set, then all
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>argv</strong> (<em>str</em><em>, </em><em>list&lt;str&gt;</em>) – An array of arguments of the form
+[’–verbose’, ‘–name’, ‘my_name’, …] or an argument
+string of the form ‘–verboxe –name my_name’.</p></li>
+<li><p><strong>log</strong> (<em>logging.Logger</em>) – An explicit logger. If this parameter is set, then all
 other log related parameters are ignored.  Log parameters ignored:
-log_level, log_path and verbose.</li>
-<li><strong>log_level</strong> (<em>str</em>) – The log level setting. The options for leg_level are:
-debug, info, warn, error. The default is error.</li>
-<li><strong>log_path</strong> (<em>str</em>) – ‘Set the path for log output. The default file created
+log_level, log_path and verbose.</p></li>
+<li><p><strong>log_level</strong> (<em>str</em>) – The log level setting. The options for leg_level are:
+debug, info, warn, error. The default is error.</p></li>
+<li><p><strong>log_path</strong> (<em>str</em>) – ‘Set the path for log output. The default file created
 is “&lt;log_path&gt;/&lt;service_name&gt;.log”. If the path ends with a “.log”
-extension, then the path be a target file.’</li>
-<li><strong>service_name</strong> (<em>str</em>) – This will set the name for the current instance.
-This will be reflected in the log output.’</li>
-<li><strong>verbose</strong> (<em>bool</em>) – Enable verbose log output to console. Defaults to False.</li>
+extension, then the path be a target file.’</p></li>
+<li><p><strong>service_name</strong> (<em>str</em>) – This will set the name for the current instance.
+This will be reflected in the log output.’</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em>) – Enable verbose log output to console. Defaults to False.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><cite>ComponentCore</cite> child instance</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>ComponentCore</cite> child instance</p>
+</dd>
+</dl>
 <p>A default ComponentCore will assume the name of the instantiating
 class. In addition, it will not consider the name to have been set.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">ComponentCore</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">ComponentCore</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="nb">super</span><span class="p">(</span><span class="n">Foo</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">foo</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">foo</span><span class="o">.</span><span class="n">service_name</span> <span class="o">==</span> <span class="s1">&#39;Foo&#39;</span>
@@ -174,7 +172,7 @@ class. In addition, it will not consider the name to have been set.</p>
 </div>
 <p>A ComponentCore can be configured utilizing an array style argument
 list.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bar</span> <span class="o">=</span> <span class="n">ComponentCore</span><span class="p">([</span><span class="s1">&#39;--service_name&#39;</span><span class="p">,</span><span class="s1">&#39;Bar&#39;</span><span class="p">,</span><span class="s1">&#39;--log_level&#39;</span><span class="p">,</span><span class="s1">&#39;debug&#39;</span><span class="p">])</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bar</span> <span class="o">=</span> <span class="n">ComponentCore</span><span class="p">([</span><span class="s1">&#39;--service_name&#39;</span><span class="p">,</span><span class="s1">&#39;Bar&#39;</span><span class="p">,</span><span class="s1">&#39;--log_level&#39;</span><span class="p">,</span><span class="s1">&#39;debug&#39;</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">bar</span><span class="o">.</span><span class="n">service_name</span> <span class="o">==</span> <span class="s1">&#39;Bar&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">bar</span><span class="o">.</span><span class="n">service_name_set</span> <span class="o">==</span> <span class="kc">True</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">bar</span><span class="o">.</span><span class="n">log_level</span> <span class="o">==</span> <span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span>
@@ -183,7 +181,7 @@ list.</p>
 </pre></div>
 </div>
 <p>In addition, the ComponentCore can be configured from a string.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dude</span> <span class="o">=</span> <span class="n">ComponentCore</span><span class="p">(</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dude</span> <span class="o">=</span> <span class="n">ComponentCore</span><span class="p">(</span>
 <span class="gp">... </span>  <span class="s1">&#39;--service_name Dude --log_level info&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">dude</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">dude</span><span class="o">.</span><span class="n">service_name</span> <span class="o">==</span> <span class="s1">&#39;Dude&#39;</span>
@@ -194,73 +192,65 @@ list.</p>
 </div>
 </dd></dl>
 
-<dl class="method">
-<dt id="cognate.component_core.ComponentCore.cognate_options">
-<code class="descname">cognate_options</code><span class="sig-paren">(</span><em>arg_parser</em><span class="sig-paren">)</span><a class="headerlink" href="#cognate.component_core.ComponentCore.cognate_options" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="cognate.component_core.ComponentCore.cognate_options">
+<span class="sig-name descname"><span class="pre">cognate_options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg_parser</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cognate.component_core.ComponentCore.cognate_options" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method will be called to get the <em>ComponentCore</em> configuration
 options.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>arg_parser</strong> (<em>argparse.ArgumentParser</em>) – An <em>ArgumentParser</em> instance to add configuration
-options.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>arg_parser</strong> (<em>argparse.ArgumentParser</em>) – An <em>ArgumentParser</em> instance to add configuration
+options.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="cognate.component_core.ComponentCore.cognate_configure">
-<code class="descname">cognate_configure</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cognate.component_core.ComponentCore.cognate_configure" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="cognate.component_core.ComponentCore.cognate_configure">
+<span class="sig-name descname"><span class="pre">cognate_configure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cognate.component_core.ComponentCore.cognate_configure" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method is called by <em>ComponentCore</em> during instance
 initialization.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>args</strong> (<em>Namespace</em>) – An object with configuration properties.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>args</strong> (<em>Namespace</em>) – An object with configuration properties.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Properties set to <cite>self</cite>.</p>
+<p class="admonition-title">Note</p>
+<p>Properties set to <cite>self</cite>.</p>
 </div>
 <p>In addition to setting the configuration options to <em>self</em>, the <em>args</em>
 parameter has the configuration. This should allow for most complex
 configuration scenarios.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="cognate.component_core.ComponentCore.invoke_method_on_children">
-<code class="descname">invoke_method_on_children</code><span class="sig-paren">(</span><em>func_name=None</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cognate.component_core.ComponentCore.invoke_method_on_children" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="cognate.component_core.ComponentCore.invoke_method_on_children">
+<span class="sig-name descname"><span class="pre">invoke_method_on_children</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cognate.component_core.ComponentCore.invoke_method_on_children" title="Permalink to this definition">¶</a></dt>
 <dd><p>This helper method will walk the primary base class hierarchy to
 invoke a method if it exists for a given child base class.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>func_name</strong> (<em>str</em>) – The name of a function to search for invocation.</li>
-<li><strong>args</strong> (<em>list</em>) – An argument list to pass to the target function.</li>
-<li><strong>kwargs</strong> (<em>dict</em>) – A dictionary of name/value pairs to pass to the target
-function as named arguments.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func_name</strong> (<em>str</em>) – The name of a function to search for invocation.</p></li>
+<li><p><strong>args</strong> (<em>list</em>) – An argument list to pass to the target function.</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em>) – A dictionary of name/value pairs to pass to the target
+function as named arguments.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">None</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>ValueError</strong> – Thrown if no function name is provided.</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – Thrown if no function name is provided.</p>
+</dd>
+</dl>
 <p>In an effort to explain, assume that a class hierarchy has been defined
 as in the image below:</p>
 <img alt="_images/invoke_method_on_children_class_hierarchy.png" src="_images/invoke_method_on_children_class_hierarchy.png" />
@@ -271,8 +261,8 @@ of the method defined in the class hierarchy, which would be
 <em>Child3.the_func</em>.</p>
 <img alt="_images/invoke_method_on_children.png" src="_images/invoke_method_on_children.png" />
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Mind the flow of invocation on the class hierarchy.</p>
+<p class="admonition-title">Note</p>
+<p>Mind the flow of invocation on the class hierarchy.</p>
 </div>
 <p>Invocation of target <em>func_name</em> is from the <em>ComponentCore</em> class
 as the starting point, and the search continuing out toward the final
@@ -280,12 +270,12 @@ ancestor class.</p>
 <p>::Example Usage:</p>
 <p>To utilize this method, a function name must be provided.</p>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">Beware mistyped method names.</p>
+<p class="admonition-title">Warning</p>
+<p>Beware mistyped method names.</p>
 </div>
 <p>If a method name is supplied for a method that does not exist,
 the <em>invoke_method_on_children</em> will raise no exception.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">foo</span> <span class="o">=</span> <span class="n">ComponentCore</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">foo</span> <span class="o">=</span> <span class="n">ComponentCore</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">foo</span><span class="o">.</span><span class="n">invoke_method_on_children</span><span class="p">()</span>
 <span class="gt">Traceback (most recent call last):</span>
 <span class="c">...</span>
@@ -298,7 +288,7 @@ the <em>invoke_method_on_children</em> will raise no exception.</p>
 target function. It is possible to have more than one ancestor class
 with the target function defined. The <em>invoke_method_on_children</em> will
 execute the function on each of the child classes.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Bar</span><span class="p">(</span><span class="n">ComponentCore</span><span class="p">):</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Bar</span><span class="p">(</span><span class="n">ComponentCore</span><span class="p">):</span>
 <span class="gp">... </span>  <span class="k">def</span> <span class="nf">the_func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a_key</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;a_key:&#39;</span><span class="p">,</span> <span class="n">a_key</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bar</span> <span class="o">=</span> <span class="n">Bar</span><span class="p">()</span>
@@ -306,7 +296,7 @@ execute the function on each of the child classes.</p>
 </div>
 <p>With an instance of a <em>AttributeHelper</em> child class, we can invoke
 the method in two ways, as exampled below.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create a keyword argument dictionary or argument list</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create a keyword argument dictionary or argument list</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a_key&#39;</span><span class="p">:</span><span class="s1">&#39;a_value&#39;</span><span class="p">}</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bar</span><span class="o">.</span><span class="n">invoke_method_on_children</span><span class="p">(</span><span class="n">func_name</span><span class="o">=</span><span class="s1">&#39;the_func&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 <span class="go">(&#39;a_key:&#39;, &#39;a_value&#39;)</span>
@@ -320,57 +310,49 @@ the method in two ways, as exampled below.</p>
 
 </dd></dl>
 
-</div>
-</div>
-<div class="section" id="functions">
+</section>
+</section>
+<section id="functions">
 <h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="copy-attribute-values">
+<section id="copy-attribute-values">
 <h3>copy_attribute_values<a class="headerlink" href="#copy-attribute-values" title="Permalink to this headline">¶</a></h3>
-<dl class="function">
-<dt id="cognate.component_core.copy_attribute_values">
-<code class="descclassname">cognate.component_core.</code><code class="descname">copy_attribute_values</code><span class="sig-paren">(</span><em>source</em>, <em>target</em>, <em>property_names</em><span class="sig-paren">)</span><a class="headerlink" href="#cognate.component_core.copy_attribute_values" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="cognate.component_core.copy_attribute_values">
+<span class="sig-prename descclassname"><span class="pre">cognate.component_core.</span></span><span class="sig-name descname"><span class="pre">copy_attribute_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">property_names</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cognate.component_core.copy_attribute_values" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to copy attributes from a source to a target object.</p>
 <p>This method copies the property values in a given list from a given
 source object to a target source object.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>source</strong> (<em>type</em>) – The source object that is to be inspected for property
-values.</li>
-<li><strong>target</strong> (<em>type</em>) – The target object that will be modified with values found
-in src.</li>
-<li><strong>property_names</strong> (<em>list</em><em>, </em><em>set</em>) – List of property names whose values are to be
-copied from source to object.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source</strong> (<em>type</em>) – The source object that is to be inspected for property
+values.</p></li>
+<li><p><strong>target</strong> (<em>type</em>) – The target object that will be modified with values found
+in src.</p></li>
+<li><p><strong>property_names</strong> (<em>list</em><em>, </em><em>set</em>) – List of property names whose values are to be
+copied from source to object.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">None</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
-<li><strong>ValueError</strong> – If src is None.</li>
-<li><strong>ValueError</strong> – If target is None.</li>
-<li><strong>ValueError</strong> – If property list is not iterable or None.</li>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ValueError</strong> – If src is None.</p></li>
+<li><p><strong>ValueError</strong> – If target is None.</p></li>
+<li><p><strong>ValueError</strong> – If property list is not iterable or None.</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <p>The <em>copy_attribute_values</em> method will only copy the values from src
 when a property name is found in the src. In cases where a property
 value is not found in the src object, then no change to the target object is
 made.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Example Usage:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">src</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s1">&#39;attr_bag&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nb">object</span><span class="p">,),</span> <span class="nb">dict</span><span class="p">())</span>
+<dl class="field-list simple">
+<dt class="field-odd">Example Usage</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">src</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s1">&#39;attr_bag&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nb">object</span><span class="p">,),</span> <span class="nb">dict</span><span class="p">())</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">src</span><span class="o">.</span><span class="n">property1</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">src</span><span class="o">.</span><span class="n">property2</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">src</span><span class="o">.</span><span class="n">property3</span> <span class="o">=</span> <span class="mi">3</span>
@@ -385,11 +367,12 @@ made.</p>
 </div>
 </dd></dl>
 
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -424,15 +407,15 @@ made.</p>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
     
@@ -471,15 +454,16 @@ made.</p>
         <li class="right" >
           <a href="cognate.html" title="Getting Started with Cognate"
              >previous</a> &nbsp; &nbsp;</li>
-    <li><a href="index.html">Cognate 0.0.6 Documentation</a> &#187;</li>
- 
+    <li><a href="index.html">Cognate 1.0.0 Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Component Core Module</a></li> 
       </ul>
     </div>
     </div>
 
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016, Raul Gonzalez.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.1.1.
     </div>
     <!-- cloud_sptheme 1.4 -->
   </body>
