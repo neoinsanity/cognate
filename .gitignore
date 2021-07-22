@@ -8,6 +8,7 @@ BUILD/
 .coverage
 cognate.egg-info/
 TEST_OUT/
+htmlcov/
 
 # Deployment cruft.
 dist/

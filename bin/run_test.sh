@@ -20,5 +20,5 @@ rm -rf BUILD/COVERAGE_REPORT
 rm -rf TEST_OUT
 
 # Execute the tests as per the given config.
-coverage run -m pytest
-#nosetests -c bin/nose.cfg
+coverage run --rcfile=bin/coverage.cfg
+coverage report
