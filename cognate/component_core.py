@@ -396,7 +396,7 @@ class ComponentCore(object):
             class_stack.append(base)
             base = base.__base__  # iterate to the next base class
 
-        while len(class_stack) is not 0:
+        while len(class_stack) != 0:
             base = class_stack.pop()
             if func_name in base.__dict__:  # check the func exist on class
                 # instance

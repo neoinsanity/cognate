@@ -8,7 +8,7 @@ class HelloWorld(ComponentCore):
     def __init__(self, name='World', **kwargs):
         self.name = name
 
-        super(HelloWorld, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     def cognate_options(self, arg_parser):
         arg_parser.add_argument(
