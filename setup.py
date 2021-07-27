@@ -15,10 +15,11 @@ setup(
     url='https://github.com/neoinsanity/cognate',
     license='Apache License 2.0',
     description='From the same Root.',
+    long_description_content_type="text/markdown",
     long_description=long_description,
-    packages=['cognate',],
+    packages=['cognate', ],
     install_requires=[],
-    include_package_data = True,
+    include_package_data=True,
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
